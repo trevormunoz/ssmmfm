@@ -1,6 +1,4 @@
 .DS_Store
 config.codekit
 _site/
-static/js/libs
-static/less/libs
 
