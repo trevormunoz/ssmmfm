@@ -50,3 +50,79 @@
 // Utility classes
 @import "@{bootstrap-lib-dir}utilities.less";
 @import "@{bootstrap-lib-dir}responsive-utilities.less";
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.page-header {
+    background-color: @sidewalk;
+    margin: 0 0 0px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    h1 {
+        color: @gray-lighter;
+        small {
+            color: @gray-lighter;
+        }
+    }
+}
+
+header {
+    .container();
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.main {
+    .container();
+}
+
+.messages {
+    .make-row();
+    border-bottom: 2px dotted @seed;
+    margin-bottom: 20px;
+}
+
+.stats {
+    .make-lg-column(4);
+    padding: 20px 20px 10px 20px;
+    border-right: 2px dotted @seed;
+}
+
+.message-body {
+    .make-lg-column(8);
+    padding: 20px 20px 10px 20px;
+}
+
+.body-section-heading {
+    color: @seed;
+}
+
+.cluster, .viewer {
+    .make-lg-column(4);
+}
+
+.index-output {
+    .make-lg-column(3);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: @ice;
+}
+
+footer {
+    .container();
+    p {
+        padding-top: 20px;
+    }
+}
