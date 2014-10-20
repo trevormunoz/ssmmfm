@@ -99,6 +99,54 @@ body {
     padding: 20px 20px 10px 20px;
 }
 
+.users {
+    .make-row();
+    margin-top: 120px;
+    margin-bottom: 20px;
+}
+
+.user {
+    .make-lg-column-offset(4);
+    .user-info {
+        margin-top: 50px;
+        .make-lg-column-offset(3);
+    }
+}
+
+.user-panel {
+    .make-lg-column(5);
+    .panel();
+    .panel-default();
+    padding: 20px 0px 20px 0px;
+    height: 500px;
+    background-color: @sidewalk;
+    margin-right: 10px;
+    margin-left: 60px; 
+}
+
+.panel-body {
+    padding-top: 30px;
+    img {
+        .img-circle();
+    }
+}
+
+.controls {
+    .make-row();
+}
+
+.login {
+    .make-lg-column(4);
+    .make-lg-column-offset(4);
+}
+
+.start-button {
+    .btn(); 
+    .btn-primary(); 
+    .btn-block();
+    .disabled();
+}
+
 .cluster {
     .make-lg-column(9);
 }
