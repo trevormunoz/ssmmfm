@@ -1,4 +1,4 @@
 .DS_Store
-config.codekit
-_site/
+bower_components/
+node_modules/
 
