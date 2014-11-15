@@ -1,8 +1,16 @@
 A small tool for building an index of historic menu data … not much to see here yet.
 
-Built on:
+To start working on ssmmfm, you'll need node.js and npm installed. Then, to install the dependencies for this project, run the following commands in the directory where you cloned the repository:
 
-* JQuery 2.1.1
-* Boostrap 3.2.0
-* Backbone 1.1.2
-* Underscore 1.7.0
+
+```
+$ npm install
+$ bower install
+```
+
+Running
+```
+$ grunt
+```
+
+will start watching files in `src/` for changes and placing the resulting files in `dist/`
