@@ -2,6 +2,7 @@
 
 require.config({
     baseUrl: '../../',
+    urlArgs: "bust=" + (new Date()).getTime(),
     shim: {
         underscore: {
             exports: '_'
@@ -42,7 +43,6 @@ require.config({
         mocha: 'bower_components/mocha/mocha',
         chai: 'bower_components/chai/chai',
         sinon: 'bower_components/sinon/lib/sinon/sinon',
-        tests: 'test/tests',
-        app: 'src/js'
+        tests: 'test/tests'
     }
 });
