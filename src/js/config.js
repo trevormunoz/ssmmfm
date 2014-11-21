@@ -42,6 +42,7 @@ require.config({
         mocha: 'bower_components/mocha/mocha',
         chai: 'bower_components/chai/chai',
         sinon: 'bower_components/sinon/lib/sinon/sinon',
-        tests: 'test/tests'
+        tests: 'test/tests',
+        app: 'src/js'
     }
 });
