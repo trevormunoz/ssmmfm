@@ -1,6 +1,6 @@
 /* global require */
 
-require(['../../src/js/config'], function() {
+require(['../src/js/config'], function() {
 
     require([
         'mocha',
