@@ -3,11 +3,11 @@
 define(['backbone'], function(Backbone) {
     'use strict';
 
-var item = Backbone.Model.extend({
+var MenuItem = Backbone.Model.extend({
 
     });
 
-    return item;
+    return MenuItem;
 
 
 });
