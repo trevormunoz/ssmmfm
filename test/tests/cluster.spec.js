@@ -31,8 +31,8 @@ define([
                 expect(this.cluster).to.have.length(0);
             });
 
-            it("should default url property to AWS url", function() {
-                expect(this.cluster.url).to.equal('http://ec2-54-165-158-184.compute-1.amazonaws.com');
+            it("should default url property to es search url", function() {
+                expect(this.cluster.url).to.equal('http://54.165.158.184/menus/item/_search');
             });
 
             it("can be instantiated from a collection of models", function() {
@@ -47,6 +47,10 @@ define([
                 expect(this.cluster).to.have.length(3);
 
             });
+        });
+
+        describe("modification", function() {
+            it()
         });
     });
 });
