@@ -3,8 +3,9 @@
 define([
         'mocha',
         'chai',
+        '../../src/js/models/item.js',
         '../../src/js/collections/cluster.js'
-], function(mocha, chai, Cluster) {
+], function(mocha, chai, MenuItem, Cluster) {
     'use strict';
 
     var expect = chai.expect;
@@ -32,6 +33,19 @@ define([
 
             it("should default url property to AWS url", function() {
                 expect(this.cluster.url).to.equal('http://ec2-54-165-158-184.compute-1.amazonaws.com');
+            });
+
+            it("can be instantiated from a collection of models", function() {
+
+                var item1 = new MenuItem({dish_name: "Consomme printaniere royal", dish_id: 1});
+                var item2 = new MenuItem({dish_name: "Radishes", dish_id: 7});
+                var item3 = new MenuItem({dish_name: "Sliced Tomatoes", dish_id: 33});
+
+                this.cluster.reset([item1, item2, item3]);
+
+                expect(this.cluster).to.be.ok;
+                expect(this.cluster).to.have.length(3);
+
             });
         });
     });
