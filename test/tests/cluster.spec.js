@@ -30,8 +30,8 @@ define([
                 expect(this.cluster).to.have.length(0);
             });
 
-            it("should default url property to 'http://some-url'", function() {
-                expect(this.cluster.url).to.equal('http://some-url');
+            it("should default url property to AWS url", function() {
+                expect(this.cluster.url).to.equal('http://ec2-54-165-158-184.compute-1.amazonaws.com');
             });
         });
     });

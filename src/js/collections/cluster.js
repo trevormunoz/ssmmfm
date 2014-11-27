@@ -8,7 +8,7 @@ define([
 
     var Cluster = Backbone.Collection.extend({
         model: MenuItem,
-        url: 'http://some-url',
+        url: 'http://ec2-54-165-158-184.compute-1.amazonaws.com',
     });
 
     return Cluster;
