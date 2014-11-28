@@ -42,7 +42,7 @@ require.config({
         text: 'bower_components/requirejs-text/text',
         mocha: 'bower_components/mocha/mocha',
         chai: 'bower_components/chai/chai',
-        sinon: 'bower_components/sinon/lib/sinon/sinon',
+        sinon: 'bower_components/sinon/lib/sinon',
         tests: 'test/tests'
     }
 });
