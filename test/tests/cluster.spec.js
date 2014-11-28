@@ -95,8 +95,7 @@ define([
                     this.server.respond();
 
                     var item = this.cluster.at(0);
-                    window.console.log(item);
-                    expect(item.get("dish_id")).to.equal(this.fixture.hits.hits[0]._source.dish_id);
+                    expect(item.get("_id")).to.equal(this.fixture.hits.hits[0]._id);
                     done();
                 });
             });
