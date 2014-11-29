@@ -6395,7 +6395,7 @@ body {
   border-bottom: 2px dotted #3d2d2e;
   margin-bottom: 20px;
 }
-.stats {
+#stats {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -6404,12 +6404,12 @@ body {
   border-left: 2px dotted #3d2d2e;
 }
 @media (min-width: 992px) {
-  .stats {
+  #stats {
     float: left;
     width: 16.66666667%;
   }
 }
-.message-body {
+#message-body {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -6417,7 +6417,7 @@ body {
   padding: 20px 20px 10px 20px;
 }
 @media (min-width: 992px) {
-  .message-body {
+  #message-body {
     float: left;
     width: 83.33333333%;
   }
@@ -6782,38 +6782,38 @@ fieldset[disabled] .start-button.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
-.cluster {
+#cluster {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  .cluster {
+  #cluster {
     float: left;
     width: 75%;
   }
 }
-.viewer {
+#viewer {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  .viewer {
+  #viewer {
     float: left;
     width: 8.33333333%;
   }
 }
-.index-output {
+#index-output {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  .index-output {
+  #index-output {
     float: left;
     width: 16.66666667%;
   }
