@@ -6794,26 +6794,26 @@ fieldset[disabled] .start-button.active {
     width: 75%;
   }
 }
-#viewer {
+.viewer {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  #viewer {
+  .viewer {
     float: left;
     width: 8.33333333%;
   }
 }
-#index-output {
+.index-output {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  #index-output {
+  .index-output {
     float: left;
     width: 16.66666667%;
   }

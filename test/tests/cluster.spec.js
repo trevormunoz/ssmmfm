@@ -35,6 +35,10 @@ define([
                 expect(this.cluster).to.have.length(0);
             });
 
+            it("should be associated with a model", function() {
+                expect(this.cluster.model).to.be.ok;
+            });
+
             it("should default url property to es search url", function() {
                 expect(this.cluster.url).to.equal('http://54.165.158.184/menus/item/_search');
             });
