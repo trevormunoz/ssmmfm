@@ -7,6 +7,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-mocha-phantomjs');
     //More later …
 
     //Project configuration
@@ -45,7 +47,25 @@ module.exports = function(grunt) {
             }
         },
 
+        connect: {
+            server: {
+                options: {
+                    port: 5000,
+                    base: '.',
+                },
+            },
+        },
+
+        mocha_phantomjs: {
+            test: {
+                options: {
+                    urls: ['http://localhost:5000/test/test.html'],
+                },
+            }
+        },
+
     });
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('test', ['connect', 'mocha_phantomjs']);
 };
