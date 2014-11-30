@@ -16,5 +16,9 @@
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha-phantomjs": "^0.6.0"
+  },
+  "scripts": {
+    "postinstall" : "node_modules/.bin/bower install",
+    "test": "grunt test"
   }
 }
