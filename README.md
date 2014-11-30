@@ -14,3 +14,8 @@ $ grunt
 ```
 
 will start watching files in `src/` for changes and placing the resulting files in `dist/`
+
+Tests can be run with 
+```
+$ grunt test
+```
