@@ -6782,14 +6782,14 @@ fieldset[disabled] .start-button.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
-#cluster {
+#picker {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  #cluster {
+  #picker {
     float: left;
     width: 75%;
   }
@@ -6821,12 +6821,12 @@ fieldset[disabled] .start-button.active {
 .body-section-heading {
   color: #3d2d2e;
 }
-.picker {
+.controls {
   padding-left: 0;
   list-style: none;
   margin-left: -5px;
 }
-.picker > li {
+.controls > li {
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
