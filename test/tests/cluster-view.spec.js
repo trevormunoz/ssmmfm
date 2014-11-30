@@ -1,14 +1,9 @@
 /* global define */
 
 define([
-        'mocha',
-        'chai',
         'src/js/views/cluster-view'
-], function(mocha, chai, ClusterView) {
+], function(ClusterView) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("View: Cluster", function(){
         describe("creation", function() {

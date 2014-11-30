@@ -1,17 +1,12 @@
 /* global define */
 
 define([
-        'mocha',
-        'chai',
         'sinon',
         '../../src/js/models/item.js',
         'fixtures/es/fixture',
         'helpers/fakeServer-helper'
-], function(mocha, chai, sinon, MenuItem) {
+], function(sinon, MenuItem) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("Model: Item", function() {
 

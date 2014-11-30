@@ -1,15 +1,10 @@
 /* global define */
 
 define([
-        'mocha',
-        'chai',
         'src/js/models/item',
         'src/js/views/item-view'
-], function(mocha, chai, MenuItem, ItemView) {
+], function(MenuItem, ItemView) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("View: Item", function() {
         describe("creation", function() {

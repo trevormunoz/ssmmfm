@@ -1,14 +1,9 @@
 /*global define*/
 
 define([
-        'mocha',
-        'chai',
         'src/js/views/message-view'
-], function(mocha, chai, MessageView) {
+], function(MessageView) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("View: Messages", function() {
         describe("creation", function() {

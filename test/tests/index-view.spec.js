@@ -1,14 +1,9 @@
 /* global define */
 
 define([
-        'mocha',
-        'chai',
         'src/js/views/index-view'
-], function(mocha, chai, IndexView) {
+], function(IndexView) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("View: Index Output", function() {
         describe("creation", function() {

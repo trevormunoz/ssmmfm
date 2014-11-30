@@ -1,18 +1,13 @@
 /* global define */
 
 define([
-        'mocha',
-        'chai',
         'sinon',
         '../../src/js/models/item.js',
         '../../src/js/collections/cluster.js',
         'fixtures/es/fixture',
         'helpers/fakeServer-helper'
-], function(mocha, chai, sinon, MenuItem, Cluster) {
+], function(sinon, MenuItem, Cluster) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("Collection: Cluster", function() {
 

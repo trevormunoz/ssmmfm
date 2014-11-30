@@ -1,14 +1,9 @@
 /* global define */
 
 define([
-        'mocha', 
-        'chai',
         '../../src/js/views/app-view'
-], function(mocha, chai, AppView) {
+], function(AppView) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("View: App", function() {
         describe("creation", function(){

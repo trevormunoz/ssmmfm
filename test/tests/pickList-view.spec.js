@@ -1,15 +1,10 @@
 /* global define */
 
 define([
-        'mocha',
-        'chai',
         'src/js/collections/cluster',
         'src/js/views/pickList-view'
-], function(mocha, chai, Cluster, PickListView) {
+], function(Cluster, PickListView) {
     'use strict';
-
-    var expect = chai.expect;
-    mocha.setup("bdd");
 
     describe("View: PickList", function() {
         describe("creation", function() {
