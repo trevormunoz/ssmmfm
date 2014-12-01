@@ -19,6 +19,6 @@
   },
   "scripts": {
     "postinstall" : "node_modules/.bin/bower install",
-    "test": "grunt mocha_phantomjs"
+    "test": "grunt test"
   }
 }
