@@ -51,7 +51,7 @@ module.exports = function(grunt) {
             server: {
                 options: {
                     hostname: "127.0.0.1",
-                    port: 5000,
+                    port: 9292,
                     base: '.',
                 },
             },
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
         mocha_phantomjs: {
             test: {
                 options: {
-                    urls: ['http://localhost:5000/test/test.html'],
+                    urls: ['http://localhost:9292/test/test.html'],
                 },
             }
         },
