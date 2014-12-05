@@ -1,8 +1,9 @@
 /* global define */
 
 define([
+        'sinon',
         '../../src/js/views/app-view'
-], function(AppView) {
+], function(sinon, AppView) {
     'use strict';
 
     describe("View: App", function() {
@@ -34,6 +35,45 @@ define([
                 
                 expect(this.app.subviews.cluster).to.be.ok;
                 expect(this.app.subviews.messages).to.be.ok;
+            });
+        });
+
+        // This test only indicates that there should be a call to a 
+        // 'bootstrapCluster' method on initialization of AppView; 
+        describe("bootstrapping", function() {
+
+            it("should call the bootstrapCluster method on init", function() {
+                var bootstrapSpy = sinon.spy(
+                    AppView.prototype, 'bootstrapCluster'
+                    );
+                var view = new AppView();
+
+                expect(bootstrapSpy.callCount).to.equal(1);
+
+                AppView.prototype.bootstrapCluster.restore();
+            });
+
+            // The bootstrapCluster method should fire an ajax call
+            describe("ajax", function() {
+                before(function() {
+                    this.jquerySpy = sinon.spy($, 'ajax');
+                    var view = new AppView();
+                });
+
+                after(function() {
+                    $.ajax.restore();
+                });
+
+                it("jQuery ajax should be called once", function() {
+                    expect(this.jquerySpy.callCount).to.equal(1);
+                });
+
+                it("should make the correct request", function() {
+                    var request = this.jquerySpy.getCall(0).args[0];
+                    expect(request.url).to.equal('http://54.165.158.184/menus/item/_search');
+                    expect(request.type).to.equal('GET');
+                    expect(request.data).to.be.ok;
+                });
             });
         });
     });
