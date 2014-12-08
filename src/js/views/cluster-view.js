@@ -15,7 +15,7 @@ function(Backbone, Cluster, PickListView, ItemView, IndexView) {
         el: '#cluster',
         subviews: {},
         
-        intitalize: function () {
+        intialize: function () {
             var cluster = new Cluster();
             var picker = new PickListView({collection: cluster});
             this.subviews.picker = picker;
