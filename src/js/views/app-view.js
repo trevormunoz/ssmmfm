@@ -17,7 +17,7 @@ function(Backbone, Clusterview, MessageView) {
             var clusterView = new ClusterView();
             this.subviews.cluster = clusterView;
             
-            var messageView = MessageView();
+            var messageView = new MessageView();
             this.subviews.messages = messageView;
             }
             
