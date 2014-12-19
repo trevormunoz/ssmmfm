@@ -29,12 +29,17 @@ define([
             // Using convention of creating object called 'subviews' on
             // this main "app" view to hold references to subviews, 
             // each of which get created during this view's initialization.
-            it("should initialize 2 subviews", function() {
+            it("should initialize a subviews object", function() {
                 expect(this.app.subviews).to.exist;
                 expect(this.app.subviews).to.be.instanceOf(Object);
-                
+            });
+
+            it("should initialize a subview for a cluster", function() {
                 expect(this.app.subviews.cluster).to.be.ok;
-                expect(this.app.subviews.messages).to.be.ok;
+            });
+
+            it("should initialize a subview for messages", function() {
+                expect(this.app.subviews.messages).to.be.ok;                
             });
         });
 
