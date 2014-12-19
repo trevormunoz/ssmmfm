@@ -43,6 +43,31 @@ define([
             });
         });
 
+        describe("initialization", function() {
+            before(function() {
+                this.spy = sinon.spy(AppView.prototype, 'listenTo');
+                this.context = {
+                    listenTo: sinon.stub().returns(context),
+                    seedQuerySuccess: 'This is a seed'
+                }
+                this.view = new AppView();
+            });
+
+            after(function() {
+                AppView.prototype.listenTo.restore();
+            });
+
+            it("should setup an event listener", function() {
+                expect(this.spy.callCount).to.equal(1);
+                
+                // sinon.spy.args returns an array of args; 
+                // arg to the listenTo function is itself 
+                // an array of 3 arguments
+                var listenerArgs = this.spy.args[0];
+                expect(listenerArgs[1]).to.equal('seedQuerySuccess');
+            });
+        });
+
         // This test only indicates that there should be a call to a 
         // 'bootstrapCluster' method on initialization of AppView; 
         describe("bootstrapping", function() {
@@ -56,6 +81,17 @@ define([
                 expect(bootstrapSpy.callCount).to.equal(1);
 
                 AppView.prototype.bootstrapCluster.restore();
+            });
+
+            it("should respond to seedQuerySuccess event", function() {
+                var seedSpy = sinon.spy(AppView.prototype, 'calculateCluster');
+                var view = new AppView();
+
+                expect(seedSpy).to.not.have.been.called;
+                Backbone.trigger('seedQuerySuccess');
+                expect(seedSpy.callCount).to.equal(1);
+
+                AppView.prototype.calculateCluster.restore();
             });
 
             // The bootstrapCluster method should fire an ajax call
