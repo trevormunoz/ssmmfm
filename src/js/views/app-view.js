@@ -5,7 +5,7 @@ define([
     'src/js/views/cluster-view', 
     'src/js/views/message-view'
 ],
-function(Backbone, Clusterview, MessageView) {
+function(Backbone, ClusterView, MessageView) {
 'use strict';
 
     var AppView = Backbone.View.extend({
