@@ -25,14 +25,22 @@ define([
                 expect(this.view.$el.selector).to.equal('#cluster');
             });
 
-            it("should initialize 3 subviews", function(){
+            it("should initialize a subviews object", function(){
                 expect(this.view.subviews).to.be.ok;
                 expect(this.view.subviews).to.be.instanceOf(Object);
-                
-                expect(this.view.subviews.picker).to.be.ok;
-                expect(this.view.subviews.viewer).to.be.ok;
-                expect(this.view.subviews.index).to.be.ok;
             });
+
+            it("should initialize a subview for the pick list", function() {
+                expect(this.view.subviews.picker).to.be.ok;
+            });
+
+            it("should initialize a subview for the item viewer", function() {
+                expect(this.view.subviews.viewer).to.be.ok;
+            });
+
+            it("should initialize a subview for the index output", function() {
+                expect(this.view.subviews.index).to.be.ok;
+            });                        
         });
     });
 });
