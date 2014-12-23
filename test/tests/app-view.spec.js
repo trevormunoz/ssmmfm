@@ -74,16 +74,6 @@ define([
                 AppView.prototype.bootstrapCluster.restore();
             });
 
-            it("should respond to seedQuerySuccess event", function() {
-                var seedSpy = sinon.spy(AppView.prototype, 'calculateCluster');
-                var view = new AppView();
-
-                expect(seedSpy).to.not.have.been.called;
-                Backbone.trigger('seedQuerySuccess');
-                expect(seedSpy.callCount).to.equal(1);
-
-                AppView.prototype.calculateCluster.restore();
-            });
         });
 
         // This test only indicates that there should be a call to a 
