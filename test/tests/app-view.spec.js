@@ -2,7 +2,9 @@
 
 define([
         'sinon',
-        '../../src/js/views/app-view'
+        '../../src/js/views/app-view',
+        'fixtures/es/fixture',
+        'helpers/fakeServer-helper'
 ], function(sinon, AppView) {
     'use strict';
 
@@ -44,33 +46,22 @@ define([
         });
 
         describe("initialization", function() {
-            before(function() {
-                this.spy = sinon.spy(AppView.prototype, 'listenTo');
-                this.context = {
-                    listenTo: sinon.stub().returns(context),
-                    seedQuerySuccess: 'This is a seed'
-                }
-                this.view = new AppView();
-            });
-
-            after(function() {
-                AppView.prototype.listenTo.restore();
-            });
-
+            
             it("should setup an event listener", function() {
-                expect(this.spy.callCount).to.equal(1);
+                
+                var listenerSpy = sinon.spy(AppView.prototype, 'listenTo');
+                var view = new AppView();
+                
+                expect(listenerSpy.callCount).to.equal(1);
                 
                 // sinon.spy.args returns an array of args; 
                 // arg to the listenTo function is itself 
                 // an array of 3 arguments
-                var listenerArgs = this.spy.args[0];
+                var listenerArgs = listenerSpy.args[0];
                 expect(listenerArgs[1]).to.equal('seedQuerySuccess');
-            });
-        });
 
-        // This test only indicates that there should be a call to a 
-        // 'bootstrapCluster' method on initialization of AppView; 
-        describe("bootstrapping", function() {
+                AppView.prototype.listenTo.restore();
+            });
 
             it("should call the bootstrapCluster method on init", function() {
                 var bootstrapSpy = sinon.spy(
@@ -93,29 +84,55 @@ define([
 
                 AppView.prototype.calculateCluster.restore();
             });
+        });
 
-            // The bootstrapCluster method should fire an ajax call
-            describe("ajax", function() {
-                before(function() {
-                    this.jquerySpy = sinon.spy($, 'ajax');
-                    var view = new AppView();
-                });
+        // This test only indicates that there should be a call to a 
+        // 'bootstrapCluster' method on initialization of AppView; 
+        describe("bootstrapping", function() {
 
-                after(function() {
-                    $.ajax.restore();
-                });
-
-                it("jQuery ajax should be called once", function() {
-                    expect(this.jquerySpy.callCount).to.equal(1);
-                });
-
-                it("should make the correct request", function() {
-                    var request = this.jquerySpy.getCall(0).args[0];
-                    expect(request.url).to.equal('http://54.165.158.184/menus/item/_search');
-                    expect(request.type).to.equal('GET');
-                    expect(request.data).to.be.ok;
-                });
+            before(function() {
+                this.fixture = this.fixtures.AppView.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+                this.server.autoRespond = true;
             });
+
+            after(function() {
+                this.server.restore();
+            });
+
+            it("should make a jQuery ajax request", function() {
+                var ajaxSpy = sinon.spy($, 'ajax');
+                var view = new AppView();
+
+                expect(this.server.requests.length).to.equal(1);
+                expect(ajaxSpy.calledOnce).to.be.true;
+
+                $.ajax.restore();
+            });
+
+            it("should pass the correct query as argument", function() {
+                var ajaxSpy = sinon.spy($, 'ajax');
+                var view = new AppView();
+                
+                // spy.args[0] is array of arguments received in 1st call
+                var queryString = ajaxSpy.args[0][0].data;
+
+                // Use regex to crudely test that expected components of
+                // query are present
+                var fingerprintRegex = /dish_name_fingerprint/g;
+                var scoreRegex = /random_score/g;
+                
+                expect(fingerprintRegex.test(queryString)).to.be.true;
+                expect(scoreRegex.test(queryString)).to.be.true;
+
+                $.ajax.restore();
+            });
+
         });
     });
 });
