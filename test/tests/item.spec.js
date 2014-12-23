@@ -2,7 +2,7 @@
 
 define([
         'sinon',
-        '../../src/js/models/item.js',
+        '../../src/js/models/item',
         'fixtures/es/fixture',
         'helpers/fakeServer-helper'
 ], function(sinon, MenuItem) {

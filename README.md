@@ -1,6 +1,6 @@
 A small tool for building an index of historic menu data … not much to see here yet.
 
-[![Build Status](https://travis-ci.org/trevormunoz/ssmmfm.svg?branch=app-code-views)](https://travis-ci.org/trevormunoz/ssmmfm)
+[![Build Status](https://travis-ci.org/trevormunoz/ssmmfm.svg?branch=master)](https://travis-ci.org/trevormunoz/ssmmfm)
 
 To start working on ssmmfm, you'll need node.js and npm installed. Then, to install the dependencies for this project, run the following command in the directory where you cloned the repository:
 
