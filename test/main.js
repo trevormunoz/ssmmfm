@@ -5,6 +5,7 @@ require(['../src/js/config'], function() {
     require([
         'mocha',
         'tests/item.spec',
+        'tests/query.spec',
         'tests/cluster.spec',
         'tests/app-view.spec',
         'tests/cluster-view.spec',
