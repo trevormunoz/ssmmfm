@@ -32,5 +32,28 @@ define([
                 expect(this.view.collection).to.be.ok;
             });
         });
+
+        describe('initialization', function () {
+
+            before(function () {
+                this.spy = sinon.spy(PickListView.prototype, 
+                    'buildCluster');
+                var cluster = new Cluster();
+                this.view = new PickListView({collection: cluster});
+            });
+
+            after(function () {
+                PickListView.prototype.buildCluster.restore();
+                this.view.remove();
+                this.view = null;
+            });
+            
+            it('should respond to a facetQuerySuccess event', function () {
+                
+                expect(this.spy).to.not.have.been.called;
+                Backbone.trigger('facetQuerySuccess');
+                expect(this.spy.calledOnce).to.be.true;
+            });
+        });
     });
 });
