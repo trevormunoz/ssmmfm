@@ -48,10 +48,10 @@ define([
                 expect(this.spy.callCount).to.equal(1);
             });
 
-            it("should respond to a clusterQueryFailure event", function() {
+            it("should respond to a facetQueryFailure event", function() {
 
                 expect(this.spy).to.not.have.been.called;
-                Backbone.trigger('clusterQueryFailure');
+                Backbone.trigger('facetQueryFailure');
                 expect(this.spy.callCount).to.equal(1);
             });
 
