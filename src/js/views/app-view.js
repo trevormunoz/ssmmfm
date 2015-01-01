@@ -112,43 +112,8 @@ function(Backbone, ClusterView, MessageView) {
             
             var queryString = JSON.stringify(queryObj);
 
-            // Fire off an AJAX call
-            var clusterQueryPromise = $.ajax({
-                type: 'GET',
-                url: 'http://54.165.158.184/menus/item/_search',
-                data: $.param({source: queryString})
-            });
-
-            clusterQueryPromise.done(function(data) {
-                var responseArr = data.aggregations.dish.buckets;
-
-                var dishes = _.map(
-                        responseArr, 
-                        function(responseObj){
-                            var result = responseObj.top_names.hits.hits[0];
-
-                            var dish_id = responseObj.key
-                            , name = result._source.dish_name
-                            , count = result.sort[0]
-                            , exemplar = result._id;
-
-                            var dish = {
-                                "id": dish_id,
-                                "name_value": name,
-                                "menu_count": count,
-                                "exemplar_doc": exemplar
-                            };
-
-                            return dish;}
-                        );
-
-                // Trigger an event on Backbone & send dish info
-                Backbone.trigger('facetQuerySuccess', dishes);
-            });
-
-            clusterQueryPromise.fail(function() {
-                Backbone.trigger('facetQueryFailure');
-            });
+            // Trigger an event on Backbone & send query string
+            Backbone.trigger('facetQuerySuccess', queryString);
         },
             
     });

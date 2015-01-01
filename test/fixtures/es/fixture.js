@@ -176,8 +176,8 @@ define(['mocha'], function() {
             },
 
             Cluster: {
-                valid: {
-                      "took": 13,
+              "valid": {
+                      "took": 8,
                       "timed_out": false,
                       "_shards": {
                         "total": 5,
@@ -185,363 +185,970 @@ define(['mocha'], function() {
                         "failed": 0
                       },
                       "hits": {
-                        "total": 1307659,
-                        "max_score": 1,
-                        "hits": [
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "184236",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 320,
-                              "menu_date": "1901-04-26",
-                              "item_updated_at": "20110505T001255+0000",
-                              "menu_page_id": 3542,
-                              "menu_sponsor": "ROGERS' CHOP HOUSE AND RESTAURANT",
-                              "menu_page_count": 4,
-                              "item_ypos": 0.39039,
-                              "dish_normalized_name": "holland gin",
-                              "menu_id": 13622,
-                              "dish_times_appeared": 131,
-                              "menu_location": "Rogers' Chop House And Restaurant",
-                              "dish_menus_appeared": 130,
-                              "menu_uri": "http://menus.nypl.org/menus/13622",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/3542",
-                              "page_image_full_height": 4697,
-                              "page_image_uuid": "510d47db-6244-a3d9-e040-e00a18064a99",
-                              "menu_page_number": 4,
-                              "item_created_at": "20110505T001255+0000",
-                              "dish_id": 1351,
-                              "dish_name": "Holland Gin",
-                              "item_uri": "http://menus.nypl.org/menu_items/169975/edit",
-                              "item_id": 169975,
-                              "image_id": "4000013356",
-                              "item_xpos": 0.517143,
-                              "dish_name_fingerprint": "gin holland",
-                              "page_image_full_width": 3006,
-                              "dish_uri": "http://menus.nypl.org/dishes/1351"
+                        "total": 2559,
+                        "max_score": 0,
+                        "hits": []
+                      },
+                      "aggregations": {
+                        "dish": {
+                          "doc_count_error_upper_bound": 0,
+                          "sum_other_doc_count": 0,
+                          "buckets": [
+                            {
+                              "key": 4118,
+                              "doc_count": 1834,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1834,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "912323",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla ice cream",
+                                        "dish_menus_appeared": 1705
+                                      },
+                                      "sort": [
+                                        1705
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 375648,
+                              "doc_count": 507,
+                              "top_names": {
+                                "hits": {
+                                  "total": 507,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1251324",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice Cream",
+                                        "dish_menus_appeared": 421
+                                      },
+                                      "sort": [
+                                        421
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 16020,
+                              "doc_count": 84,
+                              "top_names": {
+                                "hits": {
+                                  "total": 84,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "928382",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream, Vanilla",
+                                        "dish_menus_appeared": 77
+                                      },
+                                      "sort": [
+                                        77
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 412003,
+                              "doc_count": 19,
+                              "top_names": {
+                                "hits": {
+                                  "total": 19,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1332201",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "vanilla ice cream",
+                                        "dish_menus_appeared": 15
+                                      },
+                                      "sort": [
+                                        15
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 35869,
+                              "doc_count": 14,
+                              "top_names": {
+                                "hits": {
+                                  "total": 14,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "221039",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice-Cream",
+                                        "dish_menus_appeared": 14
+                                      },
+                                      "sort": [
+                                        14
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 12056,
+                              "doc_count": 11,
+                              "top_names": {
+                                "hits": {
+                                  "total": 11,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "608737",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream: Vanilla",
+                                        "dish_menus_appeared": 11
+                                      },
+                                      "sort": [
+                                        11
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 373798,
+                              "doc_count": 11,
+                              "top_names": {
+                                "hits": {
+                                  "total": 11,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "987516",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "VANILLA ICE CREAM",
+                                        "dish_menus_appeared": 11
+                                      },
+                                      "sort": [
+                                        11
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 416330,
+                              "doc_count": 8,
+                              "top_names": {
+                                "hits": {
+                                  "total": 8,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1343739",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice cream, vanilla",
+                                        "dish_menus_appeared": 8
+                                      },
+                                      "sort": [
+                                        8
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 52869,
+                              "doc_count": 7,
+                              "top_names": {
+                                "hits": {
+                                  "total": 7,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "179915",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla [ice cream]",
+                                        "dish_menus_appeared": 7
+                                      },
+                                      "sort": [
+                                        7
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 286866,
+                              "doc_count": 7,
+                              "top_names": {
+                                "hits": {
+                                  "total": 7,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "740887",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Cream Ice",
+                                        "dish_menus_appeared": 7
+                                      },
+                                      "sort": [
+                                        7
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 16556,
+                              "doc_count": 6,
+                              "top_names": {
+                                "hits": {
+                                  "total": 6,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "304395",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice Cream.",
+                                        "dish_menus_appeared": 6
+                                      },
+                                      "sort": [
+                                        6
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 412058,
+                              "doc_count": 6,
+                              "top_names": {
+                                "hits": {
+                                  "total": 6,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1167571",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice cream, Vanilla",
+                                        "dish_menus_appeared": 6
+                                      },
+                                      "sort": [
+                                        6
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 80884,
+                              "doc_count": 4,
+                              "top_names": {
+                                "hits": {
+                                  "total": 4,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "121132",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla-Ice-Cream",
+                                        "dish_menus_appeared": 4
+                                      },
+                                      "sort": [
+                                        4
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 29913,
+                              "doc_count": 3,
+                              "top_names": {
+                                "hits": {
+                                  "total": 3,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "124927",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream Vanilla",
+                                        "dish_menus_appeared": 3
+                                      },
+                                      "sort": [
+                                        3
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 38295,
+                              "doc_count": 3,
+                              "top_names": {
+                                "hits": {
+                                  "total": 3,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "614032",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla (Ice Cream)",
+                                        "dish_menus_appeared": 3
+                                      },
+                                      "sort": [
+                                        3
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 53856,
+                              "doc_count": 3,
+                              "top_names": {
+                                "hits": {
+                                  "total": 3,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "662113",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice cream - vanilla",
+                                        "dish_menus_appeared": 3
+                                      },
+                                      "sort": [
+                                        3
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 239303,
+                              "doc_count": 3,
+                              "top_names": {
+                                "hits": {
+                                  "total": 3,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "649351",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla  ice cream",
+                                        "dish_menus_appeared": 3
+                                      },
+                                      "sort": [
+                                        3
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 392508,
+                              "doc_count": 3,
+                              "top_names": {
+                                "hits": {
+                                  "total": 3,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1077698",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla (ice cream)",
+                                        "dish_menus_appeared": 3
+                                      },
+                                      "sort": [
+                                        3
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 26669,
+                              "doc_count": 2,
+                              "top_names": {
+                                "hits": {
+                                  "total": 2,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "433861",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice Cream,",
+                                        "dish_menus_appeared": 2
+                                      },
+                                      "sort": [
+                                        2
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 386446,
+                              "doc_count": 2,
+                              "top_names": {
+                                "hits": {
+                                  "total": 2,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1029928",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream--Vanilla",
+                                        "dish_menus_appeared": 2
+                                      },
+                                      "sort": [
+                                        2
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 386460,
+                              "doc_count": 2,
+                              "top_names": {
+                                "hits": {
+                                  "total": 2,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1018185",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream - Vanilla",
+                                        "dish_menus_appeared": 2
+                                      },
+                                      "sort": [
+                                        2
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 438200,
+                              "doc_count": 2,
+                              "top_names": {
+                                "hits": {
+                                  "total": 2,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "987667",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla ice cream ",
+                                        "dish_menus_appeared": 2
+                                      },
+                                      "sort": [
+                                        2
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 471896,
+                              "doc_count": 2,
+                              "top_names": {
+                                "hits": {
+                                  "total": 2,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1307578",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream, vanilla",
+                                        "dish_menus_appeared": 2
+                                      },
+                                      "sort": [
+                                        2
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 47927,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "151973",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream: - vanilla",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 51955,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "174864",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice cream -- vanilla",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 63878,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "123493",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream- Vanilla",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 68512,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "246271",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla, [Ice Cream]",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 75638,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "267962",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla  (Ice Cream)",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 207986,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "600486",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream--Vanilla ",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 231642,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "632241",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice Cream-Vanilla",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 323653,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "418014",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla, ice cream",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 397581,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1056288",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "VANILLA ice cream",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 418515,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1127203",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla, Ice Cream",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 427448,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "346010",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice cream",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 428785,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1155003",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice Cream ",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 442449,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1189138",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla  [ice cream]",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 454776,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1240280",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Ice cream vanilla",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "key": 470360,
+                              "doc_count": 1,
+                              "top_names": {
+                                "hits": {
+                                  "total": 1,
+                                  "max_score": null,
+                                  "hits": [
+                                    {
+                                      "_index": "menus",
+                                      "_type": "item",
+                                      "_id": "1293462",
+                                      "_score": null,
+                                      "_source": {
+                                        "dish_name": "Vanilla Ice Cream  ",
+                                        "dish_menus_appeared": 1
+                                      },
+                                      "sort": [
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
                             }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "843693",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 53,
-                              "menu_date": "1942-11-10",
-                              "item_updated_at": "20110919T043616+0000",
-                              "menu_page_id": 47986,
-                              "menu_sponsor": "San Francisco Overland Limited",
-                              "menu_page_count": 2,
-                              "item_ypos": 0.485748,
-                              "dish_normalized_name": "select roast cornfed beef, served with natural beef juices",
-                              "menu_id": 27086,
-                              "dish_times_appeared": 1,
-                              "menu_location": "San Francisco Overland Limited",
-                              "dish_menus_appeared": 1,
-                              "menu_uri": "http://menus.nypl.org/menus/27086",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/47986",
-                              "page_image_full_height": 4767,
-                              "page_image_uuid": "a7ce120b-651e-0a52-e040-e00a18064537",
-                              "menu_page_number": 1,
-                              "item_created_at": "20110919T043616+0000",
-                              "dish_id": 192311,
-                              "dish_name": "SELECT ROAST CORNFED BEEF, Served with Natural Beef Juices",
-                              "item_uri": "http://menus.nypl.org/menu_items/568879/edit",
-                              "item_id": 568879,
-                              "image_id": "3884127",
-                              "item_xpos": 0.0985714,
-                              "dish_name_fingerprint": "beef cornfed juices natural roast select served with",
-                              "page_image_full_width": 6589,
-                              "dish_uri": "http://menus.nypl.org/dishes/192311"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "909539",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 126,
-                              "menu_date": "1955-05-28",
-                              "item_updated_at": "20120201T155229+0000",
-                              "menu_page_id": 56552,
-                              "menu_sponsor": "Paquebot \\Liberté\\\"\"",
-                              "menu_page_count": 3,
-                              "item_ypos": 0.43248,
-                              "dish_normalized_name": "courgettes farcies a la turque",
-                              "menu_id": 29482,
-                              "dish_times_appeared": 4,
-                              "menu_location": "Paquebot \\Liberté\\\"\"",
-                              "dish_menus_appeared": 4,
-                              "menu_uri": "http://menus.nypl.org/menus/29482",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/56552",
-                              "page_image_full_height": 3840,
-                              "page_image_uuid": "b12904ef-a885-84a6-e040-e00a18062103",
-                              "menu_page_number": 2,
-                              "item_created_at": "20120201T155229+0000",
-                              "dish_id": 251712,
-                              "dish_name": "Courgettes Farcies a la Turque",
-                              "item_uri": "http://menus.nypl.org/menu_items/769856/edit",
-                              "item_id": 769856,
-                              "image_id": "3968882",
-                              "item_xpos": 0.197143,
-                              "dish_name_fingerprint": "a courgettes farcies la turque",
-                              "page_image_full_width": 5407,
-                              "dish_uri": "http://menus.nypl.org/dishes/251712"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "1234003",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 360,
-                              "menu_date": "1913-05-09",
-                              "item_updated_at": "20140917T214524+0000",
-                              "menu_page_id": 76336,
-                              "menu_sponsor": "Garret Restaurant",
-                              "menu_page_count": 4,
-                              "item_ypos": 0.295496,
-                              "dish_normalized_name": "cold lobster, mayonnaise",
-                              "menu_id": 35228,
-                              "dish_times_appeared": 5,
-                              "menu_location": "Garret Restaurant",
-                              "dish_menus_appeared": 5,
-                              "menu_uri": "http://menus.nypl.org/menus/35228",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/76336",
-                              "page_image_full_height": 5031,
-                              "page_image_uuid": "ff792690-fe38-0131-5170-58d385a7b928",
-                              "menu_page_number": 2,
-                              "item_created_at": "20140917T171554+0000",
-                              "dish_id": 433801,
-                              "dish_name": "Cold lobster, mayonnaise",
-                              "item_uri": "http://menus.nypl.org/menu_items/1352753/edit",
-                              "item_id": 1352753,
-                              "image_id": "5149042",
-                              "item_xpos": 0.613333,
-                              "dish_name_fingerprint": "cold lobster mayonnaise",
-                              "page_image_full_width": 3389,
-                              "dish_uri": "http://menus.nypl.org/dishes/433801"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "760708",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 109,
-                              "menu_date": "1974-11-13",
-                              "item_updated_at": "20110801T173408+0000",
-                              "menu_page_id": 44614,
-                              "menu_sponsor": "Simpson's-in-the-Strand",
-                              "menu_page_count": 3,
-                              "item_ypos": 0.535373,
-                              "dish_normalized_name": "lemon syllabub",
-                              "menu_id": 26384,
-                              "dish_times_appeared": 1,
-                              "menu_location": "Simpson's In The Strand",
-                              "dish_menus_appeared": 1,
-                              "menu_uri": "http://menus.nypl.org/menus/26384",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/44614",
-                              "page_image_full_height": 4818,
-                              "page_image_uuid": "a4bc8331-dfac-7423-e040-e00a18065f4e",
-                              "menu_page_number": 2,
-                              "item_created_at": "20110801T173408+0000",
-                              "dish_id": 142952,
-                              "dish_name": "Lemon Syllabub",
-                              "item_uri": "http://menus.nypl.org/menu_items/491663/edit",
-                              "item_id": 491663,
-                              "image_id": "2043282",
-                              "item_xpos": 0.838571,
-                              "dish_name_fingerprint": "lemon syllabub",
-                              "page_image_full_width": 6100,
-                              "dish_uri": "http://menus.nypl.org/dishes/142952"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "1037673",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 174,
-                              "menu_date": "1933-05-23",
-                              "item_updated_at": "20120504T185027+0000",
-                              "menu_page_id": 63408,
-                              "menu_sponsor": "The Commodore Hotel",
-                              "menu_page_count": 1,
-                              "item_ypos": 0.203114,
-                              "dish_normalized_name": "cocktail, cherry blossom",
-                              "menu_id": 31348,
-                              "dish_times_appeared": 7,
-                              "menu_location": "The Commodore Hotel",
-                              "dish_menus_appeared": 7,
-                              "menu_uri": "http://menus.nypl.org/menus/31348",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/63408",
-                              "page_image_full_height": 5847,
-                              "page_image_uuid": "bcb737e9-bd41-80f1-e040-e00a180630eb",
-                              "menu_page_number": null,
-                              "item_created_at": "20120504T185027+0000",
-                              "dish_id": 356136,
-                              "dish_name": "Cocktail, Cherry Blossom",
-                              "item_uri": "http://menus.nypl.org/menu_items/917450/edit",
-                              "item_id": 917450,
-                              "image_id": "4016393",
-                              "item_xpos": 0.324286,
-                              "dish_name_fingerprint": "blossom cherry cocktail",
-                              "page_image_full_width": 3831,
-                              "dish_uri": "http://menus.nypl.org/dishes/356136"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "132278",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 33,
-                              "menu_date": "1901-10-18",
-                              "item_updated_at": "20110424T045802+0000",
-                              "menu_page_id": 19066,
-                              "menu_sponsor": null,
-                              "menu_page_count": 2,
-                              "item_ypos": 0.63351,
-                              "dish_normalized_name": "string beans",
-                              "menu_id": 18832,
-                              "dish_times_appeared": 1566,
-                              "menu_location": "Southern Railway",
-                              "dish_menus_appeared": 1485,
-                              "menu_uri": "http://menus.nypl.org/menus/18832",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/19066",
-                              "page_image_full_height": 2339,
-                              "page_image_uuid": "510d47db-6f37-a3d9-e040-e00a18064a99",
-                              "menu_page_number": 1,
-                              "item_created_at": "20110424T045802+0000",
-                              "dish_id": 873,
-                              "dish_name": "String Beans",
-                              "item_uri": "http://menus.nypl.org/menu_items/49592/edit",
-                              "item_id": 49592,
-                              "image_id": "469987",
-                              "item_xpos": 0.43,
-                              "dish_name_fingerprint": "beans string",
-                              "page_image_full_width": 1723,
-                              "dish_uri": "http://menus.nypl.org/dishes/873"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "114062",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 129,
-                              "menu_date": "1906-12-21",
-                              "item_updated_at": "20110629T131800+0000",
-                              "menu_page_id": 34718,
-                              "menu_sponsor": "FLATIRON RESAURANT AND CAFE",
-                              "menu_page_count": 2,
-                              "item_ypos": 0.710014,
-                              "dish_normalized_name": "coffee cake",
-                              "menu_id": 23769,
-                              "dish_times_appeared": 135,
-                              "menu_location": "Flat Iron Resaurant And Cafe",
-                              "dish_menus_appeared": 129,
-                              "menu_uri": "http://menus.nypl.org/menus/23769",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/34718",
-                              "page_image_full_height": 5006,
-                              "page_image_uuid": "510d47db-833b-a3d9-e040-e00a18064a99",
-                              "menu_page_number": 1,
-                              "item_created_at": "20110629T131800+0000",
-                              "dish_id": 678,
-                              "dish_name": "Coffee Cake",
-                              "item_uri": "http://menus.nypl.org/menu_items/412597/edit",
-                              "item_id": 412597,
-                              "image_id": "473864",
-                              "item_xpos": 0.525714,
-                              "dish_name_fingerprint": "cake coffee",
-                              "page_image_full_width": 2934,
-                              "dish_uri": "http://menus.nypl.org/dishes/678"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "620313",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 83,
-                              "menu_date": "1900-03-04",
-                              "item_updated_at": "20110511T004642+0000",
-                              "menu_page_id": 7733,
-                              "menu_sponsor": null,
-                              "menu_page_count": 2,
-                              "item_ypos": 0.336185,
-                              "dish_normalized_name": "champagne george goulet, extra brut",
-                              "menu_id": 14984,
-                              "dish_times_appeared": 2,
-                              "menu_location": "Cunard Line",
-                              "dish_menus_appeared": 2,
-                              "menu_uri": "http://menus.nypl.org/menus/14984",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/7733",
-                              "page_image_full_height": 1844,
-                              "page_image_uuid": "510d47db-4553-a3d9-e040-e00a18064a99",
-                              "menu_page_number": 2,
-                              "item_created_at": "20110511T004642+0000",
-                              "dish_id": 60379,
-                              "dish_name": "Champagne George Goulet, Extra Brut",
-                              "item_uri": "http://menus.nypl.org/menu_items/215503/edit",
-                              "item_id": 215503,
-                              "image_id": "4000008530",
-                              "item_xpos": 0.175714,
-                              "dish_name_fingerprint": "brut champagne extra george goulet",
-                              "page_image_full_width": 2764,
-                              "dish_uri": "http://menus.nypl.org/dishes/60379"
-                            }
-                          },
-                          {
-                            "_index": "menus",
-                            "_type": "item",
-                            "_id": "338233",
-                            "_score": 1,
-                            "_source": {
-                              "menu_dish_count": 79,
-                              "menu_date": "1898-05-19",
-                              "item_updated_at": "20110519T190117+0000",
-                              "menu_page_id": 25844,
-                              "menu_sponsor": "WINDSOR HOTEL",
-                              "menu_page_count": 2,
-                              "item_ypos": 0.753811,
-                              "dish_normalized_name": "figs",
-                              "menu_id": 21391,
-                              "dish_times_appeared": 499,
-                              "menu_location": "Windsor Hotel",
-                              "dish_menus_appeared": 483,
-                              "menu_uri": "http://menus.nypl.org/menus/21391",
-                              "menu_page_uri": "http://menus.nypl.org/menu_pages/25844",
-                              "page_image_full_height": 3897,
-                              "page_image_uuid": "510d47db-317b-a3d9-e040-e00a18064a99",
-                              "menu_page_number": 1,
-                              "item_created_at": "20110519T190117+0000",
-                              "dish_id": 5408,
-                              "dish_name": "Figs",
-                              "item_uri": "http://menus.nypl.org/menu_items/254950/edit",
-                              "item_id": 254950,
-                              "image_id": "467388",
-                              "item_xpos": 0.365714,
-                              "dish_name_fingerprint": "figs",
-                              "page_image_full_width": 1680,
-                              "dish_uri": "http://menus.nypl.org/dishes/5408"
-                            }
-                          }
-                        ]
+                          ]
+                        }
                       }
                     }
-                }
+            }
         };
     });
 });
