@@ -82,19 +82,25 @@ define([
                 });
 
                 // This is testing application code
-                it("should parse items from the response", function() {
+                it("should parse dishes from the response", function() {
                     this.cluster.fetch({ reset: true });
                     this.server.respond();
 
-                    expect(this.cluster).to.have.length(this.fixture.hits.hits.length); 
+                    expect(this.cluster).to.have.length(this.fixture.aggregations.dish.buckets.length); 
                 });
 
-                it("should return id of fetched items", function(done) {
+                it("should return attributes of fetched dish", function(done) {
                     this.cluster.fetch({ reset: true });
                     this.server.respond();
 
                     var item = this.cluster.at(0);
-                    expect(item.get("_id")).to.equal(this.fixture.hits.hits[0]._id);
+                    window.console.log(item);
+                    var fixtureItem = this.fixture.aggregations.dish.buckets[0];
+                    
+                    expect(item.get("id")).to.equal(fixtureItem.key);
+                    expect(item.get("menu_count")).to.equal(fixtureItem.top_names.hits.hits[0]._source.dish_menus_appeared);
+                    expect(item.get("name_value")).to.equal(fixtureItem.top_names.hits.hits[0]._source.dish_name);
+                    expect(item.get("exemplar_doc")).to.equal(fixtureItem.top_names.hits.hits[0]._id);
                     done();
                 });
             });
