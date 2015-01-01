@@ -96,6 +96,15 @@ function(Backbone, ClusterView, MessageView) {
             aggs.dish = {};
             aggs.dish.terms = { "field": "dish_id", "size": 0};
 
+            //Sub-aggregation to get names & menus appeared
+            var subAgg = {};
+            subAgg.top_names = { "top_hits": {} };
+            subAgg.top_names.top_hits.size = 1;
+            subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
+            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared"]};
+
+            aggs.dish.aggregations = subAgg;
+
             // Pull it all together
             queryObj.size = 0;
             queryObj.query = query;
@@ -111,17 +120,30 @@ function(Backbone, ClusterView, MessageView) {
             });
 
             clusterQueryPromise.done(function(data) {
-                var facetsArr = data.aggregations.dish.buckets;
+                var responseArr = data.aggregations.dish.buckets;
 
-                var dishIds = _.map(
-                        facetsArr, 
-                        function(facetObj){
-                            var facet = facetObj.key;
-                            return facet;}
+                var dishes = _.map(
+                        responseArr, 
+                        function(responseObj){
+                            var result = responseObj.top_names.hits.hits[0];
+
+                            var dish_id = responseObj.key
+                            , name = result._source.dish_name
+                            , count = result.sort[0]
+                            , exemplar = result._id;
+
+                            var dish = {
+                                "id": dish_id,
+                                "name_value": name,
+                                "menu_count": count,
+                                "exemplar_doc": exemplar
+                            };
+
+                            return dish;}
                         );
 
-                // Trigger an event on Backbone & send ids
-                Backbone.trigger('facetQuerySuccess', dishIds);
+                // Trigger an event on Backbone & send dish info
+                Backbone.trigger('facetQuerySuccess', dishes);
             });
 
             clusterQueryPromise.fail(function() {
