@@ -94,7 +94,6 @@ define([
                     this.server.respond();
 
                     var item = this.cluster.at(0);
-                    window.console.log(item);
                     var fixtureItem = this.fixture.aggregations.dish.buckets[0];
                     
                     expect(item.get("id")).to.equal(fixtureItem.key);
