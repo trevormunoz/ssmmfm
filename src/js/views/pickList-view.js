@@ -26,6 +26,7 @@ define([
             this.$tableBody.empty();
 
             this.collection.each(this.addRow, this);
+            $('tbody tr:first-child').focus();
             return this;
         },
 

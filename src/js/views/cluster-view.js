@@ -33,6 +33,23 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
                 that.resetCluster();
             });
 
+            Mousetrap.bind('p', function() {
+                $('tbody tr:first-child').focus();
+            });
+
+            Mousetrap.bind('down', function() {
+                $(document.activeElement).next('tr').focus();
+            });
+
+            Mousetrap.bind('up', function() {
+                $(document.activeElement).prev('tr').focus();
+            });
+
+            Mousetrap.bind('enter', function() {
+                var selectedVal = $('tr:focus > td:first-child').text();
+                window.alert("You've selected \"" + selectedVal + "\"");
+            });
+
         },
 
         resetCluster: function() {
