@@ -3,7 +3,9 @@
 define([
         'sinon',
         'src/js/collections/cluster',
-        'src/js/views/pickList-view'
+        'src/js/views/pickList-view',
+        'fixtures/es/fixture',
+        'helpers/fakeServer-helper'
 ], function(sinon, Cluster, PickListView) {
     'use strict';
 
@@ -11,11 +13,20 @@ define([
         describe("creation", function() {
 
             beforeEach(function() {
+                this.fixture = this.fixtures.Cluster.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+
                 var cluster = new Cluster();
                 this.view = new PickListView({collection: cluster});
             });
 
             afterEach(function() {
+                this.server.restore;
                 this.view.remove();
                 this.view = null;
             });

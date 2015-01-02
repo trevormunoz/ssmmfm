@@ -12,10 +12,19 @@ define([
         describe("creation", function(){
 
             beforeEach(function() {
+                this.fixture = this.fixtures.AppView.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+                this.server.autoRespond = true;
                 this.app = new AppView();
             });
 
             afterEach(function() {
+                this.server.restore();
                 this.app.remove();
                 this.app = null;
             });
@@ -48,6 +57,14 @@ define([
         describe("initialization", function() {
             
             it("should setup an event listener", function() {
+                this.fixture = this.fixtures.AppView.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+                this.server.autoRespond = true;
                 
                 var listenerSpy = sinon.spy(AppView.prototype, 'listenTo');
                 var view = new AppView();
@@ -60,10 +77,20 @@ define([
                 var listenerArgs = listenerSpy.args[0];
                 expect(listenerArgs[1]).to.equal('seedQuerySuccess');
 
+                this.server.restore();
                 AppView.prototype.listenTo.restore();
             });
 
             it("should call the bootstrapCluster method on init", function() {
+                this.fixture = this.fixtures.AppView.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+                this.server.autoRespond = true;
+
                 var bootstrapSpy = sinon.spy(
                     AppView.prototype, 'bootstrapCluster'
                     );
@@ -71,6 +98,7 @@ define([
 
                 expect(bootstrapSpy.callCount).to.equal(1);
 
+                this.server.restore();
                 AppView.prototype.bootstrapCluster.restore();
             });
 
