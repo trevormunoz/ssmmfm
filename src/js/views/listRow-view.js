@@ -9,7 +9,6 @@ define([
 
     var RowView = Backbone.View.extend({
         tagName: 'td',
-        className: 'dish',
 
         listRowTemplate: Handlebars.compile(listRowTemplate),
 

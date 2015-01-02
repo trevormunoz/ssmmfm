@@ -31,7 +31,6 @@ define([
 
             it('should be created with correct DOM element', function () {
                 expect(this.view.$el[0].nodeName).to.equal('TD');
-                expect(this.view.$el[0].className).to.equal('dish');
             });
 
             it('should be backed by a model', function () {
