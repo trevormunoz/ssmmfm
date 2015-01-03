@@ -12,8 +12,14 @@ function(Backbone) {
 
         initialize: function() {
 
+            this.listenTo(Backbone, 'seedQuerySuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'seedQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);
+        },
+
+        flashFingerprint: function(data) {
+            $('#message-body > p').empty();
+            $('#message-body > p').append('fingerprint: ' + data);
         },
 
         flashFailMessage: function() {
