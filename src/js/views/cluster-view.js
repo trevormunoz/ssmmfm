@@ -16,6 +16,11 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
     var ClusterView = Backbone.View.extend({
         el: '#cluster',
         subviews: {},
+
+        events: {
+            'click tr.variant a': 'showContextModal',
+            'click .modal-footer button': 'closeInputModal'
+        },
         
         initialize: function () {
             var cluster = new Cluster();
@@ -46,6 +51,11 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
                 $(document.activeElement).prev('tr').focus();
             });
 
+            Mousetrap.bind('l', function() {
+                var link = $(document.activeElement).find('a');
+                link.click();
+            });
+
             Mousetrap.bind('s', function() {
                 var selectedEl = $(document.activeElement)[0];
                 if (selectedEl.tagName === 'TR') {
@@ -65,11 +75,6 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
                     $('tr.variant').blur();
                     $('input.form-control').focus();
                 });
-            });
-
-            $('.modal-footer button').on('click', function() {
-                Mousetrap.trigger('s');
-                $('#input-modal').modal('hide');
             });
 
         },
@@ -126,6 +131,17 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
                 // Do something useful …
             });
         },
+
+        showContextModal: function(event) {
+            var linkEl = $(event.target.closest('a'));
+            $('.modal-body iframe').attr('src', linkEl.data().item);
+            $('#viewer-modal').modal();
+        },
+
+        closeInputModal: function() {
+            Mousetrap.trigger('s');
+            $('#input-modal').modal('hide');
+        }
     });
 
 return ClusterView;
