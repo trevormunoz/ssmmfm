@@ -128,7 +128,7 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
             });
 
             mltPromise.fail(function() {
-                // Do something useful …
+                Backbone.trigger('mltQueryFailure');
             });
         },
 

@@ -15,6 +15,7 @@ function(Backbone) {
             this.listenTo(Backbone, 'seedQuerySuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'seedQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);
+            this.listenTo(Backbone, 'mltQueryFailure', this.flashFailMessage);
         },
 
         flashFingerprint: function(data) {
@@ -23,7 +24,9 @@ function(Backbone) {
         },
 
         flashFailMessage: function() {
-            // Do something …
+            $('tbody').empty();
+            $('#message-body > p').empty();
+            $('#message-body > p').append('Something went wrong. Try reloading the page.');
         },
         
         });
