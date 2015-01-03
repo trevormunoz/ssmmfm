@@ -6,7 +6,8 @@ define([
     'src/js/collections/cluster',
     'src/js/views/pickList-view',
     'src/js/views/item-view',
-    'src/js/views/index-view'
+    'src/js/views/index-view',
+    'bootstrap'
 ],
 
 function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
@@ -45,9 +46,30 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
                 $(document.activeElement).prev('tr').focus();
             });
 
-            Mousetrap.bind('enter', function() {
-                var selectedVal = $('tr:focus > td:first-child').text();
-                window.alert("You've selected \"" + selectedVal + "\"");
+            Mousetrap.bind('s', function() {
+                var selectedEl = $(document.activeElement)[0];
+                if (selectedEl.tagName === 'TR') {
+                    var selectedVal = $('tr:focus > td:first-child').text();
+                } else {
+                    var selectedVal = $('#input-modal input').val();
+                }
+
+                window.console.log(selectedVal);
+                that.resetCluster();
+            });
+
+            Mousetrap.bind('w', function() {
+                $('#input-modal input').val("");
+                $('#input-modal').modal();
+                $('#input-modal').on('shown.bs.modal', function() {
+                    $('tr.variant').blur();
+                    $('input.form-control').focus();
+                });
+            });
+
+            $('.modal-footer button').on('click', function() {
+                Mousetrap.trigger('s');
+                $('#input-modal').modal('hide');
             });
 
         },
