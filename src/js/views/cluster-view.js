@@ -2,7 +2,8 @@
 
 define([
     'backbone',
-    'mousetrap', 
+    'mousetrap',
+    'src/js/collections/index', 
     'src/js/collections/cluster',
     'src/js/views/pickList-view',
     'src/js/views/item-view',
@@ -10,7 +11,7 @@ define([
     'bootstrap'
 ],
 
-function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
+function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
@@ -30,7 +31,8 @@ function(Backbone, Mousetrap, Cluster, PickListView, ItemView, IndexView) {
             var viewer = new ItemView();
             this.subviews.viewer = viewer;
             
-            var index = new IndexView();
+            var indexCollex = new Index();
+            var index = new IndexView({collection: indexCollex});
             this.subviews.index = index;
 
             // Set up key bindings
