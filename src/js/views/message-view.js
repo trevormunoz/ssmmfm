@@ -16,6 +16,7 @@ function(Backbone) {
             this.listenTo(Backbone, 'seedQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'mltQueryFailure', this.flashFailMessage);
+            this.listenTo(Backbone, 'entryAdded', this.updateCount);
         },
 
         flashFingerprint: function(data) {
@@ -28,6 +29,17 @@ function(Backbone) {
             $('#message-body > p').empty();
             $('#message-body > p').append('Something went wrong. Try reloading the page.');
         },
+
+        updateCount: function(data) {
+            $('#stats').empty();
+            var count = Math.floor(data);
+
+            if ( count <= 1) {
+                $('#stats').append('<p>'+ data + ' cluster reviewed</p>');
+            } else {
+                $('#stats').append('<p>'+ data + ' clusters reviewed</p>');
+            };   
+        }
         
         });
         

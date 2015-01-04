@@ -38,6 +38,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
             // Set up key bindings
             var that = this;
             Mousetrap.bind('space', function() {
+                Backbone.trigger('clusterSkipped');
                 that.resetCluster();
             });
 
@@ -66,7 +67,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
                     var selectedVal = $('#input-modal input').val();
                 }
 
-                window.console.log(selectedVal);
+                Backbone.trigger('valueSelected', selectedVal);
                 that.resetCluster();
             });
 
