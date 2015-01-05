@@ -22,6 +22,9 @@ require.config({
                 'jquery'
             ]
         },
+        mousetrap: {
+            exports: 'Mousetrap'
+        },
         mocha: {
             exports: 'mocha'
         },
@@ -39,6 +42,7 @@ require.config({
         handlebars: 'bower_components/handlebars/handlebars.min',
         bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
         backbone: 'bower_components/backbone/backbone',
+        mousetrap: 'bower_components/mousetrap/mousetrap.min',
         text: 'bower_components/requirejs-text/text',
         mocha: 'bower_components/mocha/mocha',
         chai: 'bower_components/chai/chai',

@@ -1,18 +1,22 @@
 /* global define */
 
 define([
+        'sinon',
+        'src/js/collections/index',
         'src/js/views/index-view'
-], function(IndexView) {
+], function(sinon, Index, IndexView) {
     'use strict';
 
     describe("View: Index Output", function() {
         describe("creation", function() {
 
             beforeEach(function() {
-                this.view = new IndexView();
+                var index = new Index();
+                this.view = new IndexView({collection: index});
             });
 
             afterEach(function() {
+                this.view.collection.reset();
                 this.view.remove();
                 this.view = null;
             });
@@ -21,9 +25,12 @@ define([
                 expect(this.view).to.be.ok;
             });
 
-            it("should be created with correct DOM element", function() {
-                expect(this.view.$el[0].nodeName).to.equal('DIV');
-                expect(this.view.$el[0].className).to.equal('index-output');
+            it("should bind to the correct DOM element", function() {
+                expect(this.view.$el.selector).to.equal('#index');
+            });
+
+            it('should reflect a collection', function () {
+                expect(this.view.collection).to.be.ok;
             });
         });
     });

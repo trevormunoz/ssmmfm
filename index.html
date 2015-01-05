@@ -22,10 +22,12 @@
         <div id="app-content" class="main">
             <div class="messages">
                 <div id="message-body">
-                    <p>Use this for flashing messages …</p>
+                    <!-- Use this for flashing messages -->
+                    <p>&nbsp;</p>
                 </div>
                 <div id="stats">
-                    <p>Put some stats here.</p>
+                    <!-- Put some stats here -->
+                    <p>&nbsp;</p>
                 </div>
             </div>
             <div id="cluster" class="row">
@@ -40,7 +42,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Menus Appeared</th>
-                                    <th>Links</th>
+                                    <th>Exemplar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +52,45 @@
                     </div>
                 </div>
                 <!-- insert div.viewer -->
-                <!-- insert div.index-output -->
+                <div id="index-output">
+                    <h4 class="body-section-heading">Index Terms</h4>
+                    <ul id="index"></ul>
+                </div>
+
+                <!-- text input modal -->
+                <div class="modal" id="input-modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Supply an alternate value</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                <input type="text" class="form-control" placeholder="Type here …">
+                            </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- link viewer modal -->
+                <div class="modal" id="viewer-modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">In context</h4>
+                            </div>
+                            <div class="modal-body">
+                                <iframe src="" width="100%" height="600"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">

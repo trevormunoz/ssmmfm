@@ -2,10 +2,12 @@
 
 require(['config'], function() {
 
-    require([], function() {
+    require([
+        'src/js/views/app-view'
+    ], function(AppView) {
         'use strict';
 
-        // Logic for application
+        new AppView();
 
     });
 });

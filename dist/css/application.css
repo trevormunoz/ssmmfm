@@ -255,8 +255,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
+  src: url('/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -6409,6 +6409,10 @@ body {
     width: 16.66666667%;
   }
 }
+#stats p {
+  color: #777777;
+  font-style: italic;
+}
 #message-body {
   position: relative;
   min-height: 1px;
@@ -6421,6 +6425,10 @@ body {
     float: left;
     width: 83.33333333%;
   }
+}
+#message-body p {
+  color: #777777;
+  font-style: italic;
 }
 .users {
   margin-left: -15px;
@@ -6788,11 +6796,14 @@ fieldset[disabled] .start-button.active {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   #picker {
     float: left;
     width: 75%;
   }
+}
+.variant:focus {
+  border-left: 9px solid #c78a87;
 }
 .viewer {
   position: relative;
@@ -6800,23 +6811,33 @@ fieldset[disabled] .start-button.active {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .viewer {
     float: left;
     width: 8.33333333%;
   }
 }
-.index-output {
+#index-output {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 992px) {
-  .index-output {
+@media (min-width: 768px) {
+  #index-output {
     float: left;
-    width: 16.66666667%;
+    width: 25%;
   }
+}
+#index-output h4 {
+  color: #777777;
+}
+#index {
+  padding-left: 0;
+  list-style: none;
+}
+#index li {
+  padding: 5px;
 }
 .body-section-heading {
   color: #3d2d2e;

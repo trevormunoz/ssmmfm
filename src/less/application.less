@@ -93,11 +93,19 @@ body {
     .make-md-column(2);
     padding: 20px 20px 10px 20px;
     border-left: 2px dotted @seed;
+    p {
+        color: @gray-light;
+        font-style: italic;
+    }
 }
 
 #message-body {
     .make-md-column(10);
     padding: 20px 20px 10px 20px;
+    p {
+        color: @gray-light;
+        font-style: italic;
+    }
 }
 
 .users {
@@ -149,15 +157,29 @@ body {
 }
 
 #picker {
-    .make-md-column(9);
+    .make-sm-column(9);
+}
+
+.variant:focus {
+    border-left: 9px solid @vintage-rose;
 }
 
 .viewer {
-    .make-md-column(1);
+    .make-sm-column(1);
 }
 
-.index-output {
-    .make-md-column(2);
+#index-output {
+    .make-sm-column(3);
+    h4 {
+        color: @gray-light;
+    }
+}
+
+#index {
+    .list-unstyled();
+    li {
+        padding: 5px;
+    }
 }
 
 .body-section-heading {
