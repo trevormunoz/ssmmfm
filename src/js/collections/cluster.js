@@ -21,13 +21,15 @@ define([
                         var dish_id = responseObj.key
                         , name = result._source.dish_name
                         , count = result.sort[0]
-                        , exemplar = result._id;
+                        , exemplar = result._id
+                        , menu_page = result._source.menu_page_uri;
 
                         var dish = {
                             "id": dish_id,
                             "name_value": name,
                             "menu_count": count,
-                            "exemplar_doc": exemplar
+                            "exemplar_doc": exemplar,
+                            "page_link": menu_page
                         };
 
                         return dish;}

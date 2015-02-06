@@ -101,7 +101,7 @@ function(Backbone, ClusterView, MessageView) {
             subAgg.top_names = { "top_hits": {} };
             subAgg.top_names.top_hits.size = 1;
             subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
-            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared"]};
+            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
 
             aggs.dish.aggregations = subAgg;
 

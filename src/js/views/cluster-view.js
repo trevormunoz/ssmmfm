@@ -20,7 +20,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
 
         events: {
             'click tr.variant a': 'showContextModal',
-            'click .modal-footer button': 'closeInputModal'
+            'click .modal-footer button': 'closeInputModal',
+            'click .modal-footer a': 'resetContextModal'
         },
         
         initialize: function () {
@@ -138,7 +139,16 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
         showContextModal: function(event) {
             var linkEl = $(event.target.closest('a'));
             $('.modal-body iframe').attr('src', linkEl.data().item);
+            $('.modal-footer a').attr('href', linkEl.data().page);
             $('#viewer-modal').modal();
+        },
+
+        resetContextModal: function(event) {
+            event.preventDefault();
+            var linkEl = $(event.target.closest('a'));
+            var target = linkEl.attr('href');
+            $('.modal-body iframe').attr('src', target);
+            $('.modal-dialog').css("width", "80%");
         },
 
         closeInputModal: function() {
