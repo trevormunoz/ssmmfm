@@ -81,6 +81,12 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
                 });
             });
 
+            Mousetrap.bind('j', function() {
+                var last = $('li:nth-last-child(2) a');
+                window.console.log(last);
+                last.click();
+            });
+
         },
 
         resetCluster: function() {
