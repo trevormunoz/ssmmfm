@@ -13,7 +13,11 @@ function(Backbone, IndexTerm, TermView) {
     var IndexView = Backbone.View.extend ({
     
         el: '#index',
-
+        
+        events: {
+        'click a':  'editIndexTerm'
+        },
+        
         initialize: function() {
             this.listenTo(Backbone, 'seedQuerySuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.updateEntry);
@@ -53,6 +57,17 @@ function(Backbone, IndexTerm, TermView) {
         addTerm: function(term) {
             var view = new TermView({model: term});
             this.$el.append(view.render());
+        },
+        
+        editIndexTerm: function(event) { 
+            event.preventDefault(); 
+            var linkEl = $(event.target.closest('li'));
+            var fingerprint = linkEl.data().fingerprint;
+            var item = this.collection.where({fingerprint_value: fingerprint});
+            this.collection.remove(item);
+            this.collection.pop();
+            Backbone.trigger('seedQuerySuccess', fingerprint);
+            
         }
         
         });
