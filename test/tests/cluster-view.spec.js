@@ -87,7 +87,7 @@ define([
                 });
                 
                 it('should have Mousetrap bindings for keyboard events', function() {
-                    expect(this.spy.callCount).to.equal(7);
+                    expect(this.spy.callCount).to.equal(8);
                 });
 
                 it('should bind the correct keys', function() {
@@ -98,6 +98,7 @@ define([
                     expect(this.spy.withArgs('l').calledOnce).to.be.true;
                     expect(this.spy.withArgs('s').calledOnce).to.be.true;
                     expect(this.spy.withArgs('w').calledOnce).to.be.true;
+                    expect(this.spy.withArgs('j').calledOnce).to.be.true;
                 });         
             });            
             
