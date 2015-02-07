@@ -13,6 +13,7 @@ function(Backbone) {
         initialize: function() {
 
             this.listenTo(Backbone, 'seedQuerySuccess', this.flashFingerprint);
+            this.listenTo(Backbone, 'seedQueryDuplicate', window.alert("Duplicate! Scoundrel! Knave!"));
             this.listenTo(Backbone, 'seedQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'mltQueryFailure', this.flashFailMessage);
