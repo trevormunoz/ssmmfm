@@ -3,12 +3,11 @@
 require(['config'], function() {
 
     require([
-        'src/js/views/app-view',
-        'src/js/collections/seeds'
-    ], function(AppView, Seeds) {
+        'src/js/views/app-view'
+    ], function(AppView) {
         'use strict';
 
-        new AppView({collection: Seeds});
+        new AppView();
 
     });
 });

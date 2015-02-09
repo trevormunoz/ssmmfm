@@ -4,10 +4,9 @@ define([
     'backbone', 
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
-    'src/js/models/fingerprint',
     'src/js/helpers'
 ],
-function(Backbone, ClusterView, MessageView, Fingerprint) {
+function(Backbone, ClusterView, MessageView) {
 'use strict';
 
     var AppView = Backbone.View.extend({
@@ -68,17 +67,7 @@ function(Backbone, ClusterView, MessageView, Fingerprint) {
                         );
                 var seed = _.sample(potentialSeeds);
 
-                var seedModel = new Fingerprint();
-                seedModel.set('key', seed);
-                this.collection.add(seedModel);
-
-                // Trigger an event on Backbone & send seed value
-                 var that = this;
-                 if (checkForDupe(seed) === 0) {
-                    Backbone.trigger('seedQuerySuccess', seed);
-                 } else {
-                    Backbone.trigger('seedQueryDuplicate');
-                 };
+                Backbone.trigger('seedQuerySuccess', seed);
                     
             });
 
