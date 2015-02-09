@@ -136,6 +136,134 @@ define(['mocha'], function() {
                 }
               },
 
+            ClusterView: {
+              valid: {
+                  "took": 282,
+                  "timed_out": false,
+                  "_shards": {
+                    "total": 5,
+                    "successful": 5,
+                    "failed": 0
+                  },
+                  "hits": {
+                    "total": 1315024,
+                    "max_score": 0.9999988,
+                    "hits": [
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "6993",
+                        "_score": 0.9999988,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "mixed pickles"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "671812",
+                        "_score": 0.99999857,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "94 smorkage"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "1309662",
+                        "_score": 0.999996,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "mixed tea"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "463488",
+                        "_score": 0.9999952,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "fruit"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "60750",
+                        "_score": 0.99999475,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "cocktail oysters"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "1333199",
+                        "_score": 0.9999939,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "bombay eggs poached"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "243292",
+                        "_score": 0.9999936,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "and bananas cream sliced"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "154583",
+                        "_score": 0.9999926,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "beef corned"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "250819",
+                        "_score": 0.99999213,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "and cream strawberries"
+                          ]
+                        }
+                      },
+                      {
+                        "_index": "menus",
+                        "_type": "item",
+                        "_id": "69637",
+                        "_score": 0.99999106,
+                        "fields": {
+                          "dish_name_fingerprint": [
+                            "hamburg lyonnaise potatoes steak"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+
             MenuItem : {
                 valid: {
                   "_index": "menus",

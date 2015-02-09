@@ -2,7 +2,9 @@
 
 define([
         'sinon',
-        'src/js/views/cluster-view'
+        'src/js/views/cluster-view',
+        'fixtures/es/fixture',
+        'helpers/fakeServer-helper'
 ], function(sinon, ClusterView) {
     'use strict';
 
@@ -56,6 +58,35 @@ define([
                 expect(eventsHash['click tr.variant a']).to.equal('showContextModal');
                 expect(this.view.showContextModal).to.be.instanceOf(Function);
             });                        
+        });
+
+        describe('listeners', function () {
+           
+            it("should setup an event listener", function() {
+                this.fixture = this.fixtures.ClusterView.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+                this.server.autoRespond = true;
+                
+                var listenerSpy = sinon.spy(ClusterView.prototype, 'listenTo');
+                var view = new ClusterView();
+                
+                expect(listenerSpy.callCount).to.equal(1);
+                
+                // sinon.spy.args returns an array of args; 
+                // arg to the listenTo function is itself 
+                // an array of 3 arguments
+                var listenerArgs = listenerSpy.args[0];
+                expect(listenerArgs[1]).to.equal('seedQuerySuccess');
+
+                this.server.restore();
+                ClusterView.prototype.listenTo.restore();
+            });
+
         });
 
         describe('initialization', function () {
