@@ -25,6 +25,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
         },
         
         initialize: function () {
+            
+            // Set up subviews …
             var cluster = new Cluster();
             var picker = new PickListView({collection: cluster});
             this.subviews.picker = picker;
@@ -35,6 +37,9 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
             var indexCollex = new Index();
             var index = new IndexView({collection: indexCollex});
             this.subviews.index = index;
+
+            // And event listeners …
+            this.listenTo(Backbone, 'seedQuerySuccess', this.getFacets);
 
             // Set up key bindings
             var that = this;
@@ -88,6 +93,45 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
             });
 
         },
+
+        getFacets: function(data) {
+            var fingerprintVal = data;
+
+            // Build up a query w/a filter and an aggregation
+            var queryObj = {};
+            var query = {};
+            var aggs = {};
+
+            // Filter to include only documents with this fingerprint
+            query.filtered = {};
+            query.filtered.query = { "match_all": {} };
+            query.filtered.filter = { "term": {
+                "dish_name_fingerprint": fingerprintVal}
+            };
+
+            // Aggregate by dish id
+            aggs.dish = {};
+            aggs.dish.terms = { "field": "dish_id", "size": 0};
+
+            //Sub-aggregation to get names & menus appeared
+            var subAgg = {};
+            subAgg.top_names = { "top_hits": {} };
+            subAgg.top_names.top_hits.size = 1;
+            subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
+            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
+
+            aggs.dish.aggregations = subAgg;
+
+            // Pull it all together
+            queryObj.size = 0;
+            queryObj.query = query;
+            queryObj.aggregations = aggs;
+            
+            var queryString = JSON.stringify(queryObj);
+
+            // Trigger an event on Backbone & send query string
+            Backbone.trigger('facetQuerySuccess', queryString);
+        },        
 
         resetCluster: function() {
             var rowEls = $('.variant');
