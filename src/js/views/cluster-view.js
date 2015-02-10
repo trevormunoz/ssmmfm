@@ -39,7 +39,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
             this.subviews.index = index;
 
             // And event listeners …
-            this.listenTo(Backbone, 'seedQuerySuccess', this.getFacets);
+            this.listenTo(Backbone, 'seedQuerySuccess', this.dedupeFingerprint);
+            this.listenTo(Backbone, 'fingerprintSuccess', this.getFacets);
 
             // Set up key bindings
             var that = this;
@@ -91,6 +92,16 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
                 window.console.log(last);
                 last.click();
             });
+
+        },
+
+        dedupeFingerprint: function(data) {
+            var fingerprint = data;
+
+            // Implement deduping logic
+
+            // For now, just pass through the value
+            Backbone.trigger('fingerprintSuccess', fingerprint);
 
         },
 

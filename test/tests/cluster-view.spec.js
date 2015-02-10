@@ -62,7 +62,7 @@ define([
 
         describe('listeners', function () {
            
-            it("should setup an event listener", function() {
+            it("should setup event listeners", function() {
                 this.fixture = this.fixtures.ClusterView.valid;
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
@@ -75,7 +75,7 @@ define([
                 var listenerSpy = sinon.spy(ClusterView.prototype, 'listenTo');
                 var view = new ClusterView();
                 
-                expect(listenerSpy.callCount).to.equal(1);
+                expect(listenerSpy.callCount).to.equal(2);
                 
                 // sinon.spy.args returns an array of args; 
                 // arg to the listenTo function is itself 
