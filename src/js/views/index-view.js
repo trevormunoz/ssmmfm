@@ -36,8 +36,9 @@ function(Backbone, IndexTerm, TermView) {
         },
 
         updateEntry: function(data) {
+            var cleanData = data.trim();
             var latestTerm = this.collection.pop();
-            latestTerm.set('index_term', data);
+            latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
             
             Backbone.trigger('entryAdded', this.collection.length);
