@@ -8,10 +8,11 @@ define([
     'src/js/views/pickList-view',
     'src/js/views/item-view',
     'src/js/views/index-view',
+    'src/js/models/fingerprint.js',
     'bootstrap'
 ],
 
-function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView) {
+function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
@@ -96,10 +97,12 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
         },
 
         dedupeFingerprint: function(data) {
-            var fingerprint = data;
-                if (fingerprint == item)  {
+            var fingerprint = data;        
+                if (this.collection.where({value: fingerprint}) !== [])  {
                    Backbone.trigger('seedQueryDuplicate');
                 } else {
+                    var fingerprintModel = new Fingerprint({value: fingerprint});
+                    this.collection.add(fingerprintModel)
                     Backbone.trigger('fingerprintSuccess', fingerprint);
             };
 
