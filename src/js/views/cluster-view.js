@@ -98,12 +98,12 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
         dedupeFingerprint: function(data) {
             var fingerprint = data;        
-                if (this.collection.where({value: fingerprint}) !== [])  {
-                   Backbone.trigger('seedQueryDuplicate');
-                } else {
-                    var fingerprintModel = new Fingerprint({value: fingerprint});
-                    this.collection.add(fingerprintModel)
+                if (this.collection.where({value: fingerprint}) === [])  {
+                   var fingerprintModel = new Fingerprint({value: fingerprint});
+                    this.collection.add(fingerprintModel);
                     Backbone.trigger('fingerprintSuccess', fingerprint);
+                } else {
+                    Backbone.trigger('seedQueryDuplicate');
             };
 
         },
