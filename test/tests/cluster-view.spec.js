@@ -118,7 +118,8 @@ define([
 
                 beforeEach(function () {
                     this.spy = sinon.spy(Mousetrap, 'bind');
-                    this.view = new ClusterView();
+                    var seedsCollex = new Seeds();
+                    this.view = new ClusterView({collection: seedsCollex});
                 });
 
                 afterEach(function () {
@@ -167,6 +168,34 @@ define([
                 expect(this.spy.calledThrice).to.be.true;
             });
             
+        });
+
+        describe('dedupe fingerprints', function () {
+            
+            before(function () {
+                this.spy = sinon.spy(ClusterView.prototype, 'getFacets');
+                var seedsCollex = new Seeds();
+                this.view = new ClusterView({collection: seedsCollex});
+            });
+
+            it('should deduplicate fingerprint values', function () {
+                
+                expect(this.spy).to.not.have.been.called;
+
+                this.view.dedupeFingerprint('coffee');
+                this.view.dedupeFingerprint('green peppers stuffed');
+                // Duplicate
+                this.view.dedupeFingerprint('coffee');
+
+                expect(this.spy.callCount).to.equal(2);
+                expect(this.view.collection.length).to.equal(2);
+
+            });
+
+            after(function () {
+                this.view.remove();
+                this.view = null;
+            });
         });
     });
 });
