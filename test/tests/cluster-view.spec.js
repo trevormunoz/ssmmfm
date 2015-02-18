@@ -173,6 +173,13 @@ define([
         describe('dedupe fingerprints', function () {
             
             before(function () {
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search"
+                    );
+                this.server.autoRespond = true;
+
                 this.spy = sinon.spy(ClusterView.prototype, 'getFacets');
                 var seedsCollex = new Seeds();
                 this.view = new ClusterView({collection: seedsCollex});
@@ -193,6 +200,10 @@ define([
             });
 
             after(function () {
+                this.server.restore();
+                ClusterView.prototype.getFacets.restore();
+                this.view.collection.reset();
+                this.view.collection = null;
                 this.view.remove();
                 this.view = null;
             });
