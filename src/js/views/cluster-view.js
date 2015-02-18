@@ -8,7 +8,7 @@ define([
     'src/js/views/pickList-view',
     'src/js/views/item-view',
     'src/js/views/index-view',
-    'src/js/models/fingerprint.js',
+    'src/js/models/fingerprint',
     'bootstrap'
 ],
 
