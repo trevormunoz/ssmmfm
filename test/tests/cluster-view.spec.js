@@ -2,17 +2,19 @@
 
 define([
         'sinon',
+        'src/js/collections/seeds',
         'src/js/views/cluster-view',
         'fixtures/es/fixture',
         'helpers/fakeServer-helper'
-], function(sinon, ClusterView) {
+], function(sinon, Seeds, ClusterView) {
     'use strict';
 
     describe("View: Cluster", function(){
         describe("creation", function() {
 
             beforeEach(function() {
-                this.view = new ClusterView();
+                var seedsCollex = new Seeds();
+                this.view = new ClusterView({collection: seedsCollex});
             });
 
             afterEach(function() {
@@ -26,6 +28,10 @@ define([
 
             it("should target the correct selector for binding", function() {
                 expect(this.view.$el.selector).to.equal('#cluster');
+            });
+
+            it("should be backed by a collection", function(){
+                expect(this.view.collection).to.be.ok;
             });
 
             it("should initialize a subviews object", function(){
@@ -73,7 +79,8 @@ define([
                 this.server.autoRespond = true;
                 
                 var listenerSpy = sinon.spy(ClusterView.prototype, 'listenTo');
-                var view = new ClusterView();
+                var seedsCollex = new Seeds();
+                var view = new ClusterView({collection: seedsCollex});
                 
                 expect(listenerSpy.callCount).to.equal(2);
                 
@@ -83,6 +90,8 @@ define([
                 var listenerArgs = listenerSpy.args[0];
                 expect(listenerArgs[1]).to.equal('seedQuerySuccess');
 
+                view.remove();
+                view = null;
                 this.server.restore();
                 ClusterView.prototype.listenTo.restore();
             });
@@ -92,7 +101,8 @@ define([
         describe('initialization', function () {
 
             beforeEach(function() {
-                this.view = new ClusterView();
+                var seedsCollex = new Seeds();
+                this.view = new ClusterView({collection: seedsCollex});
             });
 
             afterEach(function() {
