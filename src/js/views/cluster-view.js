@@ -98,8 +98,9 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
         dedupeFingerprint: function(data) {
             var fingerprint = data;        
-                if (this.collection.where({value: fingerprint}) === [])  {
-                   var fingerprintModel = new Fingerprint({value: fingerprint});
+            var filter = this.collection.where({value: fingerprint});   
+            if (filter.length === 0)  {
+                    var fingerprintModel = new Fingerprint({value: fingerprint});
                     this.collection.add(fingerprintModel);
                     Backbone.trigger('fingerprintSuccess', fingerprint);
                 } else {
