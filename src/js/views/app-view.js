@@ -4,9 +4,10 @@ define([
     'backbone', 
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
+    'src/js/collections/seeds',
     'src/js/helpers'
 ],
-function(Backbone, ClusterView, MessageView) {
+function(Backbone, ClusterView, MessageView, Seeds) {
 'use strict';
 
     var AppView = Backbone.View.extend({
@@ -15,6 +16,10 @@ function(Backbone, ClusterView, MessageView) {
         
         initialize: function() {
         
+            // Set up seeds 
+            var seedsCollex = new Seeds();
+            var clusterView = new ClusterView({collection: seedsCollex});
+            
             // Set up subviews …
             var clusterView = new ClusterView();
             this.subviews.cluster = clusterView;

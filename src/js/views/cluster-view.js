@@ -97,11 +97,11 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView)
 
         dedupeFingerprint: function(data) {
             var fingerprint = data;
-
-            // Implement deduping logic
-
-            // For now, just pass through the value
-            Backbone.trigger('fingerprintSuccess', fingerprint);
+                if (fingerprint == item)  {
+                   Backbone.trigger('seedQueryDuplicate');
+                } else {
+                    Backbone.trigger('fingerprintSuccess', fingerprint);
+            };
 
         },
 
