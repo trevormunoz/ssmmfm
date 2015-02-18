@@ -19,7 +19,7 @@ function(Backbone, IndexTerm, TermView) {
         },
         
         initialize: function() {
-            this.listenTo(Backbone, 'seedQuerySuccess', this.createEntry);
+            this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.updateEntry);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
 
