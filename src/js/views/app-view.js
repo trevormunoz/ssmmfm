@@ -16,12 +16,9 @@ function(Backbone, ClusterView, MessageView, Seeds) {
         
         initialize: function() {
         
-            // Set up seeds 
+            // Set up subviews 
             var seedsCollex = new Seeds();
-            var clusterView = new ClusterView({collection: seedsCollex});
-            
-            // Set up subviews …
-            var clusterView = new ClusterView();
+            var clusterView = new ClusterView({collection: seedsCollex});            
             this.subviews.cluster = clusterView;
             
             var messageView = new MessageView();
