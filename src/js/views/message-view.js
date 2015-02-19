@@ -12,7 +12,7 @@ function(Backbone) {
 
         initialize: function() {
 
-            this.listenTo(Backbone, 'seedQuerySuccess', this.flashFingerprint);
+            this.listenTo(Backbone, 'fingerprintSuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'seedQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'seedQueryDuplicate', this.flashFailMessage);
             this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);

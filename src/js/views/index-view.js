@@ -66,7 +66,7 @@ function(Backbone, IndexTerm, TermView) {
             var item = this.collection.where({fingerprint_value: fingerprint});
             this.collection.remove(item);
             this.collection.pop();
-            Backbone.trigger('seedQuerySuccess', fingerprint);
+            Backbone.trigger('fingerprintSuccess', fingerprint);
             
         }
         
