@@ -79,19 +79,6 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                 that.resetCluster();
             });
 
-            Mousetrap.bind(['option+d', 'alt+d'], function() {
-                var selectedEl = $(document.activeElement)[0];
-                if (selectedEl.tagName === 'TR') {
-                    var selectedVal = $('tr:focus > td:first-child').text();
-                    var moddedVal = selectedVal.toLowerCase();
-                } else {
-                    pass;
-                }
-
-                Backbone.trigger('valueSelected', moddedVal);
-                that.resetCluster();
-            });
-
             Mousetrap.bind('w', function() {
                 $('#input-modal input').val("");
                 $('#input-modal').modal();
