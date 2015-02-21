@@ -3,11 +3,12 @@
 require(['config'], function() {
 
     require([
-        'src/js/views/app-view'
-    ], function(AppView) {
+        'src/js/routers/app-router'
+    ], function(AppRouter) {
         'use strict';
 
-        new AppView();
+        var router = new AppRouter();
+        Backbone.history.start();
 
     });
 });
