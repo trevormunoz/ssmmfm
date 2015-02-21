@@ -56,7 +56,7 @@ define([
 
         describe("initialization", function() {
 
-            it("should call the bootstrapCluster method on init", function() {
+            it("should respond to loadDefault event", function() {
                 this.fixture = this.fixtures.AppView.valid;
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
@@ -70,6 +70,7 @@ define([
                     AppView.prototype, 'bootstrapCluster'
                     );
                 var view = new AppView();
+                Backbone.trigger('loadDefault');
 
                 expect(bootstrapSpy.callCount).to.equal(1);
 
@@ -92,28 +93,22 @@ define([
                         this.validResponse(this.fixture)
                     );
                 this.server.autoRespond = true;
+
+                this.spy = sinon.spy($, 'ajax');
+                this.view = new AppView();
+                Backbone.trigger('loadDefault');
             });
 
             after(function() {
                 this.server.restore();
-            });
-
-            it("should make a jQuery ajax request", function() {
-                var ajaxSpy = sinon.spy($, 'ajax');
-                var view = new AppView();
-
-                expect(this.server.requests.length).to.equal(1);
-                expect(ajaxSpy.calledOnce).to.be.true;
-
+                this.view.remove();
                 $.ajax.restore();
             });
 
-            it("should pass the correct query as argument", function() {
-                var ajaxSpy = sinon.spy($, 'ajax');
-                var view = new AppView();
+            it("should send the correct query", function() {
                 
                 // spy.args[0] is array of arguments received in 1st call
-                var queryString = ajaxSpy.args[0][0].data;
+                var queryString = this.spy.args[0][0].data;
 
                 // Use regex to crudely test that expected components of
                 // query are present
@@ -122,8 +117,6 @@ define([
                 
                 expect(fingerprintRegex.test(queryString)).to.be.true;
                 expect(scoreRegex.test(queryString)).to.be.true;
-
-                $.ajax.restore();
             });
 
         });
