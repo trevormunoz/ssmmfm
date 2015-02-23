@@ -3,9 +3,11 @@
 define([
     'backbone', 
     'src/js/views/cluster-view', 
-    'src/js/views/message-view'
+    'src/js/views/message-view',
+    'src/js/collections/seeds',
+    'src/js/helpers'
 ],
-function(Backbone, ClusterView, MessageView) {
+function(Backbone, ClusterView, MessageView, Seeds) {
 'use strict';
 
     var AppView = Backbone.View.extend({
@@ -14,15 +16,13 @@ function(Backbone, ClusterView, MessageView) {
         
         initialize: function() {
         
-            // Set up subviews …
-            var clusterView = new ClusterView();
+            // Set up subviews 
+            var seedsCollex = new Seeds();
+            var clusterView = new ClusterView({collection: seedsCollex});            
             this.subviews.cluster = clusterView;
             
             var messageView = new MessageView();
             this.subviews.messages = messageView;
-
-            // And event listeners …
-            this.listenTo(Backbone, 'seedQuerySuccess', this.getFacets);
 
             // Start bootstrapping data …
             this.bootstrapCluster();
@@ -66,8 +66,8 @@ function(Backbone, ClusterView, MessageView) {
                         );
                 var seed = _.sample(potentialSeeds);
 
-                // Trigger an event on Backbone & send seed value
-                 Backbone.trigger('seedQuerySuccess', seed);
+                Backbone.trigger('seedQuerySuccess', seed);
+                    
             });
 
             // If something goes wrong with the request,
@@ -75,45 +75,6 @@ function(Backbone, ClusterView, MessageView) {
             seedQueryPromise.fail(function() {
                 Backbone.trigger('seedQueryFailure');
             });
-        },
-
-        getFacets: function(data) {
-            var fingerprintVal = data;
-
-            // Build up a query w/a filter and an aggregation
-            var queryObj = {};
-            var query = {};
-            var aggs = {};
-
-            // Filter to include only documents with this fingerprint
-            query.filtered = {};
-            query.filtered.query = { "match_all": {} };
-            query.filtered.filter = { "term": {
-                "dish_name_fingerprint": fingerprintVal}
-            };
-
-            // Aggregate by dish id
-            aggs.dish = {};
-            aggs.dish.terms = { "field": "dish_id", "size": 0};
-
-            //Sub-aggregation to get names & menus appeared
-            var subAgg = {};
-            subAgg.top_names = { "top_hits": {} };
-            subAgg.top_names.top_hits.size = 1;
-            subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
-            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
-
-            aggs.dish.aggregations = subAgg;
-
-            // Pull it all together
-            queryObj.size = 0;
-            queryObj.query = query;
-            queryObj.aggregations = aggs;
-            
-            var queryString = JSON.stringify(queryObj);
-
-            // Trigger an event on Backbone & send query string
-            Backbone.trigger('facetQuerySuccess', queryString);
         },
             
     });

@@ -19,7 +19,7 @@ function(Backbone, IndexTerm, TermView) {
         },
         
         initialize: function() {
-            this.listenTo(Backbone, 'seedQuerySuccess', this.createEntry);
+            this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.updateEntry);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
 
@@ -67,7 +67,7 @@ function(Backbone, IndexTerm, TermView) {
             var item = this.collection.where({fingerprint_value: fingerprint});
             this.collection.remove(item);
             this.collection.pop();
-            Backbone.trigger('seedQuerySuccess', fingerprint);
+            Backbone.trigger('fingerprintSuccess', fingerprint);
             
         }
         

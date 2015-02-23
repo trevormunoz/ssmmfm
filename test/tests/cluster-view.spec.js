@@ -2,15 +2,19 @@
 
 define([
         'sinon',
-        'src/js/views/cluster-view'
-], function(sinon, ClusterView) {
+        'src/js/collections/seeds',
+        'src/js/views/cluster-view',
+        'fixtures/es/fixture',
+        'helpers/fakeServer-helper'
+], function(sinon, Seeds, ClusterView) {
     'use strict';
 
     describe("View: Cluster", function(){
         describe("creation", function() {
 
             beforeEach(function() {
-                this.view = new ClusterView();
+                var seedsCollex = new Seeds();
+                this.view = new ClusterView({collection: seedsCollex});
             });
 
             afterEach(function() {
@@ -24,6 +28,10 @@ define([
 
             it("should target the correct selector for binding", function() {
                 expect(this.view.$el.selector).to.equal('#cluster');
+            });
+
+            it("should be backed by a collection", function(){
+                expect(this.view.collection).to.be.ok;
             });
 
             it("should initialize a subviews object", function(){
@@ -58,10 +66,43 @@ define([
             });                        
         });
 
+        describe('listeners', function () {
+           
+            it("should setup event listeners", function() {
+                this.fixture = this.fixtures.ClusterView.valid;
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search",
+                        this.validResponse(this.fixture)
+                    );
+                this.server.autoRespond = true;
+                
+                var listenerSpy = sinon.spy(ClusterView.prototype, 'listenTo');
+                var seedsCollex = new Seeds();
+                var view = new ClusterView({collection: seedsCollex});
+                
+                expect(listenerSpy.callCount).to.equal(2);
+                
+                // sinon.spy.args returns an array of args; 
+                // arg to the listenTo function is itself 
+                // an array of 3 arguments
+                var listenerArgs = listenerSpy.args[0];
+                expect(listenerArgs[1]).to.equal('seedQuerySuccess');
+
+                view.remove();
+                view = null;
+                this.server.restore();
+                ClusterView.prototype.listenTo.restore();
+            });
+
+        });
+
         describe('initialization', function () {
 
             beforeEach(function() {
-                this.view = new ClusterView();
+                var seedsCollex = new Seeds();
+                this.view = new ClusterView({collection: seedsCollex});
             });
 
             afterEach(function() {
@@ -77,7 +118,8 @@ define([
 
                 beforeEach(function () {
                     this.spy = sinon.spy(Mousetrap, 'bind');
-                    this.view = new ClusterView();
+                    var seedsCollex = new Seeds();
+                    this.view = new ClusterView({collection: seedsCollex});
                 });
 
                 afterEach(function () {
@@ -126,6 +168,45 @@ define([
                 expect(this.spy.calledThrice).to.be.true;
             });
             
+        });
+
+        describe('dedupe fingerprints', function () {
+            
+            before(function () {
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search"
+                    );
+                this.server.autoRespond = true;
+
+                this.spy = sinon.spy(ClusterView.prototype, 'getFacets');
+                var seedsCollex = new Seeds();
+                this.view = new ClusterView({collection: seedsCollex});
+            });
+
+            it('should deduplicate fingerprint values', function () {
+                
+                expect(this.spy).to.not.have.been.called;
+
+                this.view.dedupeFingerprint('coffee');
+                this.view.dedupeFingerprint('green peppers stuffed');
+                // Duplicate
+                this.view.dedupeFingerprint('coffee');
+
+                expect(this.spy.callCount).to.equal(2);
+                expect(this.view.collection.length).to.equal(2);
+
+            });
+
+            after(function () {
+                this.server.restore();
+                ClusterView.prototype.getFacets.restore();
+                this.view.collection.reset();
+                this.view.collection = null;
+                this.view.remove();
+                this.view = null;
+            });
         });
     });
 });

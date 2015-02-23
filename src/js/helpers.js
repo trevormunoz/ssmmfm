@@ -17,3 +17,12 @@ function timeStamp() {
 
     return date.join('-') + "T" + time.join(':');
 }
+
+function checkForDupe(seed) {
+    var result = this.collection.where({key: seed});
+    if (result === []) {
+        return 0;
+    } else {
+        return 1;
+    }
+}

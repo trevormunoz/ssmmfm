@@ -55,31 +55,6 @@ define([
         });
 
         describe("initialization", function() {
-            
-            it("should setup an event listener", function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://54.165.158.184/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
-                
-                var listenerSpy = sinon.spy(AppView.prototype, 'listenTo');
-                var view = new AppView();
-                
-                expect(listenerSpy.callCount).to.equal(1);
-                
-                // sinon.spy.args returns an array of args; 
-                // arg to the listenTo function is itself 
-                // an array of 3 arguments
-                var listenerArgs = listenerSpy.args[0];
-                expect(listenerArgs[1]).to.equal('seedQuerySuccess');
-
-                this.server.restore();
-                AppView.prototype.listenTo.restore();
-            });
 
             it("should call the bootstrapCluster method on init", function() {
                 this.fixture = this.fixtures.AppView.valid;
