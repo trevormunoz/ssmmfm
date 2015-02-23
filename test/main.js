@@ -11,6 +11,7 @@ require(['../src/js/config'], function() {
         'tests/cluster.spec',
         'tests/index.spec',
         'tests/seeds.spec',
+        'tests/app-router.spec',
         'tests/app-view.spec',
         'tests/cluster-view.spec',
         'tests/pickList-view.spec',

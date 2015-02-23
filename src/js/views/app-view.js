@@ -24,8 +24,8 @@ function(Backbone, ClusterView, MessageView, Seeds) {
             var messageView = new MessageView();
             this.subviews.messages = messageView;
 
-            // Start bootstrapping data …
-            this.bootstrapCluster();
+
+            this.listenTo(Backbone, 'loadDefault', this.bootstrapCluster);
         },
 
         bootstrapCluster: function() {
