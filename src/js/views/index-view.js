@@ -64,7 +64,7 @@ function(Backbone, IndexTerm, Dishes, TermView) {
                 data: {source: getAggregatedDishes(fingerprint)}, 
                 reset: true
             });
-            dishCollex.on('reset', setDishes);
+            this.listenTo(dishCollex, 'reset', setDishes);
 
             // Clean up
             _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
