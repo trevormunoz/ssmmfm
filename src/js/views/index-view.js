@@ -21,6 +21,7 @@ function(Backbone, IndexTerm, TermView) {
         initialize: function() {
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
+            this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
 
             this.listenTo(this.collection, 'add', this.render);
@@ -38,10 +39,15 @@ function(Backbone, IndexTerm, TermView) {
             var cleanData = data.trim();
 
             var latestTerm = this.collection.pop();
+            Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
             
             Backbone.trigger('entryAdded', this.collection.length);
+        },
+
+        setEntryDishes: function(data) {
+            window.console.log(data);
         },
 
         skipTerm: function() {
