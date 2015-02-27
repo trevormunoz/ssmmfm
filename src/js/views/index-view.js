@@ -20,7 +20,7 @@ function(Backbone, IndexTerm, TermView) {
         
         initialize: function() {
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
-            this.listenTo(Backbone, 'valueSelected', this.updateEntry);
+            this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
 
             this.listenTo(this.collection, 'add', this.render);
@@ -32,11 +32,11 @@ function(Backbone, IndexTerm, TermView) {
             term.set('date_created', timeStamp());
             this.collection.add(term);
 
-            Backbone.trigger('entryAdded', this.collection.length);
         },
 
-        updateEntry: function(data) {
+        setEntryTerm: function(data) {
             var cleanData = data.trim();
+
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
