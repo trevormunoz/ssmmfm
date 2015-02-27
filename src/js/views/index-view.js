@@ -3,11 +3,12 @@
 define([
     'backbone',
     'src/js/models/term',
+    'src/js/collections/dishes',
     'src/js/views/term-view',
     'src/js/helpers'
 ],
 
-function(Backbone, IndexTerm, TermView) {
+function(Backbone, IndexTerm, Dishes, TermView) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -39,15 +40,34 @@ function(Backbone, IndexTerm, TermView) {
             var cleanData = data.trim();
 
             var latestTerm = this.collection.pop();
-            Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
+            Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             
             Backbone.trigger('entryAdded', this.collection.length);
         },
 
         setEntryDishes: function(data) {
-            window.console.log(data);
+            var fingerprint = data
+            , item = this.collection.where({fingerprint_value: fingerprint})
+            , dishCollex = new Dishes();
+
+            var setDishes = function() {
+                if (item.length === 1) {
+                    item[0].set('dishes_aggregated', dishCollex.pluck('dish_id'));
+                } else {
+                    // Throw an error;
+                };
+            };
+
+            dishCollex.fetch({
+                data: {source: getAggregatedDishes(fingerprint)}, 
+                reset: true
+            });
+            dishCollex.on('reset', setDishes);
+
+            // Clean up
+            _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
         },
 
         skipTerm: function() {
