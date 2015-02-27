@@ -136,6 +136,71 @@ define(['mocha'], function() {
                 }
               },
 
+              Dishes: {
+                      valid: {
+                              "took": 2,
+                              "timed_out": false,
+                              "_shards": {
+                                "total": 5,
+                                "successful": 5,
+                                "failed": 0
+                              },
+                              "hits": {
+                                "total": 98,
+                                "max_score": 0,
+                                "hits": []
+                              },
+                              "aggregations": {
+                                "dishes": {
+                                  "doc_count_error_upper_bound": 0,
+                                  "sum_other_doc_count": 0,
+                                  "buckets": [
+                                    {
+                                      "key": 24668,
+                                      "doc_count": 83
+                                    },
+                                    {
+                                      "key": 14323,
+                                      "doc_count": 4
+                                    },
+                                    {
+                                      "key": 33041,
+                                      "doc_count": 2
+                                    },
+                                    {
+                                      "key": 199661,
+                                      "doc_count": 2
+                                    },
+                                    {
+                                      "key": 315770,
+                                      "doc_count": 2
+                                    },
+                                    {
+                                      "key": 197450,
+                                      "doc_count": 1
+                                    },
+                                    {
+                                      "key": 199042,
+                                      "doc_count": 1
+                                    },
+                                    {
+                                      "key": 274575,
+                                      "doc_count": 1
+                                    },
+                                    {
+                                      "key": 347598,
+                                      "doc_count": 1
+                                    },
+                                    {
+                                      "key": 423041,
+                                      "doc_count": 1
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                    },
+
             ClusterView: {
               valid: {
                   "took": 282,
@@ -1275,7 +1340,9 @@ define(['mocha'], function() {
                           ]
                         }
                       }
-                    }
+                    },
+
+
             }
         };
     });
