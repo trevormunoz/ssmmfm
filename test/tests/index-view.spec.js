@@ -33,5 +33,95 @@ define([
                 expect(this.view.collection).to.be.ok;
             });
         });
+
+        describe('enter/update terms', function () {
+            
+            beforeEach(function () {
+                var indexCollex = new Index();
+                this.view = new IndexView({collection: indexCollex});
+            });
+
+            afterEach(function () {
+                this.view.remove();
+                this.view = null;
+            });
+
+            it('should add a term', function () {
+                var dummyFingerprint = 'radishes';
+                this.view.createEntry(dummyFingerprint);
+                
+                expect(this.view.collection.length).to.equal(1);
+                var item = this.view.collection.shift();
+                
+                expect(item).to.be.instanceOf(Object);
+                expect(item).to.have.property("attributes");
+                expect(item.attributes).to.have.property('date_created');
+                expect(item.attributes).to.have.property('fingerprint_value', dummyFingerprint);
+                expect(item.attributes).to.not.have.property('index_term');
+                expect(item.attributes).to.not.have.property('dishes_aggregated');
+            });
+
+            it('should update a term', function () {
+                this.server = sinon.fakeServer.create();
+                // Server request is side effect; don't bother to send any data back
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search"
+                    );
+
+                var dummyFingerprint = 'cup per tea'
+                , dummyIndexTerm = 'cup of tea\t';
+
+                this.view.createEntry(dummyFingerprint);
+                this.view.setEntryTerm(dummyIndexTerm);
+
+                var item = this.view.collection.shift();
+                expect(item).to.be.instanceOf(Object);
+                expect(item).to.have.property("attributes");
+                expect(item.get('index_term')).to.be.ok;
+                expect(item.get('index_term')).to.equal('cup of tea');
+
+                expect(item.attributes).to.not.have.property('dishes_aggregated');
+
+                this.server.restore();
+            });
+
+        });
+
+        describe('aggregate dishes by fingerprint', function () {
+
+            beforeEach(function () {
+                this.spy = sinon.spy(IndexView.prototype, 'setEntryDishes');
+                var indexCollex = new Index();
+                this.view = new IndexView({collection: indexCollex});
+            });
+
+            afterEach(function () {
+                IndexView.prototype.setEntryDishes.restore();
+                this.view.remove();
+                this.view = null;
+            });
+
+            it('should trigger dish aggregation on term update', function () {
+                this.server = sinon.fakeServer.create();
+                this.server.respondWith(
+                        "GET",
+                        "http://54.165.158.184/menus/item/_search"
+                    );
+
+                var dummyFingerprint = 'cup per tea'
+                , dummyIndexTerm = 'cup of tea\t';
+
+                this.view.createEntry(dummyFingerprint);
+                this.view.setEntryTerm(dummyIndexTerm);
+
+                expect(this.spy.callCount).to.equal(1);
+                var spyCall = this.view.setEntryDishes.getCall(0);
+                expect(spyCall.args[0]).to.equal('cup per tea');
+
+                this.server.restore();
+            });
+
+        });
     });
 });
