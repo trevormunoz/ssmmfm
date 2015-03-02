@@ -3,11 +3,12 @@
 define([
     'backbone',
     'src/js/models/term',
+    'src/js/collections/dishes',
     'src/js/views/term-view',
     'src/js/helpers'
 ],
 
-function(Backbone, IndexTerm, TermView) {
+function(Backbone, IndexTerm, Dishes, TermView) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -20,7 +21,8 @@ function(Backbone, IndexTerm, TermView) {
         
         initialize: function() {
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
-            this.listenTo(Backbone, 'valueSelected', this.updateEntry);
+            this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
+            this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
 
             this.listenTo(this.collection, 'add', this.render);
@@ -32,16 +34,40 @@ function(Backbone, IndexTerm, TermView) {
             term.set('date_created', timeStamp());
             this.collection.add(term);
 
-            Backbone.trigger('entryAdded', this.collection.length);
         },
 
-        updateEntry: function(data) {
+        setEntryTerm: function(data) {
             var cleanData = data.trim();
+
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
+            Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             
             Backbone.trigger('entryAdded', this.collection.length);
+        },
+
+        setEntryDishes: function(data) {
+            var fingerprint = data
+            , item = this.collection.where({fingerprint_value: fingerprint})
+            , dishCollex = new Dishes();
+
+            var setDishes = function() {
+                if (item.length === 1) {
+                    item[0].set('dishes_aggregated', dishCollex.pluck('dish_id'));
+                } else {
+                    // Throw an error;
+                };
+            };
+
+            dishCollex.fetch({
+                data: {source: getAggregatedDishes(fingerprint)}, 
+                reset: true
+            });
+            this.listenTo(dishCollex, 'reset', setDishes);
+
+            // Clean up
+            _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
         },
 
         skipTerm: function() {

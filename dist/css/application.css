@@ -6839,6 +6839,10 @@ fieldset[disabled] .start-button.active {
 #index li {
   padding: 5px;
 }
+.glyphicon-ok {
+  font-size: 14px;
+  color: #eeeeee;
+}
 .body-section-heading {
   color: #3d2d2e;
 }

@@ -18,11 +18,19 @@ function timeStamp() {
     return date.join('-') + "T" + time.join(':');
 }
 
-function checkForDupe(seed) {
-    var result = this.collection.where({key: seed});
-    if (result === []) {
-        return 0;
-    } else {
-        return 1;
-    }
+function getAggregatedDishes(fingerprint) {
+    var queryObj = {}
+    , filterObj = {}
+    , aggObj = {};
+
+    filterObj.filter = {"term": {"dish_name_fingerprint": fingerprint}};
+    aggObj.dishes = {};
+    aggObj.dishes.terms = {"field": "dish_id", "size": 0};
+
+    queryObj.size = 0;
+    queryObj.query = {};
+    queryObj.query.filtered = filterObj;
+    queryObj.aggregations = aggObj;
+
+    return JSON.stringify(queryObj);
 }
