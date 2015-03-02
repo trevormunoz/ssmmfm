@@ -210,13 +210,20 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
             mltPromise.done(function(data) {
                 var hitsArr = data.hits.hits;
-                var newSeed = _.sample(hitsArr)._source.dish_name_fingerprint;
-                Backbone.trigger('seedQuerySuccess', newSeed);
+                try {
+                    var newSeed = _.sample(hitsArr)._source.dish_name_fingerprint;
+                    Backbone.trigger('seedQuerySuccess', newSeed);
+                } catch (e) {
+                    window.console.log(e);
+                    Backbone.trigger('loadDefault');
+                    
+                  }  
             });
 
-            mltPromise.fail(function() {
+            ///mltPromise.fail(function() {
+           ///     new AppView();
                 Backbone.trigger('mltQueryFailure');
-            });
+          ///  });
         },
 
         showContextModal: function(event) {
