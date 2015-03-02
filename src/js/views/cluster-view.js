@@ -80,7 +80,13 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             });
 
             Mousetrap.bind('w', function() {
-                $('#input-modal input').val("");
+                var selectedEl = $(document.activeElement)[0];
+                if (selectedEl.tagName === 'TR') {
+                    var selectedVal = $('tr:focus > td:first-child').text();
+                    $('#input-modal input').val(selectedVal);
+                } else {
+                    $('#input-modal input').val("");
+                };
                 $('#input-modal').modal();
                 $('#input-modal').on('shown.bs.modal', function() {
                     $('tr.variant').blur();
