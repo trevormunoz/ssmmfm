@@ -26,8 +26,21 @@ define([
             this.$tableBody.empty();
 
             this.collection.each(this.addRow, this);
-            $('tbody tr:first-child').focus();
+            
+            if (this.collection.length == 1) {
+                var model = this.collection.shift();
+                $('#input-modal input').val(model.get("name_value"));
+                $('#input-modal').modal();
+                $('#input-modal').on('shown.bs.modal', function() {
+                    $('tr.variant').blur();
+                    $('input.form-control text').focus();
+                });
+            } else {
+                $('tbody tr:first-child').focus();
+            };
+
             return this;
+            
         },
 
         addRow: function(dish) {
