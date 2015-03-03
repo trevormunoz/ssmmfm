@@ -1,10 +1,12 @@
 /*global define*/
 
 define([
-    'backbone'
+    'backbone',
+    'handlebars',
+    'text!src/js/templates/message-template.html'
 ],
 
-function(Backbone) {
+function(Backbone, Handlebars, messageTemplate) {
     'use strict';
     
     var MessageView = Backbone.View.extend ({
@@ -20,15 +22,17 @@ function(Backbone) {
             this.listenTo(Backbone, 'entryAdded', this.updateCount);
         },
 
+        messageTemplate: Handlebars.compile(messageTemplate),
+
         flashFingerprint: function(data) {
-            $('#message-body > p').empty();
-            $('#message-body > p').append('fingerprint: ' + data);
+            $('#message-body').empty();
+            $('#message-body').append(this.messageTemplate({message: 'fingerprint: ' + data}));
         },
 
         flashFailMessage: function() {
             $('tbody').empty();
-            $('#message-body > p').empty();
-            $('#message-body > p').append('Something went wrong. Try reloading the page.');
+            $('#message-body').empty();
+            $('#message-body').append(this.messageTemplate({message:'Something went wrong. Try reloading the page.'}));
         },
 
         updateCount: function(data) {
