@@ -55,6 +55,11 @@ function(Backbone, Handlebars, messageTemplate) {
 
         },
 
+        flashValueError: function() {
+            $('#message-body > p').empty();
+            $('#message-body > p').append('Please select a value.');
+        },
+
         updateCount: function(data) {
             $('#stats').empty();
             var count = Math.floor(data);
