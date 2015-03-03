@@ -17,6 +17,7 @@ function(Backbone) {
             this.listenTo(Backbone, 'seedQueryDuplicate', this.flashFailMessage);
             this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);
             this.listenTo(Backbone, 'mltQueryFailure', this.flashFailMessage);
+            this.listenTo(Backbone, 'selectedValueError', this.flashValueError);
             this.listenTo(Backbone, 'entryAdded', this.updateCount);
         },
 
@@ -29,6 +30,11 @@ function(Backbone) {
             $('tbody').empty();
             $('#message-body > p').empty();
             $('#message-body > p').append('Something went wrong. Try reloading the page.');
+        },
+
+        flashValueError: function() {
+            $('#message-body > p').empty();
+            $('#message-body > p').append('Please select a value.');
         },
 
         updateCount: function(data) {
