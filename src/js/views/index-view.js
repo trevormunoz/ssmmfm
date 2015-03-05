@@ -44,6 +44,9 @@ function(Backbone, IndexTerm, Dishes, TermView) {
             this.collection.add(latestTerm);
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             
+            if (this.collection.length % 5 === 0) {
+                this.collection.save();
+            };
             Backbone.trigger('entryAdded', this.collection.length);
         },
 
