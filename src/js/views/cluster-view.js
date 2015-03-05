@@ -221,7 +221,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             });
 
             mltPromise.fail(function() {
-                Backbone.trigger('mltQueryFailure');
+                Backbone.trigger('raiseError', 'mltQueryFailed');
                 Backbone.trigger('loadDefault');
             });
 
