@@ -122,7 +122,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                     this.collection.add(fingerprintModel);
                     Backbone.trigger('fingerprintSuccess', fingerprint);
                 } else {
-                    Backbone.trigger('seedQueryDuplicate');
+                    Backbone.trigger('raiseError', 'duplicateSeed');
             };
 
         },
@@ -222,7 +222,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
             ///mltPromise.fail(function() {
            ///     new AppView();
-                Backbone.trigger('mltQueryFailure');
+                Backbone.trigger('raiseError', 'mltQueryFailed');
           ///  });
         },
 

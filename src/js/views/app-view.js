@@ -73,7 +73,7 @@ function(Backbone, ClusterView, MessageView, Seeds) {
             // If something goes wrong with the request,
             // trigger a failure event on Backbone
             seedQueryPromise.fail(function() {
-                Backbone.trigger('seedQueryFailure');
+                Backbone.trigger('raiseError', 'failedSeedQuery');
             });
         },
             
