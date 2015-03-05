@@ -57,7 +57,8 @@ function(Backbone, IndexTerm, Dishes, TermView) {
 
             var setDishes = function() {
                 if (item.length === 1) {
-                    item[0].set('dishes_aggregated', dishCollex.pluck('dish_id'));
+                    var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return String(id);});
+                    item[0].set('dishes_aggregated', dishIds);
                 } else {
                     // Throw an error;
                 };
