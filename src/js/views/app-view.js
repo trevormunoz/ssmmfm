@@ -31,7 +31,7 @@ function(Backbone, ClusterView, MessageView, Seeds) {
         bootstrapCluster: function() {
             //Pick a random number between 0 & length of
             // document collection
-            var seedVal = _.random(0, 1315024);
+            var seedVal = _.random(0, 1321937);
 
             // Build up a query using this random id as seed
             var queryObj = {};
