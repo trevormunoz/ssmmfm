@@ -8,7 +8,7 @@ define([
 
     var Dishes = Backbone.Collection.extend({
         model: Dish,
-        url: 'http://54.165.158.184/menus/item/_search',
+        url: 'http://52.0.128.38/menus/item/_search',
         parse: function(response) {
             var bucketsArr =  response.aggregations.dishes.buckets;
 

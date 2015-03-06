@@ -204,7 +204,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             // but for now, fire off an AJAX call directly
             var mltPromise = $.ajax({
                 type: 'GET',
-                url: 'http://54.165.158.184/menus/item/_search',
+                url: 'http://52.0.128.38/menus/item/_search',
                 data: $.param({source: queryString})
             });
 

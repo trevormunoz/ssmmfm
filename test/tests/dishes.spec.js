@@ -43,7 +43,7 @@ define([
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                         "GET",
-                        "http://54.165.158.184/menus/item/_search",
+                        "http://52.0.128.38/menus/item/_search",
                         this.validResponse(this.fixture)
                     );
                 this.dishes = new Dishes();

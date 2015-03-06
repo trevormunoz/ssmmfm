@@ -35,7 +35,7 @@ define([
             });
 
             it("should default url property to es search url", function() {
-                expect(this.cluster.url).to.equal('http://54.165.158.184/menus/item/_search');
+                expect(this.cluster.url).to.equal('http://52.0.128.38/menus/item/_search');
             });
 
             it("can be instantiated from a collection of models", function() {
@@ -60,7 +60,7 @@ define([
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                         "GET",
-                        "http://54.165.158.184/menus/item/_search",
+                        "http://52.0.128.38/menus/item/_search",
                         this.validResponse(this.fixture)
                     );
                 this.cluster = new Cluster();
@@ -78,7 +78,7 @@ define([
 
                     expect(this.server.requests.length).to.equal(1);
                     expect(this.server.requests[0].method).to.equal("GET");
-                    expect(this.server.requests[0].url).to.equal("http://54.165.158.184/menus/item/_search");
+                    expect(this.server.requests[0].url).to.equal("http://52.0.128.38/menus/item/_search");
                 });
 
                 // This is testing application code

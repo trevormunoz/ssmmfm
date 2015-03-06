@@ -5,7 +5,7 @@ define(['backbone'], function(Backbone) {
 
 var MenuItem = Backbone.Model.extend({
     
-    urlRoot: 'http://54.165.158.184/menus/item/',
+    urlRoot: 'http://52.0.128.38/menus/item/',
 
     });
 
