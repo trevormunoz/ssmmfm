@@ -6835,6 +6835,8 @@ fieldset[disabled] .start-button.active {
 #index {
   padding-left: 0;
   list-style: none;
+  height: 500px;
+  overflow-y: auto;
 }
 #index li {
   padding: 5px;
