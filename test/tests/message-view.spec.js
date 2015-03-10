@@ -31,30 +31,121 @@ define([
         describe("initialization", function() {
 
             beforeEach(function() {
+
                 this.spy = sinon.spy(MessageView.prototype, 
-                    'flashFailMessage');
+                    'render');
                 this.view = new MessageView();
             });
 
             afterEach(function() {
-                MessageView.prototype.flashFailMessage.restore();
+                MessageView.prototype.render.restore();
+                this.view.remove();
                 this.view = null;
             });
 
-            it("should respond to a seedQueryFailure event", function() {
+            it("should respond to raiseError events: failedSeedQuery", function() {
 
                 expect(this.spy).to.not.have.been.called;
-                Backbone.trigger('seedQueryFailure');
-                expect(this.spy.callCount).to.equal(1);
+                Backbone.trigger('raiseError', 'failedSeedQuery');
+                var testArgs = {'parent': '#message-body',
+                                'message': 'Replace me with a better error message.'};
+                expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
+
             });
 
-            it("should respond to a facetQueryFailure event", function() {
+            it("should respond to raiseError events: duplicateSeed", function() {
 
                 expect(this.spy).to.not.have.been.called;
-                Backbone.trigger('facetQueryFailure');
-                expect(this.spy.callCount).to.equal(1);
+                Backbone.trigger('raiseError', 'duplicateSeed');
+                var testArgs = {'parent': '#message-body',
+                                'message': 'Replace me with a better error message.'};
+                expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
+
             });
 
+            it("should respond to raiseError events: getFacetsFailed", function() {
+
+                expect(this.spy).to.not.have.been.called;
+                Backbone.trigger('raiseError', 'getFacetsFailed');
+                var testArgs = {'parent': '#message-body',
+                                'message': 'Replace me with a better error message.'};
+                expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
+
+            });
+
+            it("should respond to raiseError events: mltQueryFailed", function() {
+
+                expect(this.spy).to.not.have.been.called;
+                Backbone.trigger('raiseError', 'mltQueryFailed');
+                var testArgs = {'parent': '#message-body',
+                                'message': 'Replace me with a better error message.'};
+                expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
+
+            });
+
+            it("should respond to raiseError events: unexpected value", function() {
+
+                expect(this.spy).to.not.have.been.called;
+                Backbone.trigger('raiseError', 'unknownError');
+                var testArgs = {'parent': '#message-body',
+                                'message': 'Something went wrong. Try reloading the page.'};
+                expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
+
+            });
+
+        });
+
+        describe('render', function () {
+
+            before(function () {
+                this.$fixture = $('<div id="message-view-fixture"></div>');
+            });
+
+            beforeEach(function () {
+                this.$fixture.empty().appendTo($('#sandbox'));
+                this.view = new MessageView();
+            });
+
+            afterEach(function () {
+                this.view.remove();
+                this.view = null;
+            });
+
+            after(function () {
+                $('#sandbox').empty();
+            });
+
+            it('should render the correct HTML for fingerprints', function () {
+                this.$fixture.append('<div id="message-body"></div>')
+                Backbone.trigger('fingerprintSuccess', 'boiled potatoes');
+
+                expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('fingerprint: boiled potatoes');
+            });
+            
+            it('should render the correct HTML for messages: known error', function () {
+                this.$fixture.append('<div id="message-body"></div>')
+                Backbone.trigger('raiseError', 'failedSeedQuery');
+
+                expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('Replace me with a better error message.');
+            });
+
+            it('should render the correct HTML for messages: unknown error', function () {
+                this.$fixture.append('<div id="message-body"></div>')
+                Backbone.trigger('raiseError', 'strangeError');
+
+                expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('Something went wrong. Try reloading the page.');
+            });
+
+            it('should render the correct HTML for stats', function () {
+                this.$fixture.append('<div id="stats"></div>');
+                Backbone.trigger('entryAdded', 7);
+
+                expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('7 clusters reviewed');
+            });
         });
     });
 });

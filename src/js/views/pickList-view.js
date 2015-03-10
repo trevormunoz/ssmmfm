@@ -18,7 +18,16 @@ define([
 
         buildCluster: function(data) {
             var queryString = data;
-            this.collection.fetch({data: {source: queryString}, reset: true});
+
+            var fetchError = function(jqXHR, textStatus, errorThrown) {
+                Backbone.trigger('raiseError', 'getFacetsFailed');
+            };
+
+            this.collection.fetch({
+                    data: {source: queryString}, 
+                    reset: true, 
+                    error: fetchError}
+                );
 
         },
 

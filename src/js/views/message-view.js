@@ -15,10 +15,7 @@ function(Backbone, Handlebars, messageTemplate) {
         initialize: function() {
 
             this.listenTo(Backbone, 'fingerprintSuccess', this.flashFingerprint);
-            this.listenTo(Backbone, 'seedQueryFailure', this.flashFailMessage);
-            this.listenTo(Backbone, 'seedQueryDuplicate', this.flashFailMessage);
-            this.listenTo(Backbone, 'facetQueryFailure', this.flashFailMessage);
-            this.listenTo(Backbone, 'mltQueryFailure', this.flashFailMessage);
+            this.listenTo(Backbone, 'raiseError', this.flashFailMessage);
             this.listenTo(Backbone, 'entryAdded', this.updateCount);
         },
 
@@ -26,13 +23,36 @@ function(Backbone, Handlebars, messageTemplate) {
 
         flashFingerprint: function(data) {
             $('#message-body').empty();
-            $('#message-body').append(this.messageTemplate({message: 'fingerprint: ' + data}));
+            var fingerprintMsg = 'fingerprint: ' + data;
+            this.render({'parent': '#message-body', 'message': fingerprintMsg});
         },
 
-        flashFailMessage: function() {
+        flashFailMessage: function(data) {
+            var errorType = data;
+
             $('tbody').empty();
             $('#message-body').empty();
-            $('#message-body').append(this.messageTemplate({message:'Something went wrong. Try reloading the page.'}));
+            
+            switch(errorType) {
+                case "failedSeedQuery":
+                    var errorMsg = 'Replace me with a better error message.';
+                    break;
+                case "duplicateSeed": 
+                    var errorMsg = 'Replace me with a better error message.';
+                    break;
+                case "getFacetsFailed":
+                    var errorMsg = 'Replace me with a better error message.';
+                    break;
+                case "mltQueryFailed":
+                    var errorMsg = 'Replace me with a better error message.';
+                    break;
+                default:
+                    var errorMsg = 'Something went wrong. Try reloading the page.';
+                    break;
+            }
+            
+            this.render({'parent': '#message-body', 'message': errorMsg});
+
         },
 
         updateCount: function(data) {
@@ -40,11 +60,21 @@ function(Backbone, Handlebars, messageTemplate) {
             var count = Math.floor(data);
 
             if ( count <= 1) {
-                $('#stats').append('<p>'+ data + ' cluster reviewed</p>');
+                var statsMsg = data + ' cluster reviewed';
             } else {
-                $('#stats').append('<p>'+ data + ' clusters reviewed</p>');
-            };   
-        }
+                var statsMsg = data + ' clusters reviewed';
+            };
+
+            this.render({'parent': '#stats', 'message': statsMsg});
+        },
+
+        render: function(data) {
+            var parentSelector = data.parent;
+            var val = data.message;
+
+            $(parentSelector).append(this.messageTemplate( { message: val }));
+            return this;
+        },
         
         });
         
