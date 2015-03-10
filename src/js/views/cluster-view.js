@@ -224,7 +224,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 Backbone.trigger('loadDefault');
             });
->>>>>>> Fix so mltQueryFailure does not trigger on every submit
+            
         },
 
         showContextModal: function(event) {
