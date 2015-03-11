@@ -6430,6 +6430,10 @@ body {
   color: #777777;
   font-style: italic;
 }
+#modal-message p {
+  color: #777777;
+  font-style: italic;
+}
 .users {
   margin-left: -15px;
   margin-right: -15px;
