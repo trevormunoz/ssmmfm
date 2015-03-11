@@ -48,7 +48,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'failedSeedQuery');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'Replace me with a better error message.'};
+                                'message': 'Seed query failed.'};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
@@ -58,7 +58,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'duplicateSeed');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'Replace me with a better error message.'};
+                                'message': 'We already saw that seed!'};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
@@ -68,7 +68,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'getFacetsFailed');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'Replace me with a better error message.'};
+                                'message': 'We failed to get the facets.'};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
@@ -78,7 +78,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'Replace me with a better error message.'};
+                                'message': 'We did not find more like this.'};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
