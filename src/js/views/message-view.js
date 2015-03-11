@@ -16,6 +16,7 @@ function(Backbone, Handlebars, messageTemplate) {
 
             this.listenTo(Backbone, 'fingerprintSuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'raiseError', this.flashFailMessage);
+            this.listenTo(Backbone, 'modalError', this.flashModalMessage);
             this.listenTo(Backbone, 'entryAdded', this.updateCount);
         },
 
@@ -30,7 +31,6 @@ function(Backbone, Handlebars, messageTemplate) {
         flashFailMessage: function(data) {
             var errorType = data;
 
-            $('tbody').empty();
             $('#message-body').empty();
             
             switch(errorType) {
@@ -46,6 +46,9 @@ function(Backbone, Handlebars, messageTemplate) {
                 case "mltQueryFailed":
                     var errorMsg = 'Replace me with a better error message.';
                     break;
+                case "noValueSelected":
+                    var errorMsg = 'Please select a value.';
+                    break;
                 default:
                     var errorMsg = 'Something went wrong. Try reloading the page.';
                     break;
@@ -53,6 +56,22 @@ function(Backbone, Handlebars, messageTemplate) {
             
             this.render({'parent': '#message-body', 'message': errorMsg});
 
+        },
+
+        flashModalMessage: function(data) {
+            var errorType = data;
+            $('#modal-message').empty();
+            
+            switch(errorType) {
+                case "emptyInput":
+                    var errorMsg = 'Please input a value.';
+                    break;
+                default:
+                    var errorMsg = 'Something went wrong. Try reloading the page.';
+                    break;
+            }
+
+            this.render({'parent': '#modal-message', 'message': errorMsg});
         },
 
         updateCount: function(data) {
