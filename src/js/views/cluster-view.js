@@ -248,14 +248,23 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
         closeInputModal: function() {
             var selectedVal = $('#input-modal input').val();
-            Backbone.trigger('valueSelected', selectedVal);
-            this.resetCluster();
-            $('#input-modal').modal('hide');
+            if (selectedVal !== '') {
+                Backbone.trigger('valueSelected', selectedVal);
+                $('#input-modal').modal('hide');
+                this.resetCluster();
+            } else {
+                Backbone.trigger('modalError', 'emptyInput');
+            };
+            $('#input-modal').on('hidden.bs.modal', function() {
+                    $('div#modal-message').empty();
+                });
+            
         },
-        
+
         helpKeyModal: function(event) {
             $('#help-modal').modal();
         },
+
     });
 
 return ClusterView;
