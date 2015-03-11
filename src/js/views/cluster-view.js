@@ -220,10 +220,11 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                   }  
             });
 
-            ///mltPromise.fail(function() {
-           ///     new AppView();
+            mltPromise.fail(function() {
                 Backbone.trigger('raiseError', 'mltQueryFailed');
-          ///  });
+                Backbone.trigger('loadDefault');
+            });
+            
         },
 
         showContextModal: function(event) {
