@@ -30,7 +30,6 @@ function(Backbone, Handlebars, messageTemplate) {
         flashFailMessage: function(data) {
             var errorType = data;
 
-            $('tbody').empty();
             $('#message-body').empty();
             
             switch(errorType) {
