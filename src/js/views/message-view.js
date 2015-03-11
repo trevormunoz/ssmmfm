@@ -45,6 +45,9 @@ function(Backbone, Handlebars, messageTemplate) {
                 case "mltQueryFailed":
                     var errorMsg = 'We did not find more like this.';
                     break;
+                case "noValueSelected":
+                    var errorMsg = 'Please select a value.';
+                    break;
                 default:
                     var errorMsg = 'Something went wrong. Try reloading the page.';
                     break;
