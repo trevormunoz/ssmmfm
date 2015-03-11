@@ -243,7 +243,9 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
         },
 
         closeInputModal: function() {
-            Mousetrap.trigger('s');
+            var selectedVal = $('#input-modal input').val();
+            Backbone.trigger('valueSelected', selectedVal);
+            this.resetCluster();
             $('#input-modal').modal('hide');
         }
     });
