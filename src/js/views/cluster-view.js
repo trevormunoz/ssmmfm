@@ -71,24 +71,24 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                 var selectedEl = $(document.activeElement)[0];
                 if (selectedEl.tagName === 'TR') {
                     var selectedVal = $('tr:focus > td:first-child').text();
+                    Backbone.trigger('valueSelected', selectedVal);
+                    that.resetCluster();
                 } else {
-                    var selectedVal = $('#input-modal input').val();
+                    Backbone.trigger('raiseError', 'noValueSelected');
                 }
 
-                Backbone.trigger('valueSelected', selectedVal);
-                that.resetCluster();
             });
 
             Mousetrap.bind('option+s', function() {
                 var selectedEl = $(document.activeElement)[0];
                 if (selectedEl.tagName === 'TR') {
                     var selectedVal = $('tr:focus > td:first-child').text().toLowerCase();
+                    Backbone.trigger('valueSelected', selectedVal);
+                    that.resetCluster();
                 } else {
-                    var selectedVal = $('#input-modal input').val();
+                    Backbone.trigger('raiseError', 'noValueSelected');
                 }
 
-                Backbone.trigger('valueSelected', selectedVal);
-                that.resetCluster();
             });
 
             Mousetrap.bind('w', function() {
