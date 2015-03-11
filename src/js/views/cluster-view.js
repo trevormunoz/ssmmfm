@@ -113,7 +113,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             });
             
             Mousetrap.bind('h', function() {
-                $('#help-modal');
+                $('#help-modal').modal();
             });
 
         },
@@ -252,7 +252,6 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
         },
         
         helpKeyModal: function(event) {
-            Mousetrap.trigger('h');
             $('#help-modal').modal();
         },
     });
