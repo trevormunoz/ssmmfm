@@ -249,7 +249,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
         closeInputModal: function() {
             Mousetrap.trigger('s');
             $('#input-modal').modal('hide');
-        }
+        },
         
         helpKeyModal: function(event) {
             Mousetrap.trigger('h');
