@@ -111,6 +111,10 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                 window.console.log(last);
                 last.click();
             });
+            
+            Mousetrap.bind('h', function() {
+                $('#help-modal');
+            });
 
         },
 
@@ -246,6 +250,11 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             Mousetrap.trigger('s');
             $('#input-modal').modal('hide');
         }
+        
+        helpKeyModal: function(event) {
+            Mousetrap.trigger('h');
+            $('#help-modal').modal();
+        },
     });
 
 return ClusterView;
