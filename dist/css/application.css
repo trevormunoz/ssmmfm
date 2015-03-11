@@ -6430,6 +6430,10 @@ body {
   color: #777777;
   font-style: italic;
 }
+#modal-message p {
+  color: #777777;
+  font-style: italic;
+}
 .users {
   margin-left: -15px;
   margin-right: -15px;
@@ -6835,6 +6839,8 @@ fieldset[disabled] .start-button.active {
 #index {
   padding-left: 0;
   list-style: none;
+  height: 500px;
+  overflow-y: auto;
 }
 #index li {
   padding: 5px;

@@ -108,6 +108,13 @@ body {
     }
 }
 
+#modal-message {
+    p {
+        color: @gray-light;
+        font-style: italic;
+    }
+}
+
 .users {
     .make-row();
     margin-top: 120px;
@@ -177,6 +184,8 @@ body {
 
 #index {
     .list-unstyled();
+    height: 500px;
+    overflow-y:auto;
     li {
         padding: 5px;
     }
