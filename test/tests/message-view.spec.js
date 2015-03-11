@@ -48,7 +48,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'failedSeedQuery');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'Replace me with a better error message.'};
+                                'message': 'Seed query failed.'};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
