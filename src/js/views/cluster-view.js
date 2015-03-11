@@ -257,8 +257,12 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             $('#input-modal').on('hidden.bs.modal', function() {
                     $('div#modal-message').empty();
                 });
-            
-        }
+
+        },
+
+        helpKeyModal: function(event) {
+            $('#help-modal').modal();
+        },
 
     });
 
