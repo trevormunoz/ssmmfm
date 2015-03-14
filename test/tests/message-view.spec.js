@@ -128,7 +128,7 @@ define([
                 Backbone.trigger('raiseError', 'failedSeedQuery');
 
                 expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
-                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('Replace me with a better error message.');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('Seed query failed.');
             });
 
             it('should render the correct HTML for messages: unknown error', function () {
