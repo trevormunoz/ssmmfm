@@ -2,8 +2,9 @@
 
 define([
         'backbone',
+        'underscore',
         'src/js/models/dish'
-], function(Backbone, Dish) {
+], function(Backbone, _, Dish) {
     'use strict';
 
     var Dishes = Backbone.Collection.extend({

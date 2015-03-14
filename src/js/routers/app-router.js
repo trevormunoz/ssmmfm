@@ -2,9 +2,8 @@
 
 define([
         'backbone',
-        'src/js/views/app-view',
-        'src/js/views/cluster-view'
-], function(Backbone, AppView, ClusterView) {
+        'src/js/views/app-view'
+], function(Backbone, AppView) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend({
