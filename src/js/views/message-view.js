@@ -35,16 +35,16 @@ function(Backbone, Handlebars, messageTemplate) {
             
             switch(errorType) {
                 case "failedSeedQuery":
-                    var errorMsg = 'Replace me with a better error message.';
+                    var errorMsg = 'Seed query failed.';
                     break;
                 case "duplicateSeed": 
-                    var errorMsg = 'Replace me with a better error message.';
+                    var errorMsg = 'We already saw that seed!';
                     break;
                 case "getFacetsFailed":
-                    var errorMsg = 'Replace me with a better error message.';
+                    var errorMsg = 'We failed to get the facets.';
                     break;
                 case "mltQueryFailed":
-                    var errorMsg = 'Replace me with a better error message.';
+                    var errorMsg = 'We did not find more like this.';
                     break;
                 case "noValueSelected":
                     var errorMsg = 'Please select a value.';
