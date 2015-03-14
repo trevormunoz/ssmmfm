@@ -31,7 +31,9 @@ define([
             
             var savePromise = $.ajax({
                 type: 'POST',
-                url: 'http://54.165.158.184/_bulk',
+                url: 'http://52.0.128.38/_bulk',
+                contentType: 'application/json',
+                processData: false,
                 xhrFields: {
                     withCredentials: true
                 },
