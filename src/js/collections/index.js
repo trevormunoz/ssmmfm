@@ -32,10 +32,17 @@ define([
             var savePromise = $.ajax({
                 type: 'POST',
                 url: 'http://54.165.158.184/_bulk',
-                data: $.param({index: forUpload})
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: forUpload
             });
 
             savePromise.done(function(data) {
+                window.console.log(data);
+            });
+
+            savePromise.fail(function(data) {
                 window.console.log(data);
             });
         },
