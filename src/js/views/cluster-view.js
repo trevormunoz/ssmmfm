@@ -260,10 +260,6 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
         },
 
-        helpKeyModal: function(event) {
-            $('#help-modal').modal();
-        },
-
     });
 
 return ClusterView;
