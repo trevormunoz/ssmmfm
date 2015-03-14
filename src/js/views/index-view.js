@@ -1,14 +1,16 @@
-/*global define*/
+/*global define, timeStamp, getAggregatedDishes*/
 
 define([
     'backbone',
+    'underscore',
+    'jquery',
     'src/js/models/term',
     'src/js/collections/dishes',
     'src/js/views/term-view',
     'src/js/helpers'
 ],
 
-function(Backbone, IndexTerm, Dishes, TermView) {
+function(Backbone, _, $, IndexTerm, Dishes, TermView) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -57,7 +59,7 @@ function(Backbone, IndexTerm, Dishes, TermView) {
                     item[0].set('dishes_aggregated', dishCollex.pluck('dish_id'));
                 } else {
                     // Throw an error;
-                };
+                }
             };
 
             dishCollex.fetch({

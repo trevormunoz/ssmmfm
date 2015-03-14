@@ -2,8 +2,9 @@
 
 define([
         'backbone',
+        'underscore',
         'src/js/models/item'
-], function(Backbone, MenuItem) {
+], function(Backbone, _, MenuItem) {
     'use strict';
 
     var Cluster = Backbone.Collection.extend({
