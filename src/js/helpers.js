@@ -1,3 +1,6 @@
+/* jshint shadow:true */
+/* exported timeStamp,getAggregatedDishes */
+
 function timeStamp() {
     var now = new Date();
     var date = [now.getFullYear(), now.getMonth() + 1, now.getDate()];
