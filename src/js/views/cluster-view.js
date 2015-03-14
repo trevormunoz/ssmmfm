@@ -180,7 +180,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
 
         resetCluster: function() {
             $('.modal').modal('hide');
-            
+            this.openModal = false;
+
             var rowEls = $('.variant');
             
             var sample = function(elArray) {
