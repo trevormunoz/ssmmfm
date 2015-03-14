@@ -51,7 +51,7 @@ function(Backbone, _, $, ClusterView, MessageView, Seeds) {
             // a random scoring function --- i.e., get 10 random docs
             var seedQueryPromise = $.ajax({
                 type: 'GET',
-                url: 'http://52.0.128.38/menus/item/_search',
+                url: 'http://api.publicfare.org/menus/item/_search',
                 data: $.param({source: queryString})
             });
 
