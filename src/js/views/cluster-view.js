@@ -48,7 +48,6 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
             var that = this;
             Mousetrap.bind('space', function() {
                 Backbone.trigger('clusterSkipped');
-                $('.modal').modal('hide');
                 that.resetCluster();
             });
 
@@ -180,6 +179,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
         },        
 
         resetCluster: function() {
+            $('.modal').modal('hide');
+            
             var rowEls = $('.variant');
             
             var sample = function(elArray) {
