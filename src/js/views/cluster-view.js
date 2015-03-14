@@ -214,7 +214,6 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                     var newSeed = _.sample(hitsArr)._source.dish_name_fingerprint;
                     Backbone.trigger('seedQuerySuccess', newSeed);
                 } catch (e) {
-                    window.console.log(e);
                     Backbone.trigger('loadDefault');
                     
                   }  
