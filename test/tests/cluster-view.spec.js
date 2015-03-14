@@ -142,7 +142,6 @@ define([
                     expect(this.spy.withArgs('w').calledOnce).to.be.true;
                     expect(this.spy.withArgs('j').calledOnce).to.be.true;
                     expect(this.spy.withArgs('option+s').calledOnce).to.be.true;
-                    expect(this.spy.withArgs('h').calledOnce).to.be.true;
                 });         
             });            
             
