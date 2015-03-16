@@ -20,7 +20,7 @@ define([
             it('can construct a valid URL given an id', function() {
                 var item = new MenuItem({id: "184236"});
 
-                expect(item.url()).to.equal('http://52.0.128.38/menus/item/184236');
+                expect(item.url()).to.equal('http://api.publicfare.org/menus/item/184236');
             });
 
             it('can be instantiated w/supplied values', function() {
@@ -46,7 +46,7 @@ define([
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                         "GET",
-                        "http://52.0.128.38/menus/item/" + this.fixture._id,
+                        "http://api.publicfare.org/menus/item/" + this.fixture._id,
                         this.validResponse(this.fixture)
                     );
                 this.item = new MenuItem({id: this.fixture._id});
@@ -62,7 +62,7 @@ define([
 
                     expect(this.server.requests.length).to.equal(1);
                     expect(this.server.requests[0].method).to.equal("GET");
-                    expect(this.server.requests[0].url).to.equal("http://52.0.128.38/menus/item/" + this.fixture._id);
+                    expect(this.server.requests[0].url).to.equal("http://api.publicfare.org/menus/item/" + this.fixture._id);
                 });
 
                 it("should parse an item from response", function(done){

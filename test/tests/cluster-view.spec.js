@@ -73,7 +73,7 @@ define([
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                         "GET",
-                        "http://52.0.128.38/menus/item/_search",
+                        "http://api.publicfare.org/menus/item/_search",
                         this.validResponse(this.fixture)
                     );
                 this.server.autoRespond = true;
@@ -129,7 +129,7 @@ define([
                 });
                 
                 it('should have Mousetrap bindings for keyboard events', function() {
-                    expect(this.spy.callCount).to.equal(9);
+                    expect(this.spy.callCount).to.equal(10);
                 });
 
                 it('should bind the correct keys', function() {
@@ -142,6 +142,7 @@ define([
                     expect(this.spy.withArgs('w').calledOnce).to.be.true;
                     expect(this.spy.withArgs('j').calledOnce).to.be.true;
                     expect(this.spy.withArgs('option+s').calledOnce).to.be.true;
+                    expect(this.spy.withArgs('h').calledOnce).to.be.true;
                 });         
             });            
             
@@ -177,7 +178,7 @@ define([
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                         "GET",
-                        "http://52.0.128.38/menus/item/_search"
+                        "http://api.publicfare.org/menus/item/_search"
                     );
                 this.server.autoRespond = true;
 

@@ -2,11 +2,12 @@
 
 define([
     'backbone',
+    'jquery',
     'handlebars',
     'text!src/js/templates/message-template.html'
 ],
 
-function(Backbone, Handlebars, messageTemplate) {
+function(Backbone, $, Handlebars, messageTemplate) {
     'use strict';
     
     var MessageView = Backbone.View.extend ({
@@ -32,57 +33,49 @@ function(Backbone, Handlebars, messageTemplate) {
             var errorType = data;
 
             $('#message-body').empty();
+
+            var errorMessages = {
+                'failedSeedQuery': 'Seed query failed.',
+                'duplicateSeed': 'We already saw that seed!',
+                'getFacetsFailed': 'We failed to get the facets.',
+                'mltQueryFailed': 'We did not find more like this.',
+                'noValueSelected': 'Please select a value.',
+            };
             
-            switch(errorType) {
-                case "failedSeedQuery":
-                    var errorMsg = 'Seed query failed.';
-                    break;
-                case "duplicateSeed": 
-                    var errorMsg = 'We already saw that seed!';
-                    break;
-                case "getFacetsFailed":
-                    var errorMsg = 'We failed to get the facets.';
-                    break;
-                case "mltQueryFailed":
-                    var errorMsg = 'We did not find more like this.';
-                    break;
-                case "noValueSelected":
-                    var errorMsg = 'Please select a value.';
-                    break;
-                default:
-                    var errorMsg = 'Something went wrong. Try reloading the page.';
-                    break;
+            if (errorMessages[errorType]) {
+                this.render({'parent': '#message-body', 'message': errorMessages[errorType]});
+            } else {
+                this.render({'parent': '#message-body', 'message': 'Something went wrong. Try reloading the page.'});
             }
-            
-            this.render({'parent': '#message-body', 'message': errorMsg});
 
         },
 
         flashModalMessage: function(data) {
             var errorType = data;
             $('#modal-message').empty();
-            
-            switch(errorType) {
-                case "emptyInput":
-                    var errorMsg = 'Please input a value.';
-                    break;
-                default:
-                    var errorMsg = 'Something went wrong. Try reloading the page.';
-                    break;
-            }
 
-            this.render({'parent': '#modal-message', 'message': errorMsg});
+            var errorMessages = {
+                'emptyInput': 'Please input a value.'
+            };
+
+            if (errorMessages[errorType]) {
+                this.render({'parent': '#modal-message', 'message': errorMessages[errorType]});
+            } else {
+                this.render({'parent': '#message-body', 'message': 'Something went wrong. Try reloading the page.'});
+            }
+            
         },
 
         updateCount: function(data) {
             $('#stats').empty();
             var count = Math.floor(data);
 
+            var statsMsg = 0;
             if ( count <= 1) {
-                var statsMsg = data + ' cluster reviewed';
+                statsMsg = data + ' cluster reviewed';
             } else {
-                var statsMsg = data + ' clusters reviewed';
-            };
+                statsMsg = data + ' clusters reviewed';
+            }
 
             this.render({'parent': '#stats', 'message': statsMsg});
         },

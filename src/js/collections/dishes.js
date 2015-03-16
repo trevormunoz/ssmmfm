@@ -2,13 +2,14 @@
 
 define([
         'backbone',
+        'underscore',
         'src/js/models/dish'
-], function(Backbone, Dish) {
+], function(Backbone, _, Dish) {
     'use strict';
 
     var Dishes = Backbone.Collection.extend({
         model: Dish,
-        url: 'http://52.0.128.38/menus/item/_search',
+        url: 'http://api.publicfare.org/menus/item/_search',
         parse: function(response) {
             var bucketsArr =  response.aggregations.dishes.buckets;
 

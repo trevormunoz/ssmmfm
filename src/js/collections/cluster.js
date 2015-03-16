@@ -2,13 +2,14 @@
 
 define([
         'backbone',
+        'underscore',
         'src/js/models/item'
-], function(Backbone, MenuItem) {
+], function(Backbone, _, MenuItem) {
     'use strict';
 
     var Cluster = Backbone.Collection.extend({
         model: MenuItem,
-        url: 'http://52.0.128.38/menus/item/_search',
+        url: 'http://api.publicfare.org/menus/item/_search',
 
         parse: function(response) {
             var responseArr = response.aggregations.dish.buckets;
