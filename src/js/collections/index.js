@@ -8,7 +8,7 @@ define([
 
     var Index = Backbone.Collection.extend({
         model: IndexTerm,
-        url: 'http://54.165.158.184/public_fare/term/_search',
+        url: 'http://api.publicfare.org/public_fare/term/_search',
 
         parse: function(response) {
             return response.hits.hits;
@@ -31,7 +31,7 @@ define([
             
             var savePromise = $.ajax({
                 type: 'POST',
-                url: 'http://52.0.128.38/_bulk',
+                url: 'http://api.publicfare.org/_bulk',
                 contentType: 'application/json',
                 processData: false,
                 xhrFields: {
