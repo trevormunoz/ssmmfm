@@ -2,8 +2,9 @@
 
 define([
         'backbone',
+        'jquery',
         'src/js/views/listRow-view'
-], function(Backbone, RowView) {
+], function(Backbone, $, RowView) {
     'use strict';
     
     var PickListView = Backbone.View.extend ({
@@ -46,7 +47,7 @@ define([
                 });
             } else {
                 $('tbody tr:first-child').focus();
-            };
+            }
 
             return this;
             

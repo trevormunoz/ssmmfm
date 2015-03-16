@@ -2,6 +2,8 @@
 
 define([
     'backbone',
+    'underscore',
+    'jquery',
     'mousetrap',
     'src/js/collections/index', 
     'src/js/collections/cluster',
@@ -12,7 +14,7 @@ define([
     'bootstrap'
 ],
 
-function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint) {
+function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
@@ -98,7 +100,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                     $('#input-modal input').val(selectedVal);
                 } else {
                     $('#input-modal input').val("");
-                };
+                }
+
                 $('#input-modal').modal();
                 $('#input-modal').on('shown.bs.modal', function() {
                     $('tr.variant').blur();
@@ -127,7 +130,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                     Backbone.trigger('fingerprintSuccess', fingerprint);
                 } else {
                     Backbone.trigger('raiseError', 'duplicateSeed');
-            };
+            }
 
         },
 
@@ -178,7 +181,7 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                     return _.sample(elArray, 3);
                 } else {
                     return elArray;
-                };
+                }
             };
 
             var dishIds = _.map(
@@ -253,7 +256,8 @@ function(Backbone, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView,
                 this.resetCluster();
             } else {
                 Backbone.trigger('modalError', 'emptyInput');
-            };
+            }
+
             $('#input-modal').on('hidden.bs.modal', function() {
                     $('div#modal-message').empty();
                 });

@@ -2,11 +2,12 @@
 
 define([
     'backbone',
+    'jquery',
     'handlebars',
     'text!src/js/templates/message-template.html'
 ],
 
-function(Backbone, Handlebars, messageTemplate) {
+function(Backbone, $, Handlebars, messageTemplate) {
     'use strict';
     
     var MessageView = Backbone.View.extend ({
@@ -45,7 +46,7 @@ function(Backbone, Handlebars, messageTemplate) {
                 this.render({'parent': '#message-body', 'message': errorMessages[errorType]});
             } else {
                 this.render({'parent': '#message-body', 'message': 'Something went wrong. Try reloading the page.'});
-            };
+            }
 
         },
 
@@ -61,7 +62,7 @@ function(Backbone, Handlebars, messageTemplate) {
                 this.render({'parent': '#modal-message', 'message': errorMessages[errorType]});
             } else {
                 this.render({'parent': '#message-body', 'message': 'Something went wrong. Try reloading the page.'});
-            };
+            }
             
         },
 
@@ -69,11 +70,12 @@ function(Backbone, Handlebars, messageTemplate) {
             $('#stats').empty();
             var count = Math.floor(data);
 
+            var statsMsg = 0;
             if ( count <= 1) {
-                var statsMsg = data + ' cluster reviewed';
+                statsMsg = data + ' cluster reviewed';
             } else {
-                var statsMsg = data + ' clusters reviewed';
-            };
+                statsMsg = data + ' clusters reviewed';
+            }
 
             this.render({'parent': '#stats', 'message': statsMsg});
         },

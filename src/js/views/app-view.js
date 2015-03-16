@@ -1,13 +1,15 @@
 /*global define*/
 
 define([
-    'backbone', 
+    'backbone',
+    'underscore', 
+    'jquery',
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
     'src/js/collections/seeds',
     'src/js/helpers'
 ],
-function(Backbone, ClusterView, MessageView, Seeds) {
+function(Backbone, _, $, ClusterView, MessageView, Seeds) {
 'use strict';
 
     var AppView = Backbone.View.extend({
@@ -79,7 +81,7 @@ function(Backbone, ClusterView, MessageView, Seeds) {
             
     });
      
-    return AppView
+    return AppView;
        
 });
     
