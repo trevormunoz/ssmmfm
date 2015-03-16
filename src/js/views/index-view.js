@@ -45,10 +45,6 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
-            
-            if (this.collection.length % 5 === 0) {
-                this.collection.save();
-            };
             Backbone.trigger('entryAdded', this.collection.length);
         },
 
@@ -64,6 +60,11 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
                 } else {
                     // Throw an error;
                 }
+
+                if (this.collection.length % 5 === 0) {
+                    this.collection.save();
+                }
+
             };
 
             dishCollex.fetch({
