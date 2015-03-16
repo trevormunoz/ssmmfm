@@ -7,7 +7,7 @@ define([
     'src/js/models/term',
     'src/js/collections/dishes',
     'src/js/views/term-view',
-    'src/js/helpers'
+    'src/js/helpers/utils'
 ],
 
 function(Backbone, _, $, IndexTerm, Dishes, TermView) {

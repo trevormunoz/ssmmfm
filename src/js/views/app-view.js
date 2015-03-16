@@ -4,12 +4,12 @@ define([
     'backbone',
     'underscore', 
     'jquery',
+    'src/js/helpers/server', 
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
     'src/js/collections/seeds',
-    'src/js/helpers'
-],
-function(Backbone, _, $, ClusterView, MessageView, Seeds) {
+    'src/js/helpers/utils'
+], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds) {
 'use strict';
 
     var AppView = Backbone.View.extend({
