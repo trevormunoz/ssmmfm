@@ -2,8 +2,9 @@
 
 define([
         'backbone',
+        'src/js/helpers/server',
         'src/js/models/term'
-], function(Backbone, IndexTerm) {
+], function(Backbone, esClient, IndexTerm) {
     'use strict';
 
     var Index = Backbone.Collection.extend({
@@ -15,37 +16,19 @@ define([
         },
 
         save: function() {
-            
-            // Turn the array of models into an
-            // array of actions for bulk upload
-            var forUpload = _.map(this.models, 
-                    function(model){
-                        var esAction = {
-                            "index": "public_fare",
-                            "type": "term",
-                            "_source": model
-                        };
 
-                        return JSON.stringify(esAction);
-                    });
-            
-            var savePromise = $.ajax({
-                type: 'POST',
-                url: 'http://api.publicfare.org/_bulk',
-                contentType: 'application/json',
-                processData: false,
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: forUpload
+            var uploadPromise = esClient.bulk({
+                index: 'public_fare',
+                type: 'term',
+                body: this.toJSON()
             });
 
-            savePromise.done(function(data) {
-                window.console.log(data);
+            uploadPromise.then(function(data) {
+                window.console.log(data.items);
             });
 
-            savePromise.fail(function(data) {
-                window.console.log(data);
+            uploadPromise.catch(function(data) {
+                window.console.error(data.message.message);
             });
         },
     });
