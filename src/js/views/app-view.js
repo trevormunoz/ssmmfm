@@ -35,11 +35,11 @@ define([
             });
 
             serverPromise.then(function() {
-                window.console.log("All is well!");
+                window.console.log('Elasticsearch cluster: All is well!');
             });
 
             serverPromise.catch(function() {
-                window.console.error('elasticsearch cluster is down!');
+                window.console.error('Elasticsearch cluster is down!');
             });
         },
 
