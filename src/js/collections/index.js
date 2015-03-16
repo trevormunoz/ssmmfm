@@ -9,27 +9,11 @@ define([
 
     var Index = Backbone.Collection.extend({
         model: IndexTerm,
-        url: 'http://api.publicfare.org/public_fare/term/_search',
-
-        parse: function(response) {
-            return response.hits.hits;
-        },
 
         save: function() {
 
-            var uploadPromise = esClient.bulk({
-                index: 'public_fare',
-                type: 'term',
-                body: this.toJSON()
-            });
+            // Do something;
 
-            uploadPromise.then(function(data) {
-                window.console.log(data.items);
-            });
-
-            uploadPromise.catch(function(data) {
-                window.console.error(data.message.message);
-            });
         },
     });
 
