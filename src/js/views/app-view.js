@@ -4,12 +4,13 @@ define([
     'backbone',
     'underscore', 
     'jquery',
+    'src/js/helpers/server', 
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
     'src/js/collections/seeds',
-    'src/js/helpers'
-],
-function(Backbone, _, $, ClusterView, MessageView, Seeds) {
+    'src/js/helpers/utils'
+], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds) {
+>>>>>>> save_terms
 'use strict';
 
     var AppView = Backbone.View.extend({
@@ -26,8 +27,22 @@ function(Backbone, _, $, ClusterView, MessageView, Seeds) {
             var messageView = new MessageView();
             this.subviews.messages = messageView;
 
-
             this.listenTo(Backbone, 'loadDefault', this.bootstrapCluster);
+
+            // Smoke test for server
+            var serverPromise = esClient.ping({
+                requestTimeout: 1000,
+                hello: "elasticsearch!"
+            });
+
+            serverPromise.then(function() {
+                window.console.log('Elasticsearch cluster: All is well!');
+            });
+
+            serverPromise.catch(function() {
+                Backbone.trigger('raiseError', 'serverError');
+                window.console.error('Elasticsearch cluster is down!');
+            });
         },
 
         bootstrapCluster: function() {

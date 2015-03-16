@@ -7,7 +7,7 @@ define([
     'src/js/models/term',
     'src/js/collections/dishes',
     'src/js/views/term-view',
-    'src/js/helpers'
+    'src/js/helpers/utils'
 ],
 
 function(Backbone, _, $, IndexTerm, Dishes, TermView) {
@@ -45,7 +45,6 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
-            
             Backbone.trigger('entryAdded', this.collection.length);
         },
 
@@ -56,10 +55,19 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
 
             var setDishes = function() {
                 if (item.length === 1) {
-                    item[0].set('dishes_aggregated', dishCollex.pluck('dish_id'));
+                    var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
+                    item[0].set('dishes_aggregated', dishIds);
                 } else {
                     // Throw an error;
                 }
+<<<<<<< HEAD
+=======
+
+                if (this.collection.length % 5 === 0) {
+                    this.collection.save();
+                }
+
+>>>>>>> save_terms
             };
 
             dishCollex.fetch({

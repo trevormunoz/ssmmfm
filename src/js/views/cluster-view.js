@@ -240,7 +240,7 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 Backbone.trigger('loadDefault');
             });
-            
+
         },
 
         showContextModal: function(event) {
