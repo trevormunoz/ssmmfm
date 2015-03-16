@@ -10,7 +10,7 @@ define([
     'src/js/collections/seeds',
     'src/js/helpers/utils'
 ], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds) {
->>>>>>> save_terms
+
 'use strict';
 
     var AppView = Backbone.View.extend({

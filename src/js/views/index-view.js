@@ -60,14 +60,11 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
                 } else {
                     // Throw an error;
                 }
-<<<<<<< HEAD
-=======
 
                 if (this.collection.length % 5 === 0) {
                     this.collection.save();
                 }
 
->>>>>>> save_terms
             };
 
             dishCollex.fetch({
