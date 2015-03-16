@@ -26,8 +26,21 @@ define([
             var messageView = new MessageView();
             this.subviews.messages = messageView;
 
-
             this.listenTo(Backbone, 'loadDefault', this.bootstrapCluster);
+
+            // Smoke test for server
+            var serverPromise = esClient.ping({
+                requestTimeout: 1000,
+                hello: "elasticsearch!"
+            });
+
+            serverPromise.then(function() {
+                window.console.log("All is well!");
+            });
+
+            serverPromise.catch(function() {
+                window.console.error('elasticsearch cluster is down!');
+            });
         },
 
         bootstrapCluster: function() {

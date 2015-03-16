@@ -1,8 +1,6 @@
 /* global define */
 
-define([
-        'es'
-], function(elasticsearch) {
+define(['elasticsearch'], function(elasticsearch) {
     'use strict';
 
     var esClient = new elasticsearch.Client({
