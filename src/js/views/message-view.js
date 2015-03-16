@@ -40,6 +40,7 @@ function(Backbone, $, Handlebars, messageTemplate) {
                 'getFacetsFailed': 'We failed to get the facets.',
                 'mltQueryFailed': 'We did not find more like this.',
                 'noValueSelected': 'Please select a value.',
+                'serverError': 'Server is unavailable. Try reloading the page.'
             };
             
             if (errorMessages[errorType]) {

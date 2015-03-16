@@ -39,6 +39,7 @@ define([
             });
 
             serverPromise.catch(function() {
+                Backbone.trigger('raiseError', 'serverError');
                 window.console.error('Elasticsearch cluster is down!');
             });
         },
