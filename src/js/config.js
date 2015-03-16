@@ -25,6 +25,9 @@ require.config({
         mousetrap: {
             exports: 'Mousetrap'
         },
+        elasticsearch: {
+            exports: 'elasticsearch'
+        },
         mocha: {
             exports: 'mocha'
         },
@@ -43,6 +46,7 @@ require.config({
         bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
         backbone: 'bower_components/backbone/backbone',
         mousetrap: 'bower_components/mousetrap/mousetrap.min',
+        elasticsearch: 'bower_components/elasticsearch/elasticsearch.min',
         text: 'bower_components/requirejs-text/text',
         mocha: 'bower_components/mocha/mocha',
         chai: 'bower_components/chai/chai',
