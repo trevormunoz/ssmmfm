@@ -90,7 +90,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
 
         addTerm: function(term) {
             var view = new TermView({model: term});
-            this.$el.append(view.render());
+            this.$el.prepend(view.render());
         },
         
         editIndexTerm: function(event) { 
