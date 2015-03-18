@@ -19,7 +19,7 @@ define([
                 body: query
             });
 
-            fetchPromise.done(function(response) {
+            fetchPromise.then(function(response) {
                 var data = that.parse(response);
                 that.reset(data);
             }, function(err) {
