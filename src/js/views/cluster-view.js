@@ -9,14 +9,13 @@ define([
     'src/js/collections/index', 
     'src/js/collections/cluster',
     'src/js/views/pickList-view',
-    'src/js/views/item-view',
     'src/js/views/index-view',
     'src/js/models/fingerprint',
     'src/js/helpers/queries',
     'bootstrap'
 ],
 
-function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint, Queries) {
+function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, IndexView, Fingerprint, Queries) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
