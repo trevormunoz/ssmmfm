@@ -68,10 +68,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
 
             };
 
-            dishCollex.fetch({
-                data: {source: Queries.getAggregatedDishes(fingerprint)}, 
-                reset: true
-            });
+            dishCollex.fetch(Queries.getAggregatedDishes(fingerprint));
             this.listenTo(dishCollex, 'reset', setDishes);
 
             // Clean up
