@@ -36,9 +36,6 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Item
             var cluster = new Cluster();
             var picker = new PickListView({collection: cluster});
             this.subviews.picker = picker;
-
-            var viewer = new ItemView();
-            this.subviews.viewer = viewer;
             
             var indexCollex = new Index();
             var index = new IndexView({collection: indexCollex});
@@ -131,7 +128,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Item
         },
 
         cleanUp: function() {
-            
+
             _.each(this.subviews, function(subview) {
                 if(subview) {
                     subview.remove();
