@@ -4,6 +4,7 @@ define([
     'backbone',
     'underscore',
     'jquery',
+    'src/js/helpers/server',
     'mousetrap',
     'src/js/collections/index', 
     'src/js/collections/cluster',
@@ -15,7 +16,7 @@ define([
     'bootstrap'
 ],
 
-function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint, Queries) {
+function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint, Queries) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
@@ -173,15 +174,12 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
                     }
                 );
 
-            // Later we may create a collection to handle fetch,
-            // but for now, fire off an AJAX call directly
-            var mltPromise = $.ajax({
-                type: 'GET',
-                url: 'http://api.publicfare.org/menus/item/_search',
-                data: $.param({source: Queries.getMlt(dishIds)})
+            var mltPromise = esClient.search({
+                index: 'menus',
+                body: Queries.getMlt(dishIds)
             });
 
-            mltPromise.done(function(data) {
+            mltPromise.then(function(data) {
                 var hitsArr = data.hits.hits;
                 try {
                     var newSeed = _.sample(hitsArr)._source.dish_name_fingerprint;
@@ -192,7 +190,7 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
                   }  
             });
 
-            mltPromise.fail(function() {
+            mltPromise.catch(function() {
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 Backbone.trigger('loadDefault');
             });
