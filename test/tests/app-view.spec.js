@@ -80,45 +80,5 @@ define([
 
         });
 
-        // This test only indicates that there should be a call to a 
-        // 'bootstrapCluster' method on initialization of AppView; 
-        describe("bootstrapping", function() {
-
-            before(function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
-
-                this.spy = sinon.spy($, 'ajax');
-                this.view = new AppView();
-                Backbone.trigger('loadDefault');
-            });
-
-            after(function() {
-                this.server.restore();
-                this.view.remove();
-                $.ajax.restore();
-            });
-
-            it("should send the correct query", function() {
-                
-                // spy.args[0] is array of arguments received in 1st call
-                var queryString = this.spy.args[0][0].data;
-
-                // Use regex to crudely test that expected components of
-                // query are present
-                var fingerprintRegex = /dish_name_fingerprint/g;
-                var scoreRegex = /random_score/g;
-                
-                expect(fingerprintRegex.test(queryString)).to.be.true;
-                expect(scoreRegex.test(queryString)).to.be.true;
-            });
-
-        });
     });
 });
