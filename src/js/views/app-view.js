@@ -30,6 +30,12 @@ define([
             this.listenTo(Backbone, 'loadDefault', this.bootstrapCluster);
 
             // Smoke test for server
+            this.checkServer();
+
+        },
+
+        checkServer: function() {
+
             var serverPromise = esClient.ping({
                 requestTimeout: 1000,
                 hello: "elasticsearch!"
@@ -42,7 +48,6 @@ define([
                 window.console.error('Elasticsearch cluster is down!');
                 window.console.error(err.message);
             });
-
         },
 
         bootstrapCluster: function() {
