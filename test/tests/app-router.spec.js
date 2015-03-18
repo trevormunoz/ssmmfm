@@ -1,18 +1,21 @@
 /* global define */
 
 define([
+        'sinon',
         '../../src/js/routers/app-router'
-], function(AppRouter) {
+], function(sinon, AppRouter) {
     'use strict';
 
     describe('Routers: AppRouter', function () {
         describe('creation', function () {
 
             beforeEach(function () {
+                this.stub = sinon.stub(AppRouter.prototype, 'initialize')
                 this.router = new AppRouter();
             });
 
             afterEach(function () {
+                AppRouter.prototype.initialize.restore();
                 this.router = null;
             });
 
