@@ -54,7 +54,7 @@ define(['underscore'], function(_) {
             queryObj.query = query;
             queryObj.aggregations = aggs;
             
-            return JSON.stringify(queryObj);
+            return queryObj;
         },
 
         getAggregatedDishes: function(fingerprint) {
@@ -71,7 +71,7 @@ define(['underscore'], function(_) {
             queryObj.query.filtered = filterObj;
             queryObj.aggregations = aggObj;
 
-            return JSON.stringify(queryObj);
+            return queryObj;
         },
 
         getMlt: function(idList) {
