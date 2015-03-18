@@ -190,7 +190,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Item
                   }  
             });
 
-            mltPromise.catch(function() {
+            mltPromise.catch(function(e) {
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 Backbone.trigger('loadDefault');
             });

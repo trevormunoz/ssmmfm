@@ -39,7 +39,7 @@ define([
                 window.console.log('Elasticsearch cluster: All is well!');
             });
 
-            serverPromise.catch(function() {
+            serverPromise.catch(function(e) {
                 Backbone.trigger('raiseError', 'serverError');
                 window.console.error('Elasticsearch cluster is down!');
             });
@@ -74,7 +74,7 @@ define([
 
             // If something goes wrong with the request,
             // trigger a failure event on Backbone
-            seedQueryPromise.catch(function() {
+            seedQueryPromise.catch(function(e) {
                 Backbone.trigger('raiseError', 'failedSeedQuery');
             });
         },
