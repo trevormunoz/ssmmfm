@@ -3,8 +3,7 @@
 define([
         'sinon',
         '../../src/js/views/app-view',
-        'fixtures/es/fixture',
-        'helpers/fakeServer-helper'
+        'fixtures/es/fixture'
 ], function(sinon, AppView) {
     'use strict';
 
@@ -12,20 +11,11 @@ define([
         describe("creation", function(){
 
             beforeEach(function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
                 this.stub = sinon.stub(AppView.prototype, 'checkServer');
                 this.app = new AppView();
             });
 
             afterEach(function() {
-                this.server.restore();
                 AppView.prototype.checkServer.restore();
                 this.app.remove();
                 this.app = null;
@@ -54,33 +44,32 @@ define([
             it("should initialize a subview for messages", function() {
                 expect(this.app.subviews.messages).to.be.ok;                
             });
+
+            it("should check that the server is up", function() {
+                expect(this.stub.callCount).to.equal(1);
+            });
         });
 
-        // describe("initialization", function() {
+        describe("events", function() {
 
-        //     it("should respond to loadDefault event", function() {
-        //         this.fixture = this.fixtures.AppView.valid;
-        //         this.server = sinon.fakeServer.create();
-        //         this.server.respondWith(
-        //                 "GET",
-        //                 "http://api.publicfare.org/menus/item/_search",
-        //                 this.validResponse(this.fixture)
-        //             );
-        //         this.server.autoRespond = true;
+            it("should respond to loadDefault event", function() {
 
-        //         var bootstrapSpy = sinon.spy(
-        //             AppView.prototype, 'bootstrapCluster'
-        //             );
-        //         var view = new AppView();
-        //         Backbone.trigger('loadDefault');
+                var serverStub = sinon.stub(AppView.prototype, 'checkServer');
+                var bootstrapStub = sinon.stub(
+                    AppView.prototype, 'bootstrapCluster'
+                    );
+                var view = new AppView();
+                Backbone.trigger('loadDefault');
 
-        //         expect(bootstrapSpy.callCount).to.equal(1);
+                expect(bootstrapStub.callCount).to.equal(1);
 
-        //         this.server.restore();
-        //         AppView.prototype.bootstrapCluster.restore();
-        //     });
+                AppView.prototype.checkServer.restore();
+                AppView.prototype.bootstrapCluster.restore();
+            });
 
-        // });
+        });
+
+        //TODO: Test server ping and seed query functions directly
 
     });
 });
