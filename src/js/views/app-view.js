@@ -34,6 +34,18 @@ define([
 
         },
 
+        cleanUp: function() {
+
+            _.each(this.subviews, function(subview) {
+                if(subview) {
+                    subview.remove();
+                }
+            });
+
+            this.remove();
+            
+        },
+
         checkServer: function() {
 
             var serverPromise = esClient.ping({

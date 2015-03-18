@@ -130,6 +130,17 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Item
 
         },
 
+        cleanUp: function() {
+            
+            _.each(this.subviews, function(subview) {
+                if(subview) {
+                    subview.remove();
+                }
+            });
+
+            this.remove();
+        },
+
         dedupeFingerprint: function(data) {
             var fingerprint = data;        
             var filter = this.collection.where({value: fingerprint});   
