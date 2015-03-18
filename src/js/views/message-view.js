@@ -36,8 +36,8 @@ function(Backbone, $, Handlebars, messageTemplate) {
 
             var errorMessages = {
                 'dishAggFailed': "Couldn't get dishes associated with this cluster.",
-                'failedSeedQuery': 'Seed query failed.',
                 'duplicateSeed': 'We already saw that seed!',
+                'failedSeedQuery': 'Seed query failed.',
                 'getFacetsFailed': 'We failed to get the facets.',
                 'mltQueryFailed': 'We did not find more like this.',
                 'noValueSelected': 'Please select a value.',
