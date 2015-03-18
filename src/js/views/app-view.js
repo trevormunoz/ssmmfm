@@ -46,34 +46,19 @@ define([
         },
 
         bootstrapCluster: function() {
-            //Pick a random number between 0 & length of
-            // document collection
-            var seedVal = _.random(0, 1321937);
-
-            // Build up a query using this random id as seed
-            var queryObj = {};
-
-            queryObj.fields = ["dish_name_fingerprint"];
-            queryObj.query = {};
-
-            queryObj.query.function_score = {};
-            queryObj.query.function_score.query = {"match_all": {}};
-            queryObj.query.function_score.functions = [{"random_score": {"seed": seedVal}}];
-
-            var queryString = JSON.stringify(queryObj);
+            var seedQuery = getRandomSeed();
 
             // Issue a full text search against all documents using
             // a random scoring function --- i.e., get 10 random docs
-            var seedQueryPromise = $.ajax({
-                type: 'GET',
-                url: 'http://api.publicfare.org/menus/item/_search',
-                data: $.param({source: queryString})
+            var seedQueryPromise = esClient.search({
+                index: 'menus',
+                body: seedQuery
             });
 
             // 10 documents is default response length; 
             // pick one, again at random, and use its fingerprint
             // value to define first cluster
-            seedQueryPromise.done(function(data) {
+            seedQueryPromise.then(function(data) {
                 var hitsArr = data.hits.hits;
                 var potentialSeeds = _.map(
                         hitsArr, 
@@ -89,7 +74,7 @@ define([
 
             // If something goes wrong with the request,
             // trigger a failure event on Backbone
-            seedQueryPromise.fail(function() {
+            seedQueryPromise.catch(function() {
                 Backbone.trigger('raiseError', 'failedSeedQuery');
             });
         },
