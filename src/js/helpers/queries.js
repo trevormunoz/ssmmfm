@@ -91,7 +91,7 @@ define(['underscore'], function(_) {
             return queryObj;
         },        
 
-    }
+    };
 
     return Queries;
 });
