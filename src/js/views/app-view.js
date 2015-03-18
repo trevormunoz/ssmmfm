@@ -37,12 +37,12 @@ define([
 
             serverPromise.then(function() {
                 window.console.log('Elasticsearch cluster: All is well!');
-            });
-
-            serverPromise.catch(function(e) {
+            }, function(err) {
                 Backbone.trigger('raiseError', 'serverError');
                 window.console.error('Elasticsearch cluster is down!');
+                window.console.error(err.message);
             });
+
         },
 
         bootstrapCluster: function() {
@@ -69,14 +69,13 @@ define([
                 var seed = _.sample(potentialSeeds);
 
                 Backbone.trigger('seedQuerySuccess', seed);
-                    
-            });
-
-            // If something goes wrong with the request,
-            // trigger a failure event on Backbone
-            seedQueryPromise.catch(function(e) {
+            
+                // If something goes wrong with the request,
+                // trigger a failure event on Backbone
+            }, function(err) {
                 Backbone.trigger('raiseError', 'failedSeedQuery');
             });
+
         },
             
     });
