@@ -54,31 +54,31 @@ define([
             });
         });
 
-        describe("initialization", function() {
+        // describe("initialization", function() {
 
-            it("should respond to loadDefault event", function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
+        //     it("should respond to loadDefault event", function() {
+        //         this.fixture = this.fixtures.AppView.valid;
+        //         this.server = sinon.fakeServer.create();
+        //         this.server.respondWith(
+        //                 "GET",
+        //                 "http://api.publicfare.org/menus/item/_search",
+        //                 this.validResponse(this.fixture)
+        //             );
+        //         this.server.autoRespond = true;
 
-                var bootstrapSpy = sinon.spy(
-                    AppView.prototype, 'bootstrapCluster'
-                    );
-                var view = new AppView();
-                Backbone.trigger('loadDefault');
+        //         var bootstrapSpy = sinon.spy(
+        //             AppView.prototype, 'bootstrapCluster'
+        //             );
+        //         var view = new AppView();
+        //         Backbone.trigger('loadDefault');
 
-                expect(bootstrapSpy.callCount).to.equal(1);
+        //         expect(bootstrapSpy.callCount).to.equal(1);
 
-                this.server.restore();
-                AppView.prototype.bootstrapCluster.restore();
-            });
+        //         this.server.restore();
+        //         AppView.prototype.bootstrapCluster.restore();
+        //     });
 
-        });
+        // });
 
     });
 });

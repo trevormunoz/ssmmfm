@@ -10,61 +10,61 @@ define([
     'use strict';
 
     describe("View: Cluster", function(){
-        describe("creation", function() {
+        // describe("creation", function() {
 
-            beforeEach(function() {
-                var seedsCollex = new Seeds();
-                this.view = new ClusterView({collection: seedsCollex});
-            });
+        //     beforeEach(function() {
+        //         var seedsCollex = new Seeds();
+        //         this.view = new ClusterView({collection: seedsCollex});
+        //     });
 
-            afterEach(function() {
-                this.view.remove();
-                this.view = null;
-            });
+        //     afterEach(function() {
+        //         this.view.remove();
+        //         this.view = null;
+        //     });
 
-            it("should exist", function() {
-                expect(this.view).to.be.ok;
-            });
+        //     it("should exist", function() {
+        //         expect(this.view).to.be.ok;
+        //     });
 
-            it("should target the correct selector for binding", function() {
-                expect(this.view.$el.selector).to.equal('#cluster');
-            });
+        //     it("should target the correct selector for binding", function() {
+        //         expect(this.view.$el.selector).to.equal('#cluster');
+        //     });
 
-            it("should be backed by a collection", function(){
-                expect(this.view.collection).to.be.ok;
-            });
+        //     it("should be backed by a collection", function(){
+        //         expect(this.view.collection).to.be.ok;
+        //     });
 
-            it("should initialize a subviews object", function(){
-                expect(this.view.subviews).to.be.ok;
-                expect(this.view.subviews).to.be.instanceOf(Object);
-            });
+        //     it("should initialize a subviews object", function(){
+        //         expect(this.view.subviews).to.be.ok;
+        //         expect(this.view.subviews).to.be.instanceOf(Object);
+        //     });
 
-            it("should initialize a subview for the pick list", function() {
-                expect(this.view.subviews.picker).to.be.ok;
-            });
+        //     it("should initialize a subview for the pick list", function() {
+        //         expect(this.view.subviews.picker).to.be.ok;
+        //     });
 
-            it("should initialize a subview for the item viewer", function() {
-                expect(this.view.subviews.viewer).to.be.ok;
-            });
+        //     it("should initialize a subview for the item viewer", function() {
+        //         expect(this.view.subviews.viewer).to.be.ok;
+        //     });
 
-            it("should initialize a subview for the index output", function() {
-                expect(this.view.subviews.index).to.be.ok;
-            });
+        //     it("should initialize a subview for the index output", function() {
+        //         expect(this.view.subviews.index).to.be.ok;
+        //     });
 
-            it('should have an events hash', function () {
-                expect(this.view.events).to.be.ok;
-            });
+        //     it('should have an events hash', function () {
+        //         expect(this.view.events).to.be.ok;
+        //     });
 
-            it('should have the correct event listeners', function() {
-                var eventsHash = this.view.events;
-                expect(eventsHash['click .modal-footer button']).to.be.ok;
-                expect(eventsHash['click .modal-footer button']).to.equal('closeInputModal');
-                expect(this.view.closeInputModal).to.be.instanceOf(Function);
-                expect(eventsHash['click tr.variant a']).to.be.ok;
-                expect(eventsHash['click tr.variant a']).to.equal('showContextModal');
-                expect(this.view.showContextModal).to.be.instanceOf(Function);
-            });                        
-        });
+        //     it('should have the correct event listeners', function() {
+        //         var eventsHash = this.view.events;
+        //         expect(eventsHash['click .modal-footer button']).to.be.ok;
+        //         expect(eventsHash['click .modal-footer button']).to.equal('closeInputModal');
+        //         expect(this.view.closeInputModal).to.be.instanceOf(Function);
+        //         expect(eventsHash['click tr.variant a']).to.be.ok;
+        //         expect(eventsHash['click tr.variant a']).to.equal('showContextModal');
+        //         expect(this.view.showContextModal).to.be.instanceOf(Function);
+        //     });                        
+        // });
 
         describe('listeners', function () {
            
