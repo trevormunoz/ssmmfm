@@ -8,7 +8,7 @@ define([
     'use strict';
 
     describe("View: Cluster", function(){
-        describe("initialization", function() {
+        describe("creation", function() {
 
             beforeEach(function() {
                 var seedsStub = sinon.createStubInstance(Seeds);
@@ -35,21 +35,14 @@ define([
             it("should initialize a subviews object", function(){
                 expect(this.view.subviews).to.be.ok;
                 expect(this.view.subviews).to.be.instanceOf(Object);
-            });
-
-            it("should initialize a subview for the pick list", function() {
-                expect(this.view.subviews.picker).to.be.ok;
-            });
-
-            it("should initialize a subview for the index output", function() {
-                expect(this.view.subviews.index).to.be.ok;
+                window.console.log(this.view.subviews);
             });
 
             it('should have an events hash', function () {
                 expect(this.view.events).to.be.ok;
             });
 
-            it('should have the correct event listeners', function() {
+            it('should have the correct event hash listeners', function() {
                 var eventsHash = this.view.events;
                 expect(eventsHash['click .modal-footer button']).to.be.ok;
                 expect(eventsHash['click .modal-footer button']).to.equal('closeInputModal');
@@ -61,6 +54,32 @@ define([
 
             it('should have Mousetrap available', function() {
                 expect(Mousetrap).to.be.ok;
+            });
+                       
+        });
+
+        describe('initialization', function () {
+
+            beforeEach(function() {
+                var seedsStub = sinon.createStubInstance(Seeds);
+                this.view = new ClusterView({collection: seedsStub});
+            });
+
+            afterEach(function() {
+                this.view.cleanUp();
+                this.view = null;
+            });
+
+            describe('subviews', function () {
+
+                it("should initialize a subview for the pick list", function() {
+                    expect(this.view.subviews.picker).to.be.ok;
+                });
+
+                it("should initialize a subview for the index output", function() {
+                    expect(this.view.subviews.index).to.be.ok;
+                });
+                
             });
 
             describe('key bindings', function () {
@@ -93,7 +112,8 @@ define([
                     expect(this.spy.withArgs('option+s').calledOnce).to.be.true;
                     expect(this.spy.withArgs('h').calledOnce).to.be.true;
                 });         
-            });                       
+            });
+            
         });
 
         describe('events', function () {
