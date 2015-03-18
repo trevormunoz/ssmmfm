@@ -7,6 +7,7 @@ define([
     'src/js/models/term',
     'src/js/collections/dishes',
     'src/js/views/term-view',
+    'src/js/helpers/queries',
     'src/js/helpers/utils'
 ],
 

@@ -8,7 +8,7 @@ define([
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
     'src/js/collections/seeds',
-    'src/js/helpers/utils'
+    'src/js/helpers/queries'
 ], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds) {
 
 'use strict';
