@@ -88,7 +88,7 @@ define(['underscore'], function(_) {
             query.mlt = mltClause;
             queryObj.query = query;
 
-            return JSON.stringify(queryObj);
+            return queryObj;
         },        
 
     }
