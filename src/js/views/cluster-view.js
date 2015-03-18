@@ -149,7 +149,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Item
             var facetQuery = Queries.getAggByFingerprint(fingerprintVal);
 
             // Trigger an event on Backbone & send query string
-            Backbone.trigger('facetQuerySuccess', facetQuery);
+            Backbone.trigger('facetQueryReady', facetQuery);
         },        
 
         resetCluster: function() {

@@ -11,7 +11,7 @@ define([
         el: '#picker',
 
         initialize: function() {
-            this.listenTo(Backbone, 'facetQuerySuccess', this.buildCluster);
+            this.listenTo(Backbone, 'facetQueryReady', this.buildCluster);
             this.listenTo(this.collection, 'reset', this.render);
 
             this.$tableBody = this.$('tbody');
