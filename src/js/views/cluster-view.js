@@ -172,28 +172,13 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
                         return _id; 
                     }
                 );
-            
-            // Build up a query object
-            var queryObj = {}
-            , query = {}
-            , mltClause = {};
-
-            mltClause.fields = ["menu_sponsor", "menu_location"];
-            mltClause.ids = dishIds;
-            mltClause.min_term_freq = 1;
-            mltClause.min_doc_freq = 1;
-
-            query.mlt = mltClause;
-            queryObj.query = query;
-
-            var queryString = JSON.stringify(queryObj);
 
             // Later we may create a collection to handle fetch,
             // but for now, fire off an AJAX call directly
             var mltPromise = $.ajax({
                 type: 'GET',
                 url: 'http://api.publicfare.org/menus/item/_search',
-                data: $.param({source: queryString})
+                data: $.param({source: Queries.getMlt(dishIds)})
             });
 
             mltPromise.done(function(data) {

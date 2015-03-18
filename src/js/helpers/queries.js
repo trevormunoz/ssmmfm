@@ -72,6 +72,23 @@ define(['underscore'], function(_) {
             queryObj.aggregations = aggObj;
 
             return JSON.stringify(queryObj);
+        },
+
+        getMlt: function(idList) {
+            // Build up a query object
+            var queryObj = {}
+            , query = {}
+            , mltClause = {};
+
+            mltClause.fields = ["menu_sponsor", "menu_location"];
+            mltClause.ids = idList;
+            mltClause.min_term_freq = 1;
+            mltClause.min_doc_freq = 1;
+
+            query.mlt = mltClause;
+            queryObj.query = query;
+
+            return JSON.stringify(queryObj);
         },        
 
     }
