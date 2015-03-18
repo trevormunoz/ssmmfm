@@ -29,9 +29,6 @@ define([
                 expect(this.app.$el.selector).to.equal('#app-content');
             });
 
-            // Using convention of creating object called 'subviews' on
-            // this main "app" view to hold references to subviews, 
-            // each of which get created during this view's initialization.
             it("should initialize a subviews object", function() {
                 expect(this.app.subviews).to.exist;
                 expect(this.app.subviews).to.be.instanceOf(Object);
