@@ -19,6 +19,40 @@ function getRandomSeed() {
     return queryObj;
 }
 
+function getAggByFingerprint(fingerprint) {
+    // Build up a query w/a filter and an aggregation
+    var queryObj = {};
+    var query = {};
+    var aggs = {};
+
+    // Filter to include only documents with this fingerprint
+    query.filtered = {};
+    query.filtered.query = { "match_all": {} };
+    query.filtered.filter = { "term": {
+        "dish_name_fingerprint": fingerprint}
+    };
+
+    // Aggregate by dish id
+    aggs.dish = {};
+    aggs.dish.terms = { "field": "dish_id", "size": 0};
+
+    //Sub-aggregation to get names & menus appeared
+    var subAgg = {};
+    subAgg.top_names = { "top_hits": {} };
+    subAgg.top_names.top_hits.size = 1;
+    subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
+    subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
+
+    aggs.dish.aggregations = subAgg;
+
+    // Pull it all together
+    queryObj.size = 0;
+    queryObj.query = query;
+    queryObj.aggregations = aggs;
+    
+    return JSON.stringify(queryObj);
+}
+
 function getAggregatedDishes(fingerprint) {
     var queryObj = {}
     , filterObj = {}
