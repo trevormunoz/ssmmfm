@@ -20,11 +20,13 @@ define([
                         this.validResponse(this.fixture)
                     );
                 this.server.autoRespond = true;
+                this.stub = sinon.stub(AppView.prototype, 'checkServer');
                 this.app = new AppView();
             });
 
             afterEach(function() {
                 this.server.restore();
+                AppView.prototype.checkServer.restore();
                 this.app.remove();
                 this.app = null;
             });
