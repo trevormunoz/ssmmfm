@@ -24,7 +24,7 @@ define([
                 that.reset(data);
             }, function(err) {
                 window.console.error(err.message);
-                Backbone.trigger('raiseError', 'dishAggFailure');
+                Backbone.trigger('raiseError', 'dishAggFailed');
             });
         },
 
