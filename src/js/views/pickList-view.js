@@ -12,9 +12,14 @@ define([
 
         initialize: function() {
             this.listenTo(Backbone, 'facetQueryReady', this.buildCluster);
+            this.listenTo(Backbone, 'startLoadingSpinner', this.setSpinner);
             this.listenTo(this.collection, 'reset', this.render);
 
             this.$tableBody = this.$('tbody');
+        },
+
+        setSpinner: function() {
+            // Show loading spinner
         },
 
         buildCluster: function(data) {

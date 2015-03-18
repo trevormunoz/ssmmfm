@@ -47,6 +47,7 @@ define([
 
         bootstrapCluster: function() {
             var seedQuery = Queries.getRandomSeed();
+            Backbone.trigger('startLoadingSpinner');
 
             // Issue a full text search against all documents using
             // a random scoring function --- i.e., get 10 random docs
