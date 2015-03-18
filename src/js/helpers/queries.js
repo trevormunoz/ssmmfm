@@ -1,71 +1,80 @@
-/* jshint shadow:true */
-/* exported getRandomSeed, getAggregatedDishes */
+/* global define */
 
-function getRandomSeed() {
-    //Pick a random number between 0 & length of
-    // document collection
-    var seedVal = _.random(0, 1321937);
+define(['underscore'], function(_) {
+    'use strict';
 
-    // Build up a query using this random id as seed
-    var queryObj = {};
+    var Queries = {
 
-    queryObj.fields = ["dish_name_fingerprint"];
-    queryObj.query = {};
+        getRandomSeed: function() {
+            //Pick a random number between 0 & length of
+            // document collection
+            var seedVal = _.random(0, 1321937);
 
-    queryObj.query.function_score = {};
-    queryObj.query.function_score.query = {"match_all": {}};
-    queryObj.query.function_score.functions = [{"random_score": {"seed": seedVal}}];
+            // Build up a query using this random id as seed
+            var queryObj = {};
 
-    return queryObj;
-}
+            queryObj.fields = ["dish_name_fingerprint"];
+            queryObj.query = {};
 
-function getAggByFingerprint(fingerprint) {
-    // Build up a query w/a filter and an aggregation
-    var queryObj = {};
-    var query = {};
-    var aggs = {};
+            queryObj.query.function_score = {};
+            queryObj.query.function_score.query = {"match_all": {}};
+            queryObj.query.function_score.functions = [{"random_score": {"seed": seedVal}}];
 
-    // Filter to include only documents with this fingerprint
-    query.filtered = {};
-    query.filtered.query = { "match_all": {} };
-    query.filtered.filter = { "term": {
-        "dish_name_fingerprint": fingerprint}
-    };
+            return queryObj;   
+        },
 
-    // Aggregate by dish id
-    aggs.dish = {};
-    aggs.dish.terms = { "field": "dish_id", "size": 0};
+        getAggByFingerprint: function(fingerprint) {
+            // Build up a query w/a filter and an aggregation
+            var queryObj = {};
+            var query = {};
+            var aggs = {};
 
-    //Sub-aggregation to get names & menus appeared
-    var subAgg = {};
-    subAgg.top_names = { "top_hits": {} };
-    subAgg.top_names.top_hits.size = 1;
-    subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
-    subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
+            // Filter to include only documents with this fingerprint
+            query.filtered = {};
+            query.filtered.query = { "match_all": {} };
+            query.filtered.filter = { "term": {
+                "dish_name_fingerprint": fingerprint}
+            };
 
-    aggs.dish.aggregations = subAgg;
+            // Aggregate by dish id
+            aggs.dish = {};
+            aggs.dish.terms = { "field": "dish_id", "size": 0};
 
-    // Pull it all together
-    queryObj.size = 0;
-    queryObj.query = query;
-    queryObj.aggregations = aggs;
-    
-    return JSON.stringify(queryObj);
-}
+            //Sub-aggregation to get names & menus appeared
+            var subAgg = {};
+            subAgg.top_names = { "top_hits": {} };
+            subAgg.top_names.top_hits.size = 1;
+            subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
+            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
 
-function getAggregatedDishes(fingerprint) {
-    var queryObj = {}
-    , filterObj = {}
-    , aggObj = {};
+            aggs.dish.aggregations = subAgg;
 
-    filterObj.filter = {"term": {"dish_name_fingerprint": fingerprint}};
-    aggObj.dishes = {};
-    aggObj.dishes.terms = {"field": "dish_id", "size": 0};
+            // Pull it all together
+            queryObj.size = 0;
+            queryObj.query = query;
+            queryObj.aggregations = aggs;
+            
+            return JSON.stringify(queryObj);
+        },
 
-    queryObj.size = 0;
-    queryObj.query = {};
-    queryObj.query.filtered = filterObj;
-    queryObj.aggregations = aggObj;
+        getAggregatedDishes: function(fingerprint) {
+            var queryObj = {}
+            , filterObj = {}
+            , aggObj = {};
 
-    return JSON.stringify(queryObj);
-}
+            filterObj.filter = {"term": {"dish_name_fingerprint": fingerprint}};
+            aggObj.dishes = {};
+            aggObj.dishes.terms = {"field": "dish_id", "size": 0};
+
+            queryObj.size = 0;
+            queryObj.query = {};
+            queryObj.query.filtered = filterObj;
+            queryObj.aggregations = aggObj;
+
+            return JSON.stringify(queryObj);
+        },        
+
+    }
+
+    return Queries;
+});

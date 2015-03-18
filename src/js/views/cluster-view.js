@@ -11,11 +11,11 @@ define([
     'src/js/views/item-view',
     'src/js/views/index-view',
     'src/js/models/fingerprint',
-    'bootstrap',
-    'src/js/helpers/queries'
+    'src/js/helpers/queries',
+    'bootstrap'
 ],
 
-function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint) {
+function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint, Queries) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
@@ -145,7 +145,7 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
         getFacets: function(data) {
             var fingerprintVal = data;
 
-            var facetQuery = getAggByFingerprint(fingerprintVal);
+            var facetQuery = Queries.getAggByFingerprint(fingerprintVal);
 
             // Trigger an event on Backbone & send query string
             Backbone.trigger('facetQuerySuccess', facetQuery);

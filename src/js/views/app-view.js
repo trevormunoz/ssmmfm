@@ -9,7 +9,7 @@ define([
     'src/js/views/message-view',
     'src/js/collections/seeds',
     'src/js/helpers/queries'
-], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds) {
+], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds, Queries) {
 
 'use strict';
 
@@ -46,7 +46,7 @@ define([
         },
 
         bootstrapCluster: function() {
-            var seedQuery = getRandomSeed();
+            var seedQuery = Queries.getRandomSeed();
 
             // Issue a full text search against all documents using
             // a random scoring function --- i.e., get 10 random docs
