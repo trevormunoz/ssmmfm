@@ -17,7 +17,7 @@ define([
 
             afterEach(function() {
                 AppView.prototype.checkServer.restore();
-                this.app.remove();
+                this.app.cleanUp();
                 this.app = null;
             });
 
@@ -65,6 +65,8 @@ define([
 
                 AppView.prototype.checkServer.restore();
                 AppView.prototype.bootstrapCluster.restore();
+                view.cleanUp();
+                view = null;
             });
 
         });
