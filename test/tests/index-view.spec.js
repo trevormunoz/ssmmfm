@@ -37,13 +37,11 @@ define([
         describe('enter/update terms', function () {
             
             beforeEach(function () {
-                this.setEntryDishesStub = sinon.stub(IndexView.prototype, 'setEntryDishes');
                 var indexCollex = new Index();
                 this.view = new IndexView({collection: indexCollex});
             });
 
             afterEach(function () {
-                IndexView.prototype.setEntryDishes.restore();
                 this.view.remove();
                 this.view = null;
             });
@@ -62,8 +60,6 @@ define([
                 expect(item.get('dishes_aggregated')).to.not.be.ok;
             });
 
-            // How to stub out for setEntryDishes to prevent http
-
             // it('should update a term', function () {
 
             //     var dummyFingerprint = 'cup per tea'
@@ -71,8 +67,6 @@ define([
 
             //     this.view.createEntry(dummyFingerprint);
             //     this.view.setEntryTerm(dummyIndexTerm);
-
-            //     expect(this.setEntryDishesStub.calledOnce).to.be.true;
 
             //     var item = this.view.collection.shift();
             //     expect(item).to.be.instanceOf(Object);
