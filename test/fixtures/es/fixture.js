@@ -153,6 +153,136 @@ define(['mocha'], function() {
                         }
                     }
                 }
+            },
+
+            pickListView: {
+
+                valid: {
+                        "took": 55,
+                        "timed_out": false,
+                        "_shards": {
+                            "total": 5,
+                            "successful": 5,
+                            "failed": 0
+                        },
+                        "hits": {
+                            "total": 314,
+                            "max_score": 0,
+                            "hits": []
+                        },
+                        "aggregations": {
+                            "dish": {
+                                "doc_count_error_upper_bound": 0,
+                                "sum_other_doc_count": 0,
+                                "buckets": [
+                                    {
+                                        "key": "926.0",
+                                        "doc_count": 306,
+                                        "top_names": {
+                                            "hits": {
+                                                "total": 306,
+                                                "max_score": null,
+                                                "hits": [
+                                                    {
+                                                        "_index": "menus",
+                                                        "_type": "item",
+                                                        "_id": "127837",
+                                                        "_score": null,
+                                                        "_source": {
+                                                            "dish_menus_appeared": 230,
+                                                            "menu_page_uri": "http://menus.nypl.org/menu_pages/309",
+                                                            "dish_name": "Beefsteak"
+                                                        },
+                                                        "sort": [
+                                                            230
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "key": "412937.0",
+                                        "doc_count": 5,
+                                        "top_names": {
+                                            "hits": {
+                                                "total": 5,
+                                                "max_score": null,
+                                                "hits": [
+                                                    {
+                                                        "_index": "menus",
+                                                        "_type": "item",
+                                                        "_id": "1302122",
+                                                        "_score": null,
+                                                        "_source": {
+                                                            "dish_menus_appeared": 5,
+                                                            "menu_page_uri": "http://menus.nypl.org/menu_pages/73931",
+                                                            "dish_name": "beefsteak"
+                                                        },
+                                                        "sort": [
+                                                            5
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "key": "401316.0",
+                                        "doc_count": 2,
+                                        "top_names": {
+                                            "hits": {
+                                                "total": 2,
+                                                "max_score": null,
+                                                "hits": [
+                                                    {
+                                                        "_index": "menus",
+                                                        "_type": "item",
+                                                        "_id": "1084649",
+                                                        "_score": null,
+                                                        "_source": {
+                                                            "dish_menus_appeared": 2,
+                                                            "menu_page_uri": "http://menus.nypl.org/menu_pages/68694",
+                                                            "dish_name": "Beefsteak "
+                                                        },
+                                                        "sort": [
+                                                            2
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "key": "30098.0",
+                                        "doc_count": 1,
+                                        "top_names": {
+                                            "hits": {
+                                                "total": 1,
+                                                "max_score": null,
+                                                "hits": [
+                                                    {
+                                                        "_index": "menus",
+                                                        "_type": "item",
+                                                        "_id": "78417",
+                                                        "_score": null,
+                                                        "_source": {
+                                                            "dish_menus_appeared": 1,
+                                                            "menu_page_uri": "http://menus.nypl.org/menu_pages/3463",
+                                                            "dish_name": "Beefsteak."
+                                                        },
+                                                        "sort": [
+                                                            1
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
             }
 
       };
