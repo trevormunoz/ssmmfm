@@ -3,8 +3,7 @@
 define([
         'sinon',
         'src/js/collections/dishes',
-        'fixtures/es/fixture',
-        'helpers/fakeServer-helper'
+        'fixtures/es/fixture'
 ], function(sinon, Dishes) {
     'use strict';
 
@@ -33,46 +32,41 @@ define([
                 expect(this.collection.model).to.be.ok;
             }); 
         });
-    });
 
-            describe("population from server", function() {
-            
+        describe("population from server", function() {
+        
 
-            beforeEach(function() {
-                this.fixture = this.fixtures.Dishes.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.dishes = new Dishes();
+        beforeEach(function() {
+            this.fixture = this.fixtures.Dishes.valid;
+            this.dishes = new Dishes();
+            var data = this.dishes.parse(this.fixture);
+            this.dishes.reset(data);
+        });
+
+        afterEach(function() {
+            this.dishes.reset();
+            this.dishes = null;
+        });
+
+        // TODO test for fetch
+
+        describe("fetch", function() {
+
+            it("should parse dishes from the response", function() {
+
+                expect(this.dishes).to.have.length(this.fixture.aggregations.dishes.buckets.length); 
             });
 
-            afterEach(function() {
-                this.server.restore();
-            });
+            it("should return attributes of fetched dish", function() {
 
-            describe("fetch", function() {
-
-                it("should parse dishes from the response", function() {
-                    this.dishes.fetch({ reset: true });
-                    this.server.respond();
-
-                    expect(this.dishes).to.have.length(this.fixture.aggregations.dishes.buckets.length); 
-                });
-
-                it("should return attributes of fetched dish", function(done) {
-                    this.dishes.fetch({ reset: true });
-                    this.server.respond();
-
-                    var item = this.dishes.at(0);
-                    var fixtureItem = this.fixture.aggregations.dishes.buckets[0];
-                    
-                    expect(item.get("dish_id")).to.equal(fixtureItem.key);
-                    done();
-                });
+                var item = this.dishes.at(0);
+                var fixtureItem = this.fixture.aggregations.dishes.buckets[0];
+                
+                expect(item.get("dish_id")).to.equal(fixtureItem.key);
             });
         });
+    });
+
+    });
 
 });
