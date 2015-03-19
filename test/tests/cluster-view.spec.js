@@ -35,7 +35,6 @@ define([
             it("should initialize a subviews object", function(){
                 expect(this.view.subviews).to.be.ok;
                 expect(this.view.subviews).to.be.instanceOf(Object);
-                window.console.log(this.view.subviews);
             });
 
             it('should have an events hash', function () {
