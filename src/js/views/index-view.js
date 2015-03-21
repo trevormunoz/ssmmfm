@@ -95,7 +95,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
         
         editIndexTerm: function(event) { 
             event.preventDefault(); 
-            var linkEl = $(event.target.closest('li'));
+            var linkEl = $(event.target).closest('li');
             var fingerprint = linkEl.data().fingerprint;
             var item = this.collection.where({fingerprint_value: fingerprint});
             this.collection.remove(item);
