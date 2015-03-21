@@ -12,7 +12,23 @@ define([
 
         save: function() {
 
-            // Do something;
+            var uploadBody = [];
+            _.map(this.toJSON(), function(model) {
+                uploadBody.push({index: {}});
+                uploadBody.push(model);
+            });
+
+           var uploadPromise = esClient.bulk({
+                index: 'public_fare',
+                type: 'term',
+                body: uploadBody
+            });
+
+            uploadPromise.then(function(data) {
+                window.console.log(data.items);
+            }, function(data) {
+                window.console.error(data.message.message);
+            });
 
         },
     });
