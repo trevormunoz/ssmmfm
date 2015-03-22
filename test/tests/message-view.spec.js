@@ -48,7 +48,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'failedSeedQuery');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'Seed query failed.'};
+                                'message': "We're sorry—the server appears to be down. Try reloading this page."};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
@@ -58,7 +58,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'duplicateSeed');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'We already saw that seed!'};
+                                'message': "Skipping duplicate …"};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
@@ -78,7 +78,7 @@ define([
                 expect(this.spy).to.not.have.been.called;
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 var testArgs = {'parent': '#message-body',
-                                'message': 'We did not find more like this.'};
+                                'message': 'We did not find more like this. Retrying …'};
                 expect(this.spy.alwaysCalledWithExactly(testArgs)).to.be.true;
 
             });
@@ -128,7 +128,7 @@ define([
                 Backbone.trigger('raiseError', 'failedSeedQuery');
 
                 expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
-                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('Seed query failed.');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal("We're sorry—the server appears to be down. Try reloading this page.");
             });
 
             it('should render the correct HTML for messages: unknown error', function () {
