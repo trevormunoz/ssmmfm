@@ -4,17 +4,18 @@ define([
     'backbone',
     'underscore',
     'jquery',
+    'src/js/helpers/server',
     'mousetrap',
     'src/js/collections/index', 
     'src/js/collections/cluster',
     'src/js/views/pickList-view',
-    'src/js/views/item-view',
     'src/js/views/index-view',
     'src/js/models/fingerprint',
+    'src/js/helpers/queries',
     'bootstrap'
 ],
 
-function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, IndexView, Fingerprint) {
+function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, IndexView, Fingerprint, Queries) {
     'use strict';
     
     var ClusterView = Backbone.View.extend({
@@ -34,9 +35,6 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
             var cluster = new Cluster();
             var picker = new PickListView({collection: cluster});
             this.subviews.picker = picker;
-
-            var viewer = new ItemView();
-            this.subviews.viewer = viewer;
             
             var indexCollex = new Index();
             var index = new IndexView({collection: indexCollex});
@@ -128,6 +126,17 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
 
         },
 
+        cleanUp: function() {
+
+            _.each(this.subviews, function(subview) {
+                if(subview) {
+                    subview.remove();
+                }
+            });
+
+            this.remove();
+        },
+
         dedupeFingerprint: function(data) {
             var fingerprint = data;        
             var filter = this.collection.where({value: fingerprint});   
@@ -144,40 +153,10 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
         getFacets: function(data) {
             var fingerprintVal = data;
 
-            // Build up a query w/a filter and an aggregation
-            var queryObj = {};
-            var query = {};
-            var aggs = {};
-
-            // Filter to include only documents with this fingerprint
-            query.filtered = {};
-            query.filtered.query = { "match_all": {} };
-            query.filtered.filter = { "term": {
-                "dish_name_fingerprint": fingerprintVal}
-            };
-
-            // Aggregate by dish id
-            aggs.dish = {};
-            aggs.dish.terms = { "field": "dish_id", "size": 0};
-
-            //Sub-aggregation to get names & menus appeared
-            var subAgg = {};
-            subAgg.top_names = { "top_hits": {} };
-            subAgg.top_names.top_hits.size = 1;
-            subAgg.top_names.top_hits.sort = [ {"dish_menus_appeared": {"order": "desc"}} ];
-            subAgg.top_names.top_hits._source = {"include": ["dish_name", "dish_menus_appeared", "menu_page_uri"]};
-
-            aggs.dish.aggregations = subAgg;
-
-            // Pull it all together
-            queryObj.size = 0;
-            queryObj.query = query;
-            queryObj.aggregations = aggs;
-            
-            var queryString = JSON.stringify(queryObj);
+            var facetQuery = Queries.getAggByFingerprint(fingerprintVal);
 
             // Trigger an event on Backbone & send query string
-            Backbone.trigger('facetQuerySuccess', queryString);
+            Backbone.trigger('facetQueryReady', facetQuery);
         },        
 
         resetCluster: function() {
@@ -201,31 +180,13 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
                         return _id; 
                     }
                 );
-            
-            // Build up a query object
-            var queryObj = {}
-            , query = {}
-            , mltClause = {};
 
-            mltClause.fields = ["menu_sponsor", "menu_location"];
-            mltClause.ids = dishIds;
-            mltClause.min_term_freq = 1;
-            mltClause.min_doc_freq = 1;
-
-            query.mlt = mltClause;
-            queryObj.query = query;
-
-            var queryString = JSON.stringify(queryObj);
-
-            // Later we may create a collection to handle fetch,
-            // but for now, fire off an AJAX call directly
-            var mltPromise = $.ajax({
-                type: 'GET',
-                url: 'http://api.publicfare.org/menus/item/_search',
-                data: $.param({source: queryString})
+            var mltPromise = esClient.search({
+                index: 'menus',
+                body: Queries.getMlt(dishIds)
             });
 
-            mltPromise.done(function(data) {
+            mltPromise.then(function(data) {
                 var hitsArr = data.hits.hits;
                 try {
                     var newSeed = _.sample(hitsArr)._source.dish_name_fingerprint;
@@ -234,9 +195,7 @@ function(Backbone, _, $, Mousetrap, Index, Cluster, PickListView, ItemView, Inde
                     Backbone.trigger('loadDefault');
                     
                   }  
-            });
-
-            mltPromise.fail(function() {
+            }, function(e) {
                 Backbone.trigger('raiseError', 'mltQueryFailed');
                 Backbone.trigger('loadDefault');
             });

@@ -11,24 +11,21 @@ define([
         el: '#picker',
 
         initialize: function() {
-            this.listenTo(Backbone, 'facetQuerySuccess', this.buildCluster);
+            this.listenTo(Backbone, 'facetQueryReady', this.buildCluster);
+            this.listenTo(Backbone, 'startLoadingSpinner', this.setSpinner);
             this.listenTo(this.collection, 'reset', this.render);
 
             this.$tableBody = this.$('tbody');
         },
 
+        setSpinner: function() {
+            // Show loading spinner
+        },
+
         buildCluster: function(data) {
-            var queryString = data;
+            var queryObj = data;
 
-            var fetchError = function(jqXHR, textStatus, errorThrown) {
-                Backbone.trigger('raiseError', 'getFacetsFailed');
-            };
-
-            this.collection.fetch({
-                    data: {source: queryString}, 
-                    reset: true, 
-                    error: fetchError}
-                );
+            this.collection.fetch(queryObj);
 
         },
 

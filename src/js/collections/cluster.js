@@ -3,13 +3,32 @@
 define([
         'backbone',
         'underscore',
+        'src/js/helpers/server',
         'src/js/models/item'
-], function(Backbone, _, MenuItem) {
+], function(Backbone, _, esClient, MenuItem) {
     'use strict';
 
     var Cluster = Backbone.Collection.extend({
         model: MenuItem,
-        url: 'http://api.publicfare.org/menus/item/_search',
+        
+        fetch: function(query) {
+            var that = this;
+
+            var fetchPromise = esClient.search({
+                index: 'menus',
+                body: query
+            });
+
+            fetchPromise.then(function(response) {
+                var data = that.parse(response);
+                that.reset(data);
+            }, function(err) {
+                window.console.error(err.message);
+                window.console.error(err.stack);
+                Backbone.trigger('raiseError', 'getFacetsFailed');
+            });
+
+        },
 
         parse: function(response) {
             var responseArr = response.aggregations.dish.buckets;

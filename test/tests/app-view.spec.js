@@ -3,8 +3,7 @@
 define([
         'sinon',
         '../../src/js/views/app-view',
-        'fixtures/es/fixture',
-        'helpers/fakeServer-helper'
+        'fixtures/es/fixture'
 ], function(sinon, AppView) {
     'use strict';
 
@@ -12,20 +11,13 @@ define([
         describe("creation", function(){
 
             beforeEach(function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
+                this.stub = sinon.stub(AppView.prototype, 'checkServer');
                 this.app = new AppView();
             });
 
             afterEach(function() {
-                this.server.restore();
-                this.app.remove();
+                AppView.prototype.checkServer.restore();
+                this.app.cleanUp();
                 this.app = null;
             });
 
@@ -37,9 +29,6 @@ define([
                 expect(this.app.$el.selector).to.equal('#app-content');
             });
 
-            // Using convention of creating object called 'subviews' on
-            // this main "app" view to hold references to subviews, 
-            // each of which get created during this view's initialization.
             it("should initialize a subviews object", function() {
                 expect(this.app.subviews).to.exist;
                 expect(this.app.subviews).to.be.instanceOf(Object);
@@ -52,73 +41,34 @@ define([
             it("should initialize a subview for messages", function() {
                 expect(this.app.subviews.messages).to.be.ok;                
             });
+
+            it("should check that the server is up", function() {
+                expect(this.stub.callCount).to.equal(1);
+            });
         });
 
-        describe("initialization", function() {
+        describe("events", function() {
 
             it("should respond to loadDefault event", function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
 
-                var bootstrapSpy = sinon.spy(
+                var serverStub = sinon.stub(AppView.prototype, 'checkServer');
+                var bootstrapStub = sinon.stub(
                     AppView.prototype, 'bootstrapCluster'
                     );
                 var view = new AppView();
                 Backbone.trigger('loadDefault');
 
-                expect(bootstrapSpy.callCount).to.equal(1);
+                expect(bootstrapStub.callCount).to.equal(1);
 
-                this.server.restore();
+                AppView.prototype.checkServer.restore();
                 AppView.prototype.bootstrapCluster.restore();
+                view.cleanUp();
+                view = null;
             });
 
         });
 
-        // This test only indicates that there should be a call to a 
-        // 'bootstrapCluster' method on initialization of AppView; 
-        describe("bootstrapping", function() {
+        //TODO: Test server ping and seed query functions directly
 
-            before(function() {
-                this.fixture = this.fixtures.AppView.valid;
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                        "GET",
-                        "http://api.publicfare.org/menus/item/_search",
-                        this.validResponse(this.fixture)
-                    );
-                this.server.autoRespond = true;
-
-                this.spy = sinon.spy($, 'ajax');
-                this.view = new AppView();
-                Backbone.trigger('loadDefault');
-            });
-
-            after(function() {
-                this.server.restore();
-                this.view.remove();
-                $.ajax.restore();
-            });
-
-            it("should send the correct query", function() {
-                
-                // spy.args[0] is array of arguments received in 1st call
-                var queryString = this.spy.args[0][0].data;
-
-                // Use regex to crudely test that expected components of
-                // query are present
-                var fingerprintRegex = /dish_name_fingerprint/g;
-                var scoreRegex = /random_score/g;
-                
-                expect(fingerprintRegex.test(queryString)).to.be.true;
-                expect(scoreRegex.test(queryString)).to.be.true;
-            });
-
-        });
     });
 });

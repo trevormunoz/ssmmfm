@@ -1,5 +1,5 @@
 /* jshint shadow:true */
-/* exported timeStamp,getAggregatedDishes */
+/* exported timeStamp */
 
 function timeStamp() {
     var now = new Date();
@@ -19,21 +19,4 @@ function timeStamp() {
     }
 
     return date.join('-') + "T" + time.join(':');
-}
-
-function getAggregatedDishes(fingerprint) {
-    var queryObj = {}
-    , filterObj = {}
-    , aggObj = {};
-
-    filterObj.filter = {"term": {"dish_name_fingerprint": fingerprint}};
-    aggObj.dishes = {};
-    aggObj.dishes.terms = {"field": "dish_id", "size": 0};
-
-    queryObj.size = 0;
-    queryObj.query = {};
-    queryObj.query.filtered = filterObj;
-    queryObj.aggregations = aggObj;
-
-    return JSON.stringify(queryObj);
 }

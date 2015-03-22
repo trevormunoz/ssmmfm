@@ -8,8 +8,8 @@ define([
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
     'src/js/collections/seeds',
-    'src/js/helpers/utils'
-], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds) {
+    'src/js/helpers/queries'
+], function(Backbone, _, $, esClient, ClusterView, MessageView, Seeds, Queries) {
 
 'use strict';
 
@@ -30,6 +30,24 @@ define([
             this.listenTo(Backbone, 'loadDefault', this.bootstrapCluster);
 
             // Smoke test for server
+            this.checkServer();
+
+        },
+
+        cleanUp: function() {
+
+            _.each(this.subviews, function(subview) {
+                if(subview) {
+                    subview.remove();
+                }
+            });
+
+            this.remove();
+            
+        },
+
+        checkServer: function() {
+
             var serverPromise = esClient.ping({
                 requestTimeout: 1000,
                 hello: "elasticsearch!"
@@ -37,43 +55,28 @@ define([
 
             serverPromise.then(function() {
                 window.console.log('Elasticsearch cluster: All is well!');
-            });
-
-            serverPromise.catch(function() {
+            }, function(err) {
                 Backbone.trigger('raiseError', 'serverError');
                 window.console.error('Elasticsearch cluster is down!');
+                window.console.error(err.message);
             });
         },
 
         bootstrapCluster: function() {
-            //Pick a random number between 0 & length of
-            // document collection
-            var seedVal = _.random(0, 1321937);
-
-            // Build up a query using this random id as seed
-            var queryObj = {};
-
-            queryObj.fields = ["dish_name_fingerprint"];
-            queryObj.query = {};
-
-            queryObj.query.function_score = {};
-            queryObj.query.function_score.query = {"match_all": {}};
-            queryObj.query.function_score.functions = [{"random_score": {"seed": seedVal}}];
-
-            var queryString = JSON.stringify(queryObj);
+            var seedQuery = Queries.getRandomSeed();
+            Backbone.trigger('startLoadingSpinner');
 
             // Issue a full text search against all documents using
             // a random scoring function --- i.e., get 10 random docs
-            var seedQueryPromise = $.ajax({
-                type: 'GET',
-                url: 'http://api.publicfare.org/menus/item/_search',
-                data: $.param({source: queryString})
+            var seedQueryPromise = esClient.search({
+                index: 'menus',
+                body: seedQuery
             });
 
             // 10 documents is default response length; 
             // pick one, again at random, and use its fingerprint
             // value to define first cluster
-            seedQueryPromise.done(function(data) {
+            seedQueryPromise.then(function(data) {
                 var hitsArr = data.hits.hits;
                 var potentialSeeds = _.map(
                         hitsArr, 
@@ -84,14 +87,13 @@ define([
                 var seed = _.sample(potentialSeeds);
 
                 Backbone.trigger('seedQuerySuccess', seed);
-                    
-            });
-
-            // If something goes wrong with the request,
-            // trigger a failure event on Backbone
-            seedQueryPromise.fail(function() {
+            
+                // If something goes wrong with the request,
+                // trigger a failure event on Backbone
+            }, function(err) {
                 Backbone.trigger('raiseError', 'failedSeedQuery');
             });
+
         },
             
     });

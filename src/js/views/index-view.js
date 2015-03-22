@@ -7,10 +7,11 @@ define([
     'src/js/models/term',
     'src/js/collections/dishes',
     'src/js/views/term-view',
+    'src/js/helpers/queries',
     'src/js/helpers/utils'
 ],
 
-function(Backbone, _, $, IndexTerm, Dishes, TermView) {
+function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -67,10 +68,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView) {
 
             };
 
-            dishCollex.fetch({
-                data: {source: getAggregatedDishes(fingerprint)}, 
-                reset: true
-            });
+            dishCollex.fetch(Queries.getAggregatedDishes(fingerprint));
             this.listenTo(dishCollex, 'reset', setDishes);
 
             // Clean up

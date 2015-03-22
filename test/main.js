@@ -4,22 +4,21 @@ require(['../src/js/config'], function() {
 
     require([
         'mocha',
-        'tests/dish.spec',
-        'tests/item.spec',
-        'tests/term.spec',
-        'tests/fingerprint.spec',
-        'tests/cluster.spec',
-        'tests/index.spec',
-        'tests/seeds.spec',
-        'tests/dishes.spec',
         'tests/app-router.spec',
         'tests/app-view.spec',
         'tests/cluster-view.spec',
-        'tests/pickList-view.spec',
-        'tests/listRow-view.spec',
-        'tests/item-view.spec',
+        'tests/cluster.spec',
+        'tests/dish.spec',
+        'tests/dishes.spec',
+        'tests/fingerprint.spec',
         'tests/index-view.spec',
-        'tests/message-view.spec'
+        'tests/index.spec',
+        'tests/item.spec',
+        'tests/listRow-view.spec',
+        'tests/message-view.spec',
+        'tests/pickList-view.spec',
+        'tests/seeds.spec',
+        'tests/term.spec'
     ], function(mocha) {
         'use strict';
 

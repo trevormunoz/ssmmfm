@@ -35,12 +35,13 @@ function(Backbone, $, Handlebars, messageTemplate) {
             $('#message-body').empty();
 
             var errorMessages = {
-                'failedSeedQuery': 'Seed query failed.',
+                'dishAggFailed': "Couldn't get dishes associated with this cluster.",
                 'duplicateSeed': 'We already saw that seed!',
+                'failedSeedQuery': 'Seed query failed.',
                 'getFacetsFailed': 'We failed to get the facets.',
                 'mltQueryFailed': 'We did not find more like this.',
                 'noValueSelected': 'Please select a value.',
-                'serverError': 'Server is unavailable. Try reloading the page.'
+                'serverError': 'Server is unavailable. Retrying …'
             };
             
             if (errorMessages[errorType]) {
