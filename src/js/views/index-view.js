@@ -26,6 +26,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
+            this.listenTo(Backbone, 'dishesAggregated', this.saveIndexState);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
             this.listenTo(this.collection, 'add', this.render);
@@ -44,7 +45,9 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
 
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
+
             this.collection.add(latestTerm);
+
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             Backbone.trigger('entryAdded', this.collection.length);
         },
@@ -58,6 +61,11 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
         
         setEntryDishes: function(data) {
+            // Figuring out all of the dishes that share a fingerprint
+            // has been deferred as long as possible --- we only go
+            // to the trouble if an index term has been chosen for a
+            // cluster.
+
             var fingerprint = data
             , item = this.collection.where({fingerprint_value: fingerprint})
             , dishCollex = new Dishes();
@@ -66,21 +74,25 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
                 if (item.length === 1) {
                     var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
                     item[0].set('dishes_aggregated', dishIds);
+                    Backbone.trigger('dishesAggregated');
                 } else {
-                    // Throw an error;
+                    Backbone.trigger('raiseError', 'dishAggFailed');
                 }
-
-                if (this.collection.length % 5 === 0) {
-                    this.collection.save();
-                }
-
             };
 
             dishCollex.fetch(Queries.getAggregatedDishes(fingerprint));
             this.listenTo(dishCollex, 'reset', setDishes);
 
-            // Clean up
+            // Clean up by destroying all the models rather by reset
             _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
+        },
+
+        saveIndexState: function() {
+
+            if (this.collection.length % 5 === 0) {
+                
+                this.collection.save();
+            }
         },
 
         skipTerm: function() {
