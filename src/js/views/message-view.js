@@ -35,11 +35,11 @@ function(Backbone, $, Handlebars, messageTemplate) {
             $('#message-body').empty();
 
             var errorMessages = {
-                'dishAggFailed': "Couldn't get dishes associated with this cluster.",
-                'duplicateSeed': 'We already saw that seed!',
-                'failedSeedQuery': 'Seed query failed.',
+                'dishAggFailed': "We couldn't get dishes associated with this cluster.",
+                'duplicateSeed': 'Skipping duplicate …',
+                'failedSeedQuery': "We're sorry—the server appears to be down. Try reloading this page.",
                 'getFacetsFailed': 'We failed to get the facets.',
-                'mltQueryFailed': 'We did not find more like this.',
+                'mltQueryFailed': 'We did not find more like this. Retrying …',
                 'noValueSelected': 'Please select a value.',
                 'serverError': 'Server is unavailable. Retrying …'
             };
