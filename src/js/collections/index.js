@@ -2,9 +2,10 @@
 
 define([
         'backbone',
+        'underscore',
         'src/js/helpers/server',
         'src/js/models/term'
-], function(Backbone, esClient, IndexTerm) {
+], function(Backbone, _, esClient, IndexTerm) {
     'use strict';
 
     var Index = Backbone.Collection.extend({
@@ -12,10 +13,70 @@ define([
 
         save: function() {
 
+            var offset = this.getIdOffset();
+            this.sendData(offset);
+        },
+
+        getIdOffset: function() {
+            var that = this;
+            var allIds = [];
+
+            var scrollPromise = esClient.search({
+                index: 'public_fare',
+                type: 'term',
+                searchType: 'scan',
+                scroll: '30s',
+                fields: ['term_id'],
+                body: {"query": { "match_all": {} }}
+            });
+
+            scrollPromise.then(function (response) {
+                if (response.hits.total !== 0) {
+                    
+                    _.each(response.hits.hits, function(hit) {
+                        allIds.push(hit.term_id);
+                    });
+
+                    if (response.hits.total !== allIds.length) {
+                        window.console.log("More responses to get");
+                    } else {
+                        window.console.log("All ids acquired");
+                    }
+                } else {
+                    that.save(0);
+                }
+
+            })
+            .then(function() {
+
+                if (_.isEmpty(allIds)) {
+                    that.save(0);
+                } else {
+                    window.console.log(allIds);
+                    that.save(_.max(allIds));
+                }
+
+            }, function(err) {
+                window.console.error(err);
+            });
+
+        },
+
+        sendData: function(data) {
+
+            var fromOffset = data;
+
+            this.each(function(model) {
+                model.set('term_id', fromOffset+1);
+                fromOffset++;
+            });
+
+            window.console.log(this);
+
             var uploadBody = [];
-            _.map(this.toJSON(), function(model) {
+            _.map(this.toJSON(), function(modelJSON) {
                 uploadBody.push({index: {}});
-                uploadBody.push(model);
+                uploadBody.push(modelJSON);
             });
 
            var uploadPromise = esClient.bulk({
@@ -26,8 +87,8 @@ define([
 
             uploadPromise.then(function(data) {
                 window.console.log(data.items);
-            }, function(data) {
-                window.console.error(data.message.message);
+            }, function(err) {
+                window.console.error(err.message.message);
             });
 
         },
