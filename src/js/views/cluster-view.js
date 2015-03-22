@@ -116,8 +116,8 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
             });
 
             Mousetrap.bind('j', function() {
-                var last = $('li:nth-last-child(2) a');
-                last.click();
+                var lastSeen = $('li:nth-child(2) a');
+                lastSeen.click();
             });
             
             Mousetrap.bind('h', function() {
