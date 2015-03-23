@@ -116,6 +116,9 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
             });
 
             Mousetrap.bind('j', function() {
+                $('.modal').modal('hide');
+                that.openModal = false;
+
                 var lastSeen = $('li:nth-child(2) a');
                 lastSeen.click();
             });
