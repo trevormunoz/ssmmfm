@@ -149,6 +149,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
                     Backbone.trigger('fingerprintSuccess', fingerprint);
                 } else {
                     Backbone.trigger('raiseError', 'duplicateSeed');
+                    this.resetCluster();
             }
 
         },
