@@ -85,7 +85,7 @@ define([
                     var id = model.get('_session_id') + serverOffset;
                     model.set('term_id', id);
                     model.unset('_session_id');
-                    uploadBody.push({index: {}});
+                    uploadBody.push({index: {'_version': 1}});
                     uploadBody.push(model.toJSON());
                 }
 
