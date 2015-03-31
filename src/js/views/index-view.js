@@ -16,20 +16,22 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
     
     var IndexView = Backbone.View.extend ({
     
-        el: '#index',
+        el: '#index-output',
         
         events: {
-        'click a':  'editIndexTerm'
+        'click a':  'editIndexTerm',
+        'click button#saveButton': 'saveIndexState'
         },
         
         initialize: function() {
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
-            this.listenTo(Backbone, 'dishesAggregated', this.saveIndexState);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
 
             this.listenTo(this.collection, 'add', this.render);
+
+            this.$termList = this.$('#index');
         },
 
         createEntry: function(data) {
@@ -66,7 +68,6 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
                 if (item.length === 1) {
                     var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
                     item[0].set('dishes_aggregated', dishIds);
-                    Backbone.trigger('dishesAggregated');
                 } else {
                     Backbone.trigger('raiseError', 'dishAggFailed');
                 }
@@ -80,11 +81,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
 
         saveIndexState: function() {
-
-            if (this.collection.length % 5 === 0) {
-                
-                this.collection.save();
-            }
+            this.collection.save();
         },
 
         skipTerm: function() {
@@ -92,7 +89,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
 
         render: function() {
-            $('#index').empty();
+            this.$termList.empty();
 
             this.collection.each(this.addTerm, this);
             return this;
@@ -100,7 +97,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
 
         addTerm: function(term) {
             var view = new TermView({model: term});
-            this.$el.prepend(view.render());
+            this.$termList.prepend(view.render());
         },
         
         editIndexTerm: function(event) { 
