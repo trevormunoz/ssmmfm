@@ -14,19 +14,12 @@ define([
 
         save: function() {
             
-            this.each(function(model) {
-
-                if (model.has('dishes_aggregated')) {
-                    window.console.log(model);
-                } else {
-                    window.console.log('no dishes!');
-                }
-
-            });
+            this.getServerIds();
 
         },
 
-        getIdOffset: function() {
+        getServerIds: function() {
+            
             var that = this;
             var allIds = [];
 
@@ -51,18 +44,18 @@ define([
                     } else {
                         window.console.log("All ids acquired");
                     }
+                
                 } else {
-                    that.save(0);
+                    window.console.log('No ids on server');
                 }
 
             })
             .then(function() {
 
-                if (_.isEmpty(allIds)) {
-                    that.save(0);
+                if (! _.isEmpty(allIds)) {
+                    that.filterIndex(_.max(allIds));
                 } else {
-                    window.console.log(allIds);
-                    that.save(_.max(allIds));
+                    that.filterIndex(0);
                 }
 
             }, function(err) {
@@ -71,27 +64,35 @@ define([
 
         },
 
-        sendData: function(data) {
+        filterIndex: function(data) {
 
-            var fromOffset = data;
-
-            this.each(function(model) {
-                model.set('term_id', fromOffset+1);
-                fromOffset++;
-            });
-
-            window.console.log(this);
+            var serverOffset = data;
 
             var uploadBody = [];
-            _.map(this.toJSON(), function(modelJSON) {
-                uploadBody.push({index: {}});
-                uploadBody.push(modelJSON);
+            this.each(function(model) {
+
+                if (model.has('dishes_aggregated') 
+                        && model.has('_session_id')) {
+
+                    var id = model.get('_session_id') + serverOffset;
+                    model.set('term_id', id);
+                    model.unset('_session_id');
+                    uploadBody.push({index: {}});
+                    uploadBody.push(model.toJSON());
+                }
+
             });
+
+            this.sendData(uploadBody);
+
+        },
+
+        sendData: function(bulkUpload) {
 
            var uploadPromise = esClient.bulk({
                 index: 'public_fare',
                 type: 'term',
-                body: uploadBody
+                body: bulkUpload
             });
 
             uploadPromise.then(function(data) {
