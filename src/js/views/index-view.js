@@ -48,6 +48,9 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
 
+            latestTerm.set('_session_id', this.collection.idOffset);
+            this.collection.idOffset++;
+
             this.collection.add(latestTerm);
 
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
