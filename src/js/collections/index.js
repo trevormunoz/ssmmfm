@@ -10,11 +10,20 @@ define([
 
     var Index = Backbone.Collection.extend({
         model: IndexTerm,
+        idOffset: 1,
 
         save: function() {
+            
+            this.each(function(model) {
 
-            var offset = this.getIdOffset();
-            this.sendData(offset);
+                if (model.has('dishes_aggregated')) {
+                    window.console.log(model);
+                } else {
+                    window.console.log('no dishes!');
+                }
+
+            });
+
         },
 
         getIdOffset: function() {
