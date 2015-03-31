@@ -23,7 +23,7 @@ define([
             var that = this;
             var allIds = [];
 
-            var scrollPromise = esClient.search({
+            var scanPromise = esClient.search({
                 index: 'public_fare',
                 type: 'term',
                 searchType: 'scan',
@@ -32,7 +32,8 @@ define([
                 body: {"query": { "match_all": {} }}
             });
 
-            scrollPromise.then(function (response) {
+            scanPromise.then(function getMoreUntilDone(response) {
+                
                 if (response.hits.total !== 0) {
                     
                     _.each(response.hits.hits, function(hit) {
@@ -40,9 +41,16 @@ define([
                     });
 
                     if (response.hits.total !== allIds.length) {
-                        window.console.log("More responses to get");
+                        
+                        var scrollPromise = esClient.scroll({
+                            scrollId: response._scroll_id,
+                            scroll: '30s'
+                        });
+
+                        scrollPromise.then(getMoreUntilDone);
+
                     } else {
-                        window.console.log("All ids acquired");
+                        // pass
                     }
                 
                 } else {
@@ -92,6 +100,7 @@ define([
            var uploadPromise = esClient.bulk({
                 index: 'public_fare',
                 type: 'term',
+                refresh: true,
                 body: bulkUpload
             });
 
