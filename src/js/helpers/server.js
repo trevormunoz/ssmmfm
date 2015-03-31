@@ -5,7 +5,7 @@ define(['elasticsearch'], function(elasticsearch) {
 
     var esClient = new elasticsearch.Client({
         host: 'http://api.publicfare.org:80'
-        , apiVersion: "1.5"
+        , apiVersion: "1.4"
         //, log: 'trace'
     });
 
