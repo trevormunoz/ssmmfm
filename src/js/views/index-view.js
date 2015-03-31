@@ -89,7 +89,11 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
 
         saveIndexState: function() {
-            this.collection.save();
+            if (this.collection.length > 1) {
+                this.collection.save();
+            } else {
+                Backbone.trigger('raiseError', 'noValueSelected');
+            }
         },
 
         skipTerm: function() {
