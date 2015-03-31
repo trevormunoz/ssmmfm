@@ -26,7 +26,7 @@ define([
             });
 
             it("should bind to the correct DOM element", function() {
-                expect(this.view.$el.selector).to.equal('#index');
+                expect(this.view.$el.selector).to.equal('#index-output');
             });
 
             it('should reflect a collection', function () {
