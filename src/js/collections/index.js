@@ -11,16 +11,11 @@ define([
     var Index = Backbone.Collection.extend({
         model: IndexTerm,
         idOffset: 1,
-
-        save: function() {
-            
-            this.getServerIds();
-
-        },
-
-        getServerIds: function() {
-            
+        
+        initialize: function() {
+            // get whatever is on the server
             var that = this;
+            //Starting this empty causes one 'superfluous' request
             var allIds = [];
 
             var scanPromise = esClient.search({
@@ -37,7 +32,7 @@ define([
                 if (response.hits.total !== 0) {
                     
                     _.each(response.hits.hits, function(hit) {
-                        allIds.push(hit.term_id);
+                        allIds.push(hit._id);
                     });
 
                     if (response.hits.total !== allIds.length) {
@@ -50,20 +45,17 @@ define([
                         scrollPromise.then(getMoreUntilDone);
 
                     } else {
-                        // pass
+                        window.console.log('All results processed');
+                        if (! _.isEmpty(allIds)) {
+                            var serverMaxima = Number(_.max(allIds)).toFixed();
+                            that.idOffset = serverMaxima++;
+                        } else {
+                            window.console.log('nothing to add');
+                        }
                     }
                 
                 } else {
                     window.console.log('No ids on server');
-                }
-
-            })
-            .then(function() {
-
-                if (! _.isEmpty(allIds)) {
-                    that.filterIndex(_.max(allIds));
-                } else {
-                    that.filterIndex(0);
                 }
 
             }, function(err) {
@@ -72,7 +64,14 @@ define([
 
         },
 
-        filterIndex: function(data) {
+        save: function() {
+            
+            var toSave = this.filterCollexForSave(this.idOffset);
+            this.sendData(toSave);
+
+        },
+
+        filterCollexForSave: function(data) {
 
             var serverOffset = data;
 
@@ -82,16 +81,17 @@ define([
                 if (model.has('dishes_aggregated') 
                         && model.has('_session_id')) {
 
-                    var id = model.get('_session_id') + serverOffset;
+                    var id = model.get('_session_id');
+                    window.console.log(id);
                     model.set('term_id', id);
                     model.unset('_session_id');
-                    uploadBody.push({index: {'_version': 1}});
+                    uploadBody.push({index: {}});
                     uploadBody.push(model.toJSON());
                 }
 
             });
 
-            this.sendData(uploadBody);
+            return uploadBody;
 
         },
 
