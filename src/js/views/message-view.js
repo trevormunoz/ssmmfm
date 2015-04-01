@@ -73,7 +73,7 @@ function(Backbone, $, Handlebars, messageTemplate) {
             var count = Math.floor(data);
 
             var statsMsg = 0;
-            if ( count <= 1) {
+            if ( count === 1) {
                 statsMsg = data + ' cluster reviewed';
             } else {
                 statsMsg = data + ' clusters reviewed';
