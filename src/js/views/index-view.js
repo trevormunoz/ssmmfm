@@ -43,14 +43,13 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
 
         setEntryTerm: function(data) {
-            window.console.log(this.collection.idOffset);
             var cleanData = data.trim();
 
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
 
-            this.collection.idOffset++;
             latestTerm.set('_session_id', this.collection.idOffset);
+            this.collection.idOffset++;
 
             this.collection.add(latestTerm);
 

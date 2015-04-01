@@ -32,7 +32,7 @@ define([
                 if (response.hits.total !== 0) {
                     
                     _.each(response.hits.hits, function(hit) {
-                        allIds.push(hit._id);
+                        allIds.push(hit.fields.term_id[0]);
                     });
 
                     if (response.hits.total !== allIds.length) {
@@ -45,10 +45,10 @@ define([
                         scrollPromise.then(getMoreUntilDone);
 
                     } else {
-                        window.console.log('All results processed');
+
                         if (! _.isEmpty(allIds)) {
-                            var serverMaxima = Number(_.max(allIds)).toFixed();
-                            that.idOffset = serverMaxima++;
+                            var serverMaxima = _.max(allIds);
+                            that.idOffset = serverMaxima + 1;
                         } else {
                             window.console.log('nothing to add');
                         }
@@ -81,7 +81,7 @@ define([
                 if (model.has('dishes_aggregated') 
                         && model.has('_session_id')) {
 
-                    var id = model.get('_session_id') + serverOffset;
+                    var id = model.get('_session_id');
                     window.console.log(id);
                     model.set('term_id', id);
                     model.unset('_session_id');
