@@ -43,6 +43,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
             // And event listeners …
             this.listenTo(Backbone, 'seedQuerySuccess', this.dedupeFingerprint);
             this.listenTo(Backbone, 'fingerprintSuccess', this.getFacets);
+            this.listenTo(Backbone, 'serverDataRetrieved', this.loadExisting);
 
             // Set up key bindings
             var that = this;
@@ -145,6 +146,16 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
 
         },
 
+        loadExisting: function(data) {
+            var serverFingerprints = data;
+            var that = this;
+
+            _.each(serverFingerprints, function(fingerprint) {
+                var fingerprintModel = new Fingerprint({value: fingerprint});
+                that.collection.add(fingerprintModel); 
+            });
+        },
+
         cleanUp: function() {
 
             _.each(this.subviews, function(subview) {
@@ -157,7 +168,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
         },
 
         dedupeFingerprint: function(data) {
-            var fingerprint = data;        
+            var fingerprint = data;       
             var filter = this.collection.where({value: fingerprint});   
             if (filter.length === 0)  {
                     var fingerprintModel = new Fingerprint({value: fingerprint});

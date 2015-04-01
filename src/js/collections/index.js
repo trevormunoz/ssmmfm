@@ -17,6 +17,7 @@ define([
             var that = this;
             //Starting this empty causes one 'superfluous' request
             var allIds = [];
+            var allFingerprints = [];
 
             var scanPromise = esClient.search({
                 index: 'public_fare',
@@ -24,7 +25,7 @@ define([
                 searchType: 'scan',
                 size: 20,
                 scroll: '30s',
-                fields: ['term_id'],
+                fields: ['term_id', 'fingerprint_value'],
                 body: {"query": { "match_all": {} }}
             });
 
@@ -34,6 +35,7 @@ define([
                     
                     _.each(response.hits.hits, function(hit) {
                         allIds.push(hit.fields.term_id[0]);
+                        allFingerprints.push(hit.fields.fingerprint_value[0]);
                     });
 
                     if (response.hits.total !== allIds.length) {
@@ -47,6 +49,7 @@ define([
 
                     } else {
 
+                        Backbone.trigger('serverDataRetrieved', allFingerprints);
                         if (! _.isEmpty(allIds)) {
                             var serverMaxima = _.max(allIds);
                             that.idOffset = serverMaxima + 1;
