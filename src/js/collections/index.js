@@ -54,12 +54,12 @@ define([
                             var serverMaxima = _.max(allIds);
                             that.idOffset = serverMaxima + 1;
                         } else {
-                            window.console.log('nothing to add');
+                            //pass
                         }
                     }
                 
                 } else {
-                    window.console.log('No ids on server');
+                    //pass 
                 }
 
             }, function(err) {
@@ -86,9 +86,9 @@ define([
                         && model.has('_session_id')) {
 
                     var id = model.get('_session_id');
-                    window.console.log(id);
                     model.set('term_id', id);
                     model.unset('_session_id');
+
                     uploadBody.push({index: {}});
                     uploadBody.push(model.toJSON());
                 }
