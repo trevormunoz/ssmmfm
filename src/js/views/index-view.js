@@ -29,7 +29,9 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
+            this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
             this.listenTo(this.collection, 'add', this.render);
+            this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
             this.$termList = this.$('#index');
         },
@@ -99,6 +101,23 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             }
         },
 
+        setSaveStatus: function(data) {
+            var saveResponse = data;
+            var that = this;
+
+            _.each(saveResponse, function(resp) {
+
+                if (resp.index.status === 201) {
+                    var savedId = Number(resp.index._id);
+                    var model = that.collection.where({term_id: savedId})[0];
+                    model.set('saved', true);
+                } else {
+                    window.console.error('Something went wrong w/save!');
+                }
+
+            });
+        },
+
         skipTerm: function() {
             this.collection.pop();
         },
@@ -108,6 +127,13 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
 
             this.collection.each(this.addTerm, this);
             return this;
+        },
+
+        acknowledgeSave: function(data) {
+            var savedModel = data;
+            var fingerprint = savedModel.get('fingerprint_value');
+            var $termEl = $('[data-fingerprint="' + fingerprint + '"] > span');
+            $termEl.attr('class', 'save-confirmed');
         },
 
         addTerm: function(term) {
