@@ -7195,6 +7195,9 @@ fieldset[disabled] #saveButton.active {
   font-size: 14px;
   color: #eeeeee;
 }
+.save-confirmed {
+  color: #c78a87;
+}
 .body-section-heading {
   color: #3d2d2e;
 }
