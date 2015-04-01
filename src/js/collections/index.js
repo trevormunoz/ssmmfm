@@ -22,6 +22,7 @@ define([
                 index: 'public_fare',
                 type: 'term',
                 searchType: 'scan',
+                size: 20,
                 scroll: '30s',
                 fields: ['term_id'],
                 body: {"query": { "match_all": {} }}
