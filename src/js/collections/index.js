@@ -109,7 +109,7 @@ define([
             });
 
             uploadPromise.then(function(data) {
-                window.console.log(data.items);
+                Backbone.trigger('saveSuccess', data.items);
             }, function(err) {
                 window.console.error(err.message.message);
             });
