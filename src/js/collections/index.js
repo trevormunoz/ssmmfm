@@ -81,7 +81,7 @@ define([
                 if (model.has('dishes_aggregated') 
                         && model.has('_session_id')) {
 
-                    var id = model.get('_session_id');
+                    var id = model.get('_session_id') + serverOffset;
                     window.console.log(id);
                     model.set('term_id', id);
                     model.unset('_session_id');
