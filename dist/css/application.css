@@ -6638,6 +6638,7 @@ body {
   margin-right: -15px;
   border-bottom: 2px dotted #3d2d2e;
   margin-bottom: 20px;
+  font-size: 14px;
 }
 #stats {
   position: relative;
@@ -6645,7 +6646,6 @@ body {
   padding-left: 15px;
   padding-right: 15px;
   padding: 20px 20px 10px 20px;
-  border-left: 2px dotted #3d2d2e;
 }
 @media (min-width: 992px) {
   #stats {
@@ -6657,7 +6657,7 @@ body {
   color: #777777;
   font-style: italic;
 }
-#message-body {
+#server {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -6665,9 +6665,27 @@ body {
   padding: 20px 20px 10px 20px;
 }
 @media (min-width: 992px) {
+  #server {
+    float: left;
+    width: 25%;
+  }
+}
+#server p {
+  color: #777777;
+  font-style: italic;
+}
+#message-body {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 20px 20px 10px 20px;
+  border-right: 2px dotted #3d2d2e;
+}
+@media (min-width: 992px) {
   #message-body {
     float: left;
-    width: 83.33333333%;
+    width: 58.33333333%;
   }
 }
 #message-body p {
