@@ -144,7 +144,7 @@ define([
                 Backbone.trigger('entryAdded', 7);
 
                 expect(this.$fixture[0].children[0].firstChild.tagName).to.equal('P');
-                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('7 clusters reviewed');
+                expect(this.$fixture[0].children[0].firstChild.textContent).to.equal('7 clusters reviewed this session');
             });
         });
     });
