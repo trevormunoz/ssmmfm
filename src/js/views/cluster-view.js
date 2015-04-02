@@ -139,7 +139,6 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
                 that.collection.add(fingerprintModel); 
             });
 
-            Backbone.trigger('entryAdded', this.collection.length);
         },
 
         cleanUp: function() {
