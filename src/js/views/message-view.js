@@ -15,6 +15,7 @@ function(Backbone, $, Handlebars, messageTemplate) {
 
         initialize: function() {
 
+            this.listenTo(Backbone, 'serverStats', this.updateServerCount);
             this.listenTo(Backbone, 'fingerprintSuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'raiseError', this.flashFailMessage);
             this.listenTo(Backbone, 'modalError', this.flashModalMessage);
@@ -80,6 +81,10 @@ function(Backbone, $, Handlebars, messageTemplate) {
             }
 
             this.render({'parent': '#stats', 'message': statsMsg});
+        },
+
+        updateServerCount: function(data) {
+            window.console.log(data);
         },
 
         render: function(data) {

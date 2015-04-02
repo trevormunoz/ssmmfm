@@ -29,7 +29,11 @@ define([
                 body: {"query": { "match_all": {} }}
             });
 
-            scanPromise.then(function getMoreUntilDone(response) {
+            scanPromise.then(function(response) {
+                Backbone.trigger('serverStats', response.hits.total);
+                return response;
+            })
+            .then(function getMoreUntilDone(response) {
                 
                 if (response.hits.total !== 0) {
                     
