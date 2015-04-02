@@ -109,7 +109,13 @@ define([
             });
 
             uploadPromise.then(function(data) {
-                Backbone.trigger('saveSuccess', data.items);
+
+                if (data.errors === false) {
+                    Backbone.trigger('saveSuccess', data.items);
+                } else {
+                    throw new Error('Save request encountered errors');
+                }
+                
             }, function(err) {
                 window.console.error(err.message.message);
             });
