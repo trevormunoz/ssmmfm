@@ -129,6 +129,11 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             return this;
         },
 
+        addTerm: function(term) {
+            var view = new TermView({model: term});
+            this.$termList.prepend(view.render());
+        },
+
         acknowledgeSave: function(data) {
             var savedModel = data;
             var fingerprint = savedModel.get('fingerprint_value');
