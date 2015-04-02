@@ -15,6 +15,7 @@ function(Backbone, $, Handlebars, messageTemplate) {
 
         initialize: function() {
 
+            this.listenTo(Backbone, 'serverStats', this.updateServerCount);
             this.listenTo(Backbone, 'fingerprintSuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'raiseError', this.flashFailMessage);
             this.listenTo(Backbone, 'modalError', this.flashModalMessage);
@@ -73,13 +74,27 @@ function(Backbone, $, Handlebars, messageTemplate) {
             var count = Math.floor(data);
 
             var statsMsg = 0;
-            if ( count <= 1) {
-                statsMsg = data + ' cluster reviewed';
+            if ( count === 1) {
+                statsMsg = data + ' cluster reviewed this session';
             } else {
-                statsMsg = data + ' clusters reviewed';
+                statsMsg = data + ' clusters reviewed this session';
             }
 
             this.render({'parent': '#stats', 'message': statsMsg});
+        },
+
+        updateServerCount: function(data) {
+            $('#server').empty();
+            var count = Math.floor(data);
+
+            var serverMsg = 0;
+            if ( count === 1) {
+                serverMsg = data + ' cluster reviewed to date';
+            } else {
+                serverMsg = data + ' clusters reviewed to date';
+            }
+
+            this.render({'parent': '#server', 'message': serverMsg});
         },
 
         render: function(data) {

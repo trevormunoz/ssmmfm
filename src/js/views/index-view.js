@@ -16,10 +16,11 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
     
     var IndexView = Backbone.View.extend ({
     
-        el: '#index',
+        el: '#index-output',
         
         events: {
-        'click a':  'editIndexTerm'
+        'click a':  'editIndexTerm',
+        'click button#saveButton': 'saveIndexState'
         },
         
         initialize: function() {
@@ -27,8 +28,12 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
+            this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
 
             this.listenTo(this.collection, 'add', this.render);
+            this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
+
+            this.$termList = this.$('#index');
         },
 
         createEntry: function(data) {
@@ -44,12 +49,22 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
 
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
+
+            latestTerm.set('_session_id', this.collection.idOffset);
+            this.collection.idOffset++;
+
             this.collection.add(latestTerm);
+
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             Backbone.trigger('entryAdded', this.collection.length);
         },
 
         setEntryDishes: function(data) {
+            // Figuring out all of the dishes that share a fingerprint
+            // has been deferred as long as possible --- we only go
+            // to the trouble if an index term has been chosen for a
+            // cluster.
+
             var fingerprint = data
             , item = this.collection.where({fingerprint_value: fingerprint})
             , dishCollex = new Dishes();
@@ -59,20 +74,40 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
                     var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
                     item[0].set('dishes_aggregated', dishIds);
                 } else {
-                    // Throw an error;
+                    Backbone.trigger('raiseError', 'dishAggFailed');
                 }
-
-                if (this.collection.length % 5 === 0) {
-                    this.collection.save();
-                }
-
             };
 
             dishCollex.fetch(Queries.getAggregatedDishes(fingerprint));
             this.listenTo(dishCollex, 'reset', setDishes);
 
-            // Clean up
+            // Clean up by destroying all the models rather by reset
             _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
+        },
+
+        saveIndexState: function() {
+            if (this.collection.length > 1) {
+                this.collection.save();
+            } else {
+                Backbone.trigger('raiseError', 'noValueSelected');
+            }
+        },
+
+        setSaveStatus: function(data) {
+            var saveResponse = data;
+            var that = this;
+
+            _.each(saveResponse, function(resp) {
+
+                if (resp.index.status === 201) {
+                    var savedId = Number(resp.index._id);
+                    var model = that.collection.where({term_id: savedId})[0];
+                    model.set('saved', true);
+                } else {
+                    window.console.error('Something went wrong w/save!');
+                }
+
+            });
         },
 
         skipTerm: function() {
@@ -80,7 +115,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
 
         render: function() {
-            $('#index').empty();
+            this.$termList.empty();
 
             this.collection.each(this.addTerm, this);
             return this;
@@ -88,7 +123,14 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
 
         addTerm: function(term) {
             var view = new TermView({model: term});
-            this.$el.prepend(view.render());
+            this.$termList.prepend(view.render());
+        },
+
+        acknowledgeSave: function(data) {
+            var savedModel = data;
+            var fingerprint = savedModel.get('fingerprint_value');
+            var $termEl = $('[data-fingerprint="' + fingerprint + '"] > span');
+            $termEl.addClass('save-confirmed');
         },
         
         editIndexTerm: function(event) { 
