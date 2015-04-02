@@ -87,12 +87,21 @@ body {
     .make-row();
     border-bottom: 2px dotted @seed;
     margin-bottom: 20px;
+    font-size: @font-size-small;
 }
 
 #stats {
     .make-md-column(2);
     padding: 20px 20px 10px 20px;
-    border-left: 2px dotted @seed;
+    p {
+        color: @gray-light;
+        font-style: italic;
+    }
+}
+
+#server {
+    .make-md-column(3);
+    padding: 20px 20px 10px 20px;
     p {
         color: @gray-light;
         font-style: italic;
@@ -100,8 +109,9 @@ body {
 }
 
 #message-body {
-    .make-md-column(10);
+    .make-md-column(7);
     padding: 20px 20px 10px 20px;
+    border-right: 2px dotted @seed;
     p {
         color: @gray-light;
         font-style: italic;
