@@ -1,6 +1,10 @@
 <li data-fingerprint="{{fingerprint_value}}">
         <a href="#">{{index_term}}</a>
         {{#if dishes_aggregated}}
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            {{#if saved}}
+                <span class="glyphicon glyphicon-ok save-confirmed" aria-hidden="true"></span>
+            {{else}}
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            {{/if}}
         {{/if}}
 </li>
