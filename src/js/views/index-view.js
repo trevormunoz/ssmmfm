@@ -125,12 +125,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             var savedModel = data;
             var fingerprint = savedModel.get('fingerprint_value');
             var $termEl = $('[data-fingerprint="' + fingerprint + '"] > span');
-            $termEl.attr('class', 'save-confirmed');
-        },
-
-        addTerm: function(term) {
-            var view = new TermView({model: term});
-            this.$termList.prepend(view.render());
+            $termEl.addClass('save-confirmed');
         },
         
         editIndexTerm: function(event) { 
