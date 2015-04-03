@@ -27,7 +27,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
-
+            this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
             this.listenTo(this.collection, 'add', this.render);
         },
 
@@ -46,6 +46,15 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             latestTerm.set('index_term', cleanData);
             this.collection.add(latestTerm);
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
+            Backbone.trigger('entryAdded', this.collection.length);
+        },
+        
+         flagEntry: function(data) {
+            
+            var latestTerm = this.collection.pop();
+            latestTerm.set('index_term', data);
+            //latestTerm.set('needsReview' == true);
+            this.collection.add(latestTerm);
             Backbone.trigger('entryAdded', this.collection.length);
         },
 
