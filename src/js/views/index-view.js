@@ -30,6 +30,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
+            this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
             this.listenTo(this.collection, 'add', this.render);
             this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
@@ -60,13 +61,13 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
         
          flagEntry: function(data) {
-             
+
             var latestTerm = this.collection.pop();
             latestTerm.set('needsReview', true);
             this.collection.add(latestTerm);
             Backbone.trigger('entryAdded', this.collection.length);
         },
-        
+
         setEntryDishes: function(data) {
             // Figuring out all of the dishes that share a fingerprint
             // has been deferred as long as possible --- we only go
