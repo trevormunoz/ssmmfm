@@ -131,7 +131,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
                     Backbone.trigger('flaggedValue', selectedVal);
                     that.resetCluster();
                 } else {
-                    
+
                     if (that.openModal === true) {
                         var selectedVal = $('#input-modal input').val();
                         Backbone.trigger('flaggedValue', selectedVal);

@@ -67,7 +67,7 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.collection.add(latestTerm);
             Backbone.trigger('entryAdded', this.collection.length);
         },
-
+        
         setEntryDishes: function(data) {
             // Figuring out all of the dishes that share a fingerprint
             // has been deferred as long as possible --- we only go
