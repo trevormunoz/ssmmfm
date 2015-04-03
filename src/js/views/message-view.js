@@ -19,6 +19,7 @@ function(Backbone, $, Handlebars, messageTemplate) {
             this.listenTo(Backbone, 'fingerprintSuccess', this.flashFingerprint);
             this.listenTo(Backbone, 'raiseError', this.flashFailMessage);
             this.listenTo(Backbone, 'modalError', this.flashModalMessage);
+            this.listenTo(Backbone, 'searchError', this.flashSearchMessage);
             this.listenTo(Backbone, 'entryAdded', this.updateCount);
         },
 
@@ -67,6 +68,23 @@ function(Backbone, $, Handlebars, messageTemplate) {
                 this.render({'parent': '#message-body', 'message': 'Something went wrong. Try reloading the page.'});
             }
             
+        },
+
+        flashSearchMessage: function(data) {
+            var errorType = data;
+
+            $('#search-message').empty();
+
+            var errorMessages = {
+                'emptyInput': 'Please input a value.',
+                'noResults': 'No results.'
+            };
+
+            if (errorMessages[errorType]) {
+                this.render({'parent': '#search-message', 'message': errorMessages[errorType]});
+            } else {
+                this.render({'parent': '#search-message', 'message': 'Something went wrong. Try reloading the page.'});
+            }
         },
 
         updateCount: function(data) {
