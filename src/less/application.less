@@ -195,9 +195,33 @@ body {
 #saveButton {
     .btn();
     .btn-default();
-    .btn-xs();
+    .btn-sm();
     .text-left();
     .pull-right();
+}
+
+#search-form form {
+    .form-inline();
+    input {
+        .input-sm();
+    }
+}
+
+#searchButton {
+    .btn();
+    .btn-default();
+    .btn-sm();
+    .text-left();
+    .pull-right();
+}
+
+#search-message {
+    p {
+        padding-top: 5px;
+        color: @gray-light;
+        font-style: italic;
+        font-size: @font-size-small;
+    }
 }
 
 #index {
