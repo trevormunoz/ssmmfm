@@ -50,14 +50,13 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
         
          flagEntry: function(data) {
-            
+             
             var latestTerm = this.collection.pop();
-            latestTerm.set('index_term', data);
-            //latestTerm.set('needsReview' == true);
+            latestTerm.set('needsReview', true);
             this.collection.add(latestTerm);
             Backbone.trigger('entryAdded', this.collection.length);
         },
-
+        
         setEntryDishes: function(data) {
             var fingerprint = data
             , item = this.collection.where({fingerprint_value: fingerprint})
