@@ -6,17 +6,19 @@ define([
     'jquery',
     'src/js/models/term',
     'src/js/collections/dishes',
+    'src/js/views/search-view',
     'src/js/views/term-view',
     'src/js/helpers/queries',
     'src/js/helpers/utils'
 ],
 
-function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
+function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
     
         el: '#index-output',
+        subviews: {},
         
         events: {
         'click a':  'editIndexTerm',
@@ -24,6 +26,10 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
         },
         
         initialize: function() {
+
+            var search = new SearchView();
+            this.subviews.search = search;
+
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
@@ -34,6 +40,17 @@ function(Backbone, _, $, IndexTerm, Dishes, TermView, Queries) {
             this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
             this.$termList = this.$('#index');
+        },
+
+        cleanUp: function() {
+
+            _.each(this.subviews, function(subview) {
+                if(subview) {
+                    subview.remove();
+                }
+            });
+
+            this.remove();
         },
 
         createEntry: function(data) {
