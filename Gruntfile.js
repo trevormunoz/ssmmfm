@@ -8,6 +8,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-mocha-phantomjs');
     //More later …
 
@@ -43,7 +45,7 @@ module.exports = function(grunt) {
             },
             scripts: {
                 files: ['src/js/**/*.js'],
-                tasks: ['jshint']
+                tasks: ['requirejs']
             }
         },
 
@@ -64,6 +66,25 @@ module.exports = function(grunt) {
                 },
             }
         },
+
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: ".",
+                    mainConfigFile: "src/js/config.js",
+                    include: ['bower_components/almond/almond', 'src/js/main', 'src/js/routers/app-router'],
+                    out: "dist/js/ssmmfm.js"
+                }
+            }
+        },
+
+        uglify: {
+            my_target: {
+                files: {
+                    'dist/js/app.min.js': ['dist/js/app.js']
+                }
+            }
+        }
 
     });
 
