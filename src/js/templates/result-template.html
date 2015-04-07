@@ -1,0 +1,9 @@
+<h4>Search Results</h4>
+<dl class="dl-horizontal">
+    {{#each this}}
+        {{#_source}}
+        <dt>{{term_id}}</dt>
+        <dd>{{index_term}}</dd>
+        {{/_source}}
+    {{/each}}
+</dl>
