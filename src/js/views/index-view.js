@@ -31,6 +31,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var search = new SearchView();
             this.subviews.search = search;
 
+            //Populate user session model with data to be used later
             UserSession.fetch();
 
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
