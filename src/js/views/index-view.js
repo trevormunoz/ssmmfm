@@ -74,7 +74,8 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             latestTerm.set('_session_id', this.collection.idOffset);
             this.collection.idOffset++;
 
-            window.console.log(UserSession.get('username'));
+            var user = UserSession.get('username');
+            latestTerm.set('responsible', user);
 
             this.collection.add(latestTerm);
 
