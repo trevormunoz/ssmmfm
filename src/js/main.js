@@ -8,7 +8,7 @@ require(['src/js/config'], function() {
         'use strict';
 
         var router = new AppRouter();
-        Backbone.history.start();
+        Backbone.history.start({pushState: true, root:'/ssmmfm/'});
 
     });
 });
