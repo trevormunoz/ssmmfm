@@ -31,6 +31,8 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var search = new SearchView();
             this.subviews.search = search;
 
+            UserSession.fetch();
+
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
@@ -71,8 +73,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             latestTerm.set('_session_id', this.collection.idOffset);
             this.collection.idOffset++;
 
-            var user = UserSession.fetch();
-            window.console.log(user.get('username'));
+            window.console.log(UserSession.get('username'));
 
             this.collection.add(latestTerm);
 
