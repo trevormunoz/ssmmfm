@@ -5,6 +5,7 @@ define([
     'underscore',
     'jquery',
     'src/js/models/term',
+    'src/js/models/user-session',
     'src/js/collections/dishes',
     'src/js/views/search-view',
     'src/js/views/term-view',
@@ -12,7 +13,7 @@ define([
     'src/js/helpers/utils'
 ],
 
-function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
+function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Queries) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -69,6 +70,8 @@ function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
 
             latestTerm.set('_session_id', this.collection.idOffset);
             this.collection.idOffset++;
+
+            UserSession.fetch();
 
             this.collection.add(latestTerm);
 
