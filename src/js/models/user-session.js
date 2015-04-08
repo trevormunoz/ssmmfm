@@ -7,7 +7,13 @@ define(['backbone'], function(Backbone) {
         urlRoot: '/user',
 
         parse: function(response) {
-            window.console.log(response.login);
+            var userObj = {
+                'username': response.login,
+                'user_icon': response.avatar_url,
+                'user_webpage': response.html_url
+            };
+            
+            return userObj;
         },
     });
 
