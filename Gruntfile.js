@@ -9,6 +9,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-mocha-phantomjs');
     //More later …
@@ -46,6 +47,16 @@ module.exports = function(grunt) {
             scripts: {
                 files: ['src/js/**/*.js'],
                 tasks: ['requirejs']
+            }
+        },
+
+        copy: {
+            main: {
+                files: [{expand: true, 
+                        flatten: true,
+                        src: ['bower_components/bootstrap/dist/fonts/**'],
+                        dest: 'dist/fonts/',
+                        filter: 'isFile'}]
             }
         },
 
@@ -89,5 +100,6 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('build', ['less', 'cssmin', 'copy', 'requirejs']);
     grunt.registerTask('test', ['connect', 'mocha_phantomjs']);
 };
