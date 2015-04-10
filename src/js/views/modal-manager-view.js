@@ -20,6 +20,7 @@ define([
 
         initialize: function() {
 
+            this.listenTo(Backbone, 'handleInputModal', this.closeInputModal);
             this.listenTo(Backbone, 'clearModals', this.clear);
 
             Keybindings.initActionBindings(this);

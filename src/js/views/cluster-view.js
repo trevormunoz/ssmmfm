@@ -23,7 +23,7 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         subviews: {},
 
         events: {
-            'click #input-modal button': 'closeInputModal'
+            'click #input-modal button': 'saveInput'
         },
         
         initialize: function () {
@@ -90,6 +90,10 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
 
             // Trigger an event on Backbone & send query string
             Backbone.trigger('facetQueryReady', facetQuery);
+        },
+
+        saveInput: function() {
+            Backbone.trigger('handleInputModal');
         },        
 
         resetCluster: function() {
