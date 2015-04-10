@@ -145,6 +145,10 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
                 $('#help-modal').modal();
             });
 
+            Mousetrap.bind('shift+enter', function() {
+                $('button#saveButton').click();
+            });
+
         },
 
         loadExisting: function(data) {
