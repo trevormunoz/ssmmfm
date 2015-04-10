@@ -39,7 +39,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
-            this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
+            this.listenTo(Backbone, 'issueCreated', this.flagEntry);
             this.listenTo(this.collection, 'add', this.render);
             this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
