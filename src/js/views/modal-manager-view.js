@@ -11,7 +11,7 @@ define([
         el: '#modals',
 
         events: {
-            'click .modal-footer button': 'closeInputModal'
+            'click #input-modal button': 'closeInputModal'
         },
 
         modals: {
