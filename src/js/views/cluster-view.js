@@ -22,6 +22,8 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         el: '#cluster',
         subviews: {},
 
+        // Has to be here rather than in ModalView because of
+        // how active modals fit in the DOM + jQuery scoping rules
         events: {
             'click #input-modal button': 'saveInput'
         },
@@ -92,6 +94,7 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
             Backbone.trigger('facetQueryReady', facetQuery);
         },
 
+        // See note on events
         saveInput: function() {
             Backbone.trigger('handleInputModal');
         },        
