@@ -83,7 +83,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             Backbone.trigger('entryAdded', this.collection.length);
         },
         
-         flagEntry: function(data) {
+         flagEntry: function() {
 
             var latestTerm = this.collection.pop();
             latestTerm.set('needsReview', true);
