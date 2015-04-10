@@ -39,7 +39,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
-            this.listenTo(Backbone, 'issueCreated', this.flagEntry);
+            this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
             this.listenTo(this.collection, 'add', this.render);
             this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
@@ -84,11 +84,21 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
         },
         
          flagEntry: function() {
-
             var latestTerm = this.collection.pop();
-            latestTerm.set('needsReview', true);
-            this.collection.add(latestTerm);
-            Backbone.trigger('entryAdded', this.collection.length);
+
+            Backbone.trigger('launchIssueModal', latestTerm.get('fingerprint_value'));
+
+            // Do things in the modal
+
+            var that = this;
+            var setFlag = function() {
+                latestTerm.set('needsReview', true);
+                that.collection.add(latestTerm);
+                Backbone.trigger('entryAdded', this.collection.length);
+                Backbone.trigger('shuffle');
+            };
+
+            this.listenTo(Backbone, 'issueCreated', setFlag);
         },
         
         setEntryDishes: function(data) {

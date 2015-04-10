@@ -95,20 +95,7 @@ define(['mousetrap'], function(Mousetrap) {
             });
             
             Mousetrap.bind('r', function() {
-                 var selectedEl = $(document.activeElement)[0];
-                if (selectedEl.tagName === 'TR') {
-                    var selectedVal = $('tr:focus > td:first-child').text;
-                    Backbone.trigger('flaggedValue', selectedVal);
-                    //that.resetCluster();
-                } else {
-
-                    if (that.openModal === true) {
-                        var selectedVal = $('#input-modal input').val();
-                        Backbone.trigger('flaggedValue', selectedVal);
-                        //that.resetCluster();
-                    }
-                
-                }
+                Backbone.trigger('flaggedValue');
             });
             
             Mousetrap.bind('h', function() {

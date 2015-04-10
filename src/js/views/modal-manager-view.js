@@ -21,6 +21,7 @@ define([
         initialize: function() {
 
             this.listenTo(Backbone, 'handleInputModal', this.closeInputModal);
+            this.listenTo(Backbone, 'launchIssueModal', this.createIssue);
             this.listenTo(Backbone, 'clearModals', this.clear);
 
             Keybindings.initActionBindings(this);
@@ -29,6 +30,11 @@ define([
         clear: function() {
             $('.modal').modal('hide');
             this.openModal = false;
+        },
+
+        createIssue: function(data) {
+            window.console.log('Create issue for: ' + data);
+            Backbone.trigger('issueCreated');
         },
 
         closeInputModal: function() {
