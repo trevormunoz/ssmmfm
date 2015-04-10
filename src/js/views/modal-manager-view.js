@@ -34,6 +34,7 @@ define([
         },
 
         closeInputModal: function() {
+            window.console.log('closeInputModal fired');
             var selectedVal = $('#input-modal input').val();
             if (selectedVal !== '') {
                 Backbone.trigger('valueSelected', selectedVal);
