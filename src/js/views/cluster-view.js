@@ -63,7 +63,7 @@ function(Backbone, _, $, esClient, Mousetrap, Index, Cluster, PickListView, Inde
             });
 
             Mousetrap.bind('l', function() {
-                var link = $(document.activeElement).find('a');
+                var link = $(document.activeElement).find('a')[0];
                 link.click();
             });
 
