@@ -21,11 +21,6 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
     var ClusterView = Backbone.View.extend({
         el: '#cluster',
         subviews: {},
-
-        events: {
-            'click .modal-footer button': 'closeInputModal'
-        },
-        openModal: false,
         
         initialize: function () {
             
@@ -39,12 +34,13 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
             this.subviews.index = index;
 
             // And event listeners …
+            this.listenTo(Backbone, 'shuffle', this.resetCluster);
             this.listenTo(Backbone, 'seedQuerySuccess', this.dedupeFingerprint);
             this.listenTo(Backbone, 'fingerprintSuccess', this.getFacets);
             this.listenTo(Backbone, 'serverDataRetrieved', this.loadExisting);
 
             // Set up key bindings
-            Keybindings.initialize(this);
+            Keybindings.initNavBindings();
         },
 
         loadExisting: function(data) {
@@ -93,8 +89,7 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         },        
 
         resetCluster: function() {
-            $('.modal').modal('hide');
-            this.openModal = false;
+            Backbone.trigger('clearModals');
 
             var rowEls = $('.variant');
             
@@ -134,22 +129,6 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
             });
 
         },
-
-        closeInputModal: function() {
-            var selectedVal = $('#input-modal input').val();
-            if (selectedVal !== '') {
-                Backbone.trigger('valueSelected', selectedVal);
-                $('#input-modal').modal('hide');
-                this.resetCluster();
-            } else {
-                Backbone.trigger('modalError', 'emptyInput');
-            }
-
-            $('#input-modal').on('hidden.bs.modal', function() {
-                    this.openModal = false;
-                    $('div#modal-message').empty();
-                });
-        }
 
     });
 

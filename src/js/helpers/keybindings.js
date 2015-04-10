@@ -4,12 +4,12 @@ define(['mousetrap'], function(Mousetrap) {
     'use strict';
 
     var Keybindings = {
-        initialize: function(context) {
-            var that = context;
+        
+        initNavBindings: function() {
 
             Mousetrap.bind('space', function() {
+                Backbone.trigger('shuffle');
                 Backbone.trigger('clusterSkipped');
-                that.resetCluster();
             });
 
             Mousetrap.bind('p', function() {
@@ -34,6 +34,12 @@ define(['mousetrap'], function(Mousetrap) {
                 pageLink.click();
             });
 
+        },
+
+        initActionBindings: function(context) {
+
+            var that = context;
+
             Mousetrap.bind('s', function() {
                 var selectedEl = $(document.activeElement)[0];
                 var selectedVal = '';
@@ -41,7 +47,7 @@ define(['mousetrap'], function(Mousetrap) {
                 if (selectedEl.tagName === 'TR') {
                     selectedVal = $('tr:focus > td:first-child').text();
                     Backbone.trigger('valueSelected', selectedVal);
-                    that.resetCluster();
+                    Backbone.trigger('shuffle');
                 } else {
                     if (that.openModal === true) {
                         that.closeInputModal();
@@ -57,7 +63,7 @@ define(['mousetrap'], function(Mousetrap) {
                 if (selectedEl.tagName === 'TR') {
                     var selectedVal = $('tr:focus > td:first-child').text().toLowerCase();
                     Backbone.trigger('valueSelected', selectedVal);
-                    that.resetCluster();
+                    Backbone.trigger('shuffle');
                 } else {
                     // If not on a TR, do nothing
                 }
@@ -73,17 +79,16 @@ define(['mousetrap'], function(Mousetrap) {
                     $('#input-modal input').val("");
                 }
 
-                $('#input-modal').modal();
+                that.modals.$textInputModal.modal();
                 that.openModal = true;
-                $('#input-modal').on('shown.bs.modal', function() {
+                that.modals.$textInputModal.on('shown.bs.modal', function() {
                     $('tr.variant').blur();
                     $('input.form-control text').focus();
                 });
             });
 
             Mousetrap.bind('j', function() {
-                $('.modal').modal('hide');
-                that.openModal = false;
+                that.clear();
 
                 var lastSeen = $('li:nth-child(2) a');
                 lastSeen.click();
@@ -107,7 +112,7 @@ define(['mousetrap'], function(Mousetrap) {
             });
             
             Mousetrap.bind('h', function() {
-                $('#help-modal').modal();
+                that.modals.$helpModal.modal();
             });
 
             Mousetrap.bind('shift+enter', function() {
