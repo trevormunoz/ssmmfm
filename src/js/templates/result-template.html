@@ -1,9 +1,23 @@
 <h4>Search Results</h4>
-<dl class="dl-horizontal">
-    {{#each this}}
-        {{#_source}}
-        <dt>{{term_id}}</dt>
-        <dd>{{index_term}}</dd>
-        {{/_source}}
-    {{/each}}
-</dl>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>term</th>
+            <th>editor</th>
+            <th>creation date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each this}}
+            <tr>
+                {{#_source}}
+                <th scope="row">{{term_id}}</th>
+                <td>{{index_term}}</td>
+                <td>{{responsible}}</td>
+                <td>{{date_created}}</td>
+                {{/_source}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
