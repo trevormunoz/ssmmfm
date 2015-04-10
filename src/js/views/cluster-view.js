@@ -21,6 +21,10 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
     var ClusterView = Backbone.View.extend({
         el: '#cluster',
         subviews: {},
+
+        events: {
+            'click #input-modal button': 'closeInputModal'
+        },
         
         initialize: function () {
             

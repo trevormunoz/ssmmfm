@@ -10,15 +10,12 @@ define([
     var ModalView = Backbone.View.extend({
         el: '#modals',
 
-        events: {
-            'click #input-modal button': 'closeInputModal'
-        },
-
         modals: {
             '$genericModal': $('#info-modal'),
             '$textInputModal': $('#input-modal'),
             '$helpModal': $('#help-modal') 
         },
+
         openModal: false,
 
         initialize: function() {
@@ -34,7 +31,6 @@ define([
         },
 
         closeInputModal: function() {
-            window.console.log('closeInputModal fired');
             var selectedVal = $('#input-modal input').val();
             if (selectedVal !== '') {
                 Backbone.trigger('valueSelected', selectedVal);
