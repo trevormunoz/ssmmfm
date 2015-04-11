@@ -25,7 +25,8 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         // Has to be here rather than in ModalView because of
         // how active modals fit in the DOM + jQuery scoping rules
         events: {
-            'click #input-modal button': 'saveInput'
+            'click #input-modal button': 'saveInput',
+            'click #info-modal button': 'submitIssue'
         },
         
         initialize: function () {
@@ -97,6 +98,10 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         // See note on events
         saveInput: function() {
             Backbone.trigger('handleInputModal');
+        },
+
+        submitIssue: function() {
+            Backbone.trigger('handleIssueModal');
         },        
 
         resetCluster: function() {

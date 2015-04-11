@@ -5,8 +5,9 @@ define([
         'jquery',
         'handlebars',
         'src/js/helpers/keybindings',
+        'src/js/models/issue',
         'text!src/js/templates/issue-template.html',
-], function(Backbone, $, Handlebars, Keybindings, issueTemplate) {
+], function(Backbone, $, Handlebars, Keybindings, Issue, issueTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -26,6 +27,7 @@ define([
 
             this.listenTo(Backbone, 'handleInputModal', this.closeInputModal);
             this.listenTo(Backbone, 'launchIssueModal', this.createIssue);
+            this.listenTo(Backbone, 'handleIssueModal', this.submitIssue);
             this.listenTo(Backbone, 'clearModals', this.clear);
 
             Keybindings.initActionBindings(this);
@@ -43,8 +45,16 @@ define([
             $('#info-modal .modal-body').empty();
             $('#info-modal .modal-body').append($issueDisplay);
             $('#info-modal').modal();
+        },
 
-            Backbone.trigger('issueCreated');
+        submitIssue: function() {
+            var issue = new Issue({
+                title: 'Cluster needs review: ' + $('#issue-form').data('issue'),
+                body: $('#issue-input').val()
+            });
+
+            issue.save();
+
         },
 
         closeInputModal: function() {
