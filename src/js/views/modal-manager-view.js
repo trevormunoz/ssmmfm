@@ -65,7 +65,15 @@ define([
                 body: issueBody
             });
 
-            issue.save();
+            issue.save({
+                wait: true,
+                success: function(model, response) {
+                    window.console.log(response);
+                },
+                error: function(model, error) {
+                    window.console.error(error);
+                }
+            });
 
         },
 

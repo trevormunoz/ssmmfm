@@ -6,10 +6,6 @@ define(['backbone'], function(Backbone) {
     var Issue = Backbone.Model.extend({
         urlRoot: '/review',
 
-        save: function() {
-            window.console.log(this);
-        },
-
     });
 
     return Issue;
