@@ -7,9 +7,8 @@ define([
         'handlebars',
         'src/js/helpers/keybindings',
         'src/js/models/issue',
-        'text!src/js/templates/form-template.html',
-        'text!src/js/templates/issue-template.md'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, issueTemplate) {
+        'text!src/js/templates/form-template.html'
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -22,7 +21,6 @@ define([
         },
 
         formTemplate: Handlebars.compile(formTemplate),
-        issueTemplate: Handlebars.compile(issueTemplate),
 
         openModal: false,
 
@@ -56,11 +54,11 @@ define([
                 return $(row).find('a').attr('href');
             });
 
-            var issueBody = this.issueTemplate({
+            var issueBody = {
                 fingerprint: $('#issue-form').data('issue'),
                 description: $('#issue-input').val(),
                 links: itemLinks
-            });
+            };
 
             var issue = new Issue({
                 title: 'Cluster needs review: ' + $('#issue-form').data('issue'),
