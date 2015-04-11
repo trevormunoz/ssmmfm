@@ -3,8 +3,10 @@
 define([
         'backbone',
         'jquery',
+        'handlebars',
         'src/js/helpers/keybindings',
-], function(Backbone, $, Keybindings) {
+        'text!src/js/templates/issue-template.html',
+], function(Backbone, $, Handlebars, Keybindings, issueTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -15,6 +17,8 @@ define([
             '$textInputModal': $('#input-modal'),
             '$helpModal': $('#help-modal') 
         },
+
+        issueTemplate: Handlebars.compile(issueTemplate),
 
         openModal: false,
 
@@ -33,7 +37,13 @@ define([
         },
 
         createIssue: function(data) {
-            window.console.log('Create issue for: ' + data);
+            var fingerprint = data;
+            var $issueDisplay = this.issueTemplate(fingerprint);
+
+            $('#info-modal .modal-body').empty();
+            $('#info-modal .modal-body').append($issueDisplay);
+            $('#info-modal').modal();
+
             Backbone.trigger('issueCreated');
         },
 
