@@ -38,7 +38,7 @@ define([
 
         createIssue: function(data) {
             var fingerprint = data;
-            var $issueDisplay = this.issueTemplate(fingerprint);
+            var $issueDisplay = this.issueTemplate({value: fingerprint});
 
             $('#info-modal .modal-body').empty();
             $('#info-modal .modal-body').append($issueDisplay);
