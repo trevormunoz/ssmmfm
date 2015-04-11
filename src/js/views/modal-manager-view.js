@@ -8,7 +8,8 @@ define([
         'src/js/helpers/keybindings',
         'src/js/models/issue',
         'text!src/js/templates/form-template.html',
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate) {
+        'text!src/js/templates/issue-template.md'
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, issueTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -21,6 +22,7 @@ define([
         },
 
         formTemplate: Handlebars.compile(formTemplate),
+        issueTemplate: Handlebars.compile(issueTemplate),
 
         openModal: false,
 
