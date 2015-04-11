@@ -2,12 +2,13 @@
 
 define([
         'backbone',
+        'underscore',
         'jquery',
         'handlebars',
         'src/js/helpers/keybindings',
         'src/js/models/issue',
-        'text!src/js/templates/issue-template.html',
-], function(Backbone, $, Handlebars, Keybindings, Issue, issueTemplate) {
+        'text!src/js/templates/form-template.html',
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -19,7 +20,7 @@ define([
             '$helpModal': $('#help-modal') 
         },
 
-        issueTemplate: Handlebars.compile(issueTemplate),
+        formTemplate: Handlebars.compile(formTemplate),
 
         openModal: false,
 
@@ -40,7 +41,7 @@ define([
 
         createIssue: function(data) {
             var fingerprint = data;
-            var $issueDisplay = this.issueTemplate({value: fingerprint});
+            var $issueDisplay = this.formTemplate({value: fingerprint});
 
             $('#info-modal .modal-body').empty();
             $('#info-modal .modal-body').append($issueDisplay);
@@ -48,9 +49,20 @@ define([
         },
 
         submitIssue: function() {
+
+            var itemLinks = _.map($('.variant'), function(row) {
+                return $(row).find('a').attr('href');
+            });
+
+            var issueBody = this.issueTemplate({
+                fingerprint: $('#issue-form').data('issue'),
+                description: $('#issue-input').val(),
+                links: itemLinks
+            });
+
             var issue = new Issue({
                 title: 'Cluster needs review: ' + $('#issue-form').data('issue'),
-                body: $('#issue-input').val()
+                body: issueBody
             });
 
             issue.save();
