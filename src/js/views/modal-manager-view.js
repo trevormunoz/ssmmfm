@@ -50,7 +50,7 @@ define([
         },
 
         displayWaiting: function() {
-            $('#issueSubmitButton').clear();
+            $('#issueSubmitButton').empty();
             $('#issueSubmitButton').append('<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>');
         },
 
@@ -79,7 +79,7 @@ define([
 
                     Backbone.trigger('issueCreated');
 
-                    $('#issueSubmitButton').clear();
+                    $('#issueSubmitButton').empty();
                     $('#issueSubmitButton').append('Submit');
 
                 },
