@@ -24,14 +24,14 @@ module.exports = function(grunt) {
                     outputSourceFiles: true
                 },
                 src: 'src/less/application.less',
-                dest: 'dist/css/application.css'
+                dest: 'static/css/application.css'
             }
         },
 
         cssmin: {
             minify: {
-                src: 'dist/css/application.css',
-                dest: 'dist/css/application.min.css'
+                src: 'static/css/application.css',
+                dest: 'static/css/application.min.css'
             }
         },
 
@@ -54,8 +54,8 @@ module.exports = function(grunt) {
             main: {
                 files: [{expand: true, 
                         flatten: true,
-                        src: ['bower_components/bootstrap/dist/fonts/**'],
-                        dest: 'dist/fonts/',
+                        src: ['bower_components/bootstrap/static/fonts/**'],
+                        dest: 'static/fonts/',
                         filter: 'isFile'}]
             }
         },
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
                     baseUrl: ".",
                     mainConfigFile: "src/js/config.js",
                     include: ['bower_components/almond/almond', 'src/js/main', 'src/js/routers/app-router'],
-                    out: "dist/js/ssmmfm.js"
+                    out: "static/js/ssmmfm.js"
                 }
             }
         },
@@ -92,7 +92,7 @@ module.exports = function(grunt) {
         uglify: {
             my_target: {
                 files: {
-                    'dist/js/app.min.js': ['dist/js/app.js']
+                    'static/js/app.min.js': ['static/js/app.js']
                 }
             }
         }
