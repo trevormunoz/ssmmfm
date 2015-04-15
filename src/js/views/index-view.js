@@ -95,8 +95,8 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var model = data;
             window.console.log(model);
             model.set('needsReview', true);
-            this.collection.add(latestTerm);
-            
+            this.collection.add(model);
+
             Backbone.trigger('entryAdded', this.collection.length);
             Backbone.trigger('shuffle');
         },

@@ -76,7 +76,7 @@ define([
                 success: function(model, response) {
                     window.console.log('Success fired!')
                     $('#issueSubmitButton').attr('disabled', 'disabled');
-                    $('#info-modal').modal();
+                    $('#info-modal').modal('hide');
 
                     Backbone.trigger('issueCreated', model);
 
