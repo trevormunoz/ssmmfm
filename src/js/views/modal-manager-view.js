@@ -28,7 +28,7 @@ define([
 
             this.listenTo(Backbone, 'handleInputModal', this.closeInputModal);
             this.listenTo(Backbone, 'launchIssueModal', this.createIssue);
-            this.listenTo(Backbone. 'spinWhileSubmit', this.displayWaiting);
+            this.listenTo(Backbone, 'spinWhileSubmit', this.displayWaiting);
             this.listenTo(Backbone, 'handleIssueModal', this.submitIssue);
             this.listenTo(Backbone, 'clearModals', this.clear);
 
