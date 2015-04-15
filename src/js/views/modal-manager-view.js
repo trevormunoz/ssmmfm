@@ -28,6 +28,7 @@ define([
 
             this.listenTo(Backbone, 'handleInputModal', this.closeInputModal);
             this.listenTo(Backbone, 'launchIssueModal', this.createIssue);
+            this.listenTo(Backbone. 'spinWhileSubmit', this.displayWaiting);
             this.listenTo(Backbone, 'handleIssueModal', this.submitIssue);
             this.listenTo(Backbone, 'clearModals', this.clear);
 
@@ -46,6 +47,11 @@ define([
             $('#info-modal .modal-body').empty();
             $('#info-modal .modal-body').append($issueDisplay);
             $('#info-modal').modal();
+        },
+
+        displayWaiting: function() {
+            $('#issueSubmitButton').clear();
+            $('#issueSubmitButton').append('<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>');
         },
 
         submitIssue: function() {
@@ -68,7 +74,11 @@ define([
             issue.save({
                 wait: true,
                 success: function(model, response) {
-                    window.console.log(response);
+                    $('#issueSubmitButton').hide();
+                    $('#info-modal').modal();
+                    $('#issueSubmitButton').clear();
+                    $('#issueSubmitButton').append('Submit');
+
                 },
                 error: function(model, error) {
                     window.console.error(error);

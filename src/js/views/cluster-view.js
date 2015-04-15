@@ -101,6 +101,7 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         },
 
         submitIssue: function() {
+            Backbone.trigger('spinWhileSubmit');
             Backbone.trigger('handleIssueModal');
         },        
 
