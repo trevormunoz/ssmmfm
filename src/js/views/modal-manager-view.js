@@ -77,7 +77,7 @@ define([
                     $('#issueSubmitButton').attr('disabled', 'disabled');
                     $('#info-modal').modal('hide');
 
-                    Backbone.trigger('issueCreated', model.url);
+                    Backbone.trigger('issueCreated', model.get('html_url'));
 
                     model.trigger('destroy', model);
                     $('#issueSubmitButton').empty();
