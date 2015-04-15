@@ -76,6 +76,9 @@ define([
                 success: function(model, response) {
                     $('#issueSubmitButton').hide();
                     $('#info-modal').modal();
+
+                    Backbone.trigger('issueCreated');
+
                     $('#issueSubmitButton').clear();
                     $('#issueSubmitButton').append('Submit');
 
