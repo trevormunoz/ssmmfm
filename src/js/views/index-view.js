@@ -91,7 +91,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
         },
 
-        setFlag = function(data) {
+        setFlag: function(data) {
             var model = data;
             model.set('needsReview', true);
             this.collection.add(latestTerm);
