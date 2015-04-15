@@ -94,7 +94,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var setFlag = function() {
                 latestTerm.set('needsReview', true);
                 that.collection.add(latestTerm);
-                Backbone.trigger('entryAdded', this.collection.length);
+                Backbone.trigger('entryAdded', that.collection.length);
                 Backbone.trigger('shuffle');
             };
 
