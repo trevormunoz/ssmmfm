@@ -93,8 +93,9 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var that = this;
             var setFlag = function(data) {
                 var issue_url = data;
-                window.console.log(issue_url);
+
                 latestTerm.set('needsReview', true);
+                latestTerm.set('review_url', issue_url);
                 that.collection.add(latestTerm);
 
                 Backbone.trigger('entryAdded', that.collection.length);
