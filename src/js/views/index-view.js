@@ -93,8 +93,10 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
         setFlag: function(data) {
             var model = data;
+            window.console.log(model);
             model.set('needsReview', true);
             this.collection.add(latestTerm);
+            
             Backbone.trigger('entryAdded', this.collection.length);
             Backbone.trigger('shuffle');
         },

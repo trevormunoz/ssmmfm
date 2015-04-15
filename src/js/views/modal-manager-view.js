@@ -74,7 +74,8 @@ define([
             issue.save({
                 wait: true,
                 success: function(model, response) {
-                    $('#issueSubmitButton').hide();
+                    window.console.log('Success fired!')
+                    $('#issueSubmitButton').attr('disabled', 'disabled');
                     $('#info-modal').modal();
 
                     Backbone.trigger('issueCreated', model);
