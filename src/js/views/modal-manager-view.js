@@ -71,8 +71,7 @@ define([
                 body: issueBody
             });
 
-            issue.save({
-                null,
+            issue.save(null, {
                 wait: true,
                 success: function(model, response) {
                     window.console.log('Success fired!')
