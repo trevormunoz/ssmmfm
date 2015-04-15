@@ -77,7 +77,7 @@ define([
                     $('#issueSubmitButton').hide();
                     $('#info-modal').modal();
 
-                    Backbone.trigger('issueCreated');
+                    Backbone.trigger('issueCreated', model);
 
                     $('#issueSubmitButton').empty();
                     $('#issueSubmitButton').append('Submit');
