@@ -72,7 +72,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
 
-            if (!latestTerm.has('term_id')) {
+            if (! latestTerm.has('term_id')) {
 
                 latestTerm.set('_session_id', this.collection.idOffset);
                 this.collection.idOffset++;
@@ -199,7 +199,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             this.collection.remove(item);
             this.collection.pop();
             this.collection.add(item);
-            window.console.log(this.collection);
+            window.console.log(this.collection.toJSON());
             Backbone.trigger('fingerprintSuccess', fingerprint);
             
         }
