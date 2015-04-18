@@ -41,12 +41,22 @@ define([
         },
 
         createIssue: function(data) {
-            var fingerprint = data;
-            var $issueDisplay = this.formTemplate({value: fingerprint});
+            var model = data;
+
+            var $issueDisplay = this.formTemplate({value: model.get('fingerprint_value')});
 
             $('#info-modal .modal-body').empty();
             $('#info-modal .modal-body').append($issueDisplay);
+            this.openModal = true;
             $('#info-modal').modal();
+
+            this.modals.$genericModal.on('hidden.bs.modal', function() {
+                this.openModal = false;
+
+                if ($('#issue-input').val() === '') {
+                    Backbone.trigger('replace', model);
+                }
+            });
         },
 
         displayWaiting: function() {
@@ -75,7 +85,7 @@ define([
                 wait: true,
                 success: function(model, response) {
                     $('#issueSubmitButton').attr('disabled', 'disabled');
-                    $('#info-modal').modal('hide');
+                    Backbone.trigger('clearModals');
 
                     Backbone.trigger('issueCreated', model.get('html_url'));
 

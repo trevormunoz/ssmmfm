@@ -40,6 +40,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
             this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
+            this.listenTo(Backbone, 'replace', this.reinsertTerm);
             this.listenTo(this.collection, 'add', this.render);
             this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
@@ -86,7 +87,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
          flagEntry: function() {
             var latestTerm = this.collection.pop();
 
-            Backbone.trigger('launchIssueModal', latestTerm.get('fingerprint_value'));
+            Backbone.trigger('launchIssueModal', latestTerm);
 
             // Do stuff in the modal
 
@@ -159,6 +160,10 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
         skipTerm: function() {
             this.collection.pop();
+        },
+
+        reinsertTerm: function(data) {
+            this.collection.push(data);
         },
 
         render: function() {
