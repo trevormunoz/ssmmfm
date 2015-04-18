@@ -199,6 +199,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             this.collection.remove(item);
             this.collection.pop();
             this.collection.add(item);
+            window.console.log(this.collection);
             Backbone.trigger('fingerprintSuccess', fingerprint);
             
         }
