@@ -72,18 +72,15 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var latestTerm = this.collection.pop();
             latestTerm.set('index_term', cleanData);
 
-            if (!latestTerm.has('term_id')) {
+            latestTerm.set('_session_id', this.collection.idOffset);
+            this.collection.idOffset++;
 
-                latestTerm.set('_session_id', this.collection.idOffset);
-                this.collection.idOffset++;
-
-                var user = UserSession.get('username');
-                latestTerm.set('responsible', user);
-
-                Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
-            }
+            var user = UserSession.get('username');
+            latestTerm.set('responsible', user);
 
             this.collection.add(latestTerm);
+
+            Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             Backbone.trigger('entryAdded', this.collection.length);
         },
         
@@ -166,7 +163,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
         },
 
         reinsertTerm: function(data) {
-            this.collection.add(data);
+            this.collection.push(data);
         },
 
         render: function() {
@@ -193,12 +190,8 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var linkEl = $(event.target).closest('li');
             var fingerprint = linkEl.data().fingerprint;
             var item = this.collection.where({fingerprint_value: fingerprint});
-            
-            // remove term from wherever it is in the stack, 
-            // add it to the end
             this.collection.remove(item);
             this.collection.pop();
-            this.collection.add(item);
             Backbone.trigger('fingerprintSuccess', fingerprint);
             
         }
