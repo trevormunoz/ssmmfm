@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Home  | SSMMFM</title>
+
+    <link rel="stylesheet" href="/static/css/application.min.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/cover.css" type="text/css">
+
+{% endblock %}
+
+{% block content %}
+<div class="site-wrapper">
+
+  <div class="site-wrapper-inner">
+
+    <div class="cover-container">
+
+      <div class="inner cover">
+        <h1 class="cover-heading">Public Fare</h1>
+        <p class="lead">Because sometimes open data needs a little extra cooking …</p>
+        <p class="lead">
+          <a href="/login" class="btn btn-lg btn-default">Start</a>
+        </p>
+      </div>
+
+      <div class="mastfoot">
+          <div class="inner">
+            <p>Image credit: <a href="https://www.flickr.com/photos/nypl/3110154264">NYPL</a></p>
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

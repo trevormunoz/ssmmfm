@@ -5,6 +5,7 @@ define([
     'underscore',
     'jquery',
     'src/js/models/term',
+    'src/js/models/user-session',
     'src/js/collections/dishes',
     'src/js/views/search-view',
     'src/js/views/term-view',
@@ -12,7 +13,7 @@ define([
     'src/js/helpers/utils'
 ],
 
-function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
+function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Queries) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -30,12 +31,16 @@ function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
             var search = new SearchView();
             this.subviews.search = search;
 
+            //Populate user session model with data to be used later
+            UserSession.fetch();
+
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
             this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
+            this.listenTo(Backbone, 'replace', this.reinsertTerm);
             this.listenTo(this.collection, 'add', this.render);
             this.listenTo(this.collection, 'change:saved', this.acknowledgeSave);
 
@@ -70,18 +75,36 @@ function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
             latestTerm.set('_session_id', this.collection.idOffset);
             this.collection.idOffset++;
 
+            var user = UserSession.get('username');
+            latestTerm.set('responsible', user);
+
             this.collection.add(latestTerm);
 
             Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             Backbone.trigger('entryAdded', this.collection.length);
         },
         
-         flagEntry: function(data) {
-
+         flagEntry: function() {
             var latestTerm = this.collection.pop();
-            latestTerm.set('needsReview', true);
-            this.collection.add(latestTerm);
-            Backbone.trigger('entryAdded', this.collection.length);
+
+            Backbone.trigger('launchIssueModal', latestTerm);
+
+            // Do stuff in the modal
+
+            var that = this;
+            var setFlag = function(data) {
+                var issue_url = data;
+
+                latestTerm.set('needsReview', true);
+                latestTerm.set('review_url', issue_url);
+                that.collection.add(latestTerm);
+
+                Backbone.trigger('entryAdded', that.collection.length);
+                Backbone.trigger('shuffle');
+            };
+
+            this.listenTo(Backbone, 'issueCreated', setFlag);
+
         },
         
         setEntryDishes: function(data) {
@@ -137,6 +160,10 @@ function(Backbone, _, $, IndexTerm, Dishes, SearchView, TermView, Queries) {
 
         skipTerm: function() {
             this.collection.pop();
+        },
+
+        reinsertTerm: function(data) {
+            this.collection.push(data);
         },
 
         render: function() {
