@@ -10,6 +10,7 @@ define([
         initialize: function() {
 
             var issues = this.collection.fetch();
+            window.console.log(issues);
 
             var issueFingerprints = _.each(issues, function(model) {
 
