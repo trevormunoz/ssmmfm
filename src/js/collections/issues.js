@@ -3,7 +3,7 @@
 define([
         'backbone',
         'src/js/models/issue'
-], function(Backbone, Fingerprint) {
+], function(Backbone, Issue) {
     'use strict';
 
     var Issues = Backbone.Collection.extend({
