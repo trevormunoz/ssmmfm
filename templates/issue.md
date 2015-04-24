@@ -1,5 +1,5 @@
 
-fingerprint: {{ fingerprint }}  
+fingerprint: /{{ fingerprint }}/  
 
 {{ desc }}  
 
