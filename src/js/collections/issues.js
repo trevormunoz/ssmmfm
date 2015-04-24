@@ -11,7 +11,7 @@ define([
         url: '/reviews',
 
         parse: function(response) {
-            window.console.log(response);
+            return response.issues;
         },
     });
 
