@@ -13,7 +13,8 @@ define([
         el: '#search-form',
 
         events: {
-        'click button#searchButton': 'searchTerms'
+        'click button#searchButton': 'searchTerms',
+        'submit #search-form': 'searchTerms'
         },
 
         resultTemplate: Handlebars.compile(resultTemplate),
