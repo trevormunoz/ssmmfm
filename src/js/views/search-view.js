@@ -14,7 +14,7 @@ define([
 
         events: {
         'click button#searchButton': 'searchTerms',
-        'submit #search-form': 'searchTerms'
+        'submit form': 'searchTerms'
         },
 
         resultTemplate: Handlebars.compile(resultTemplate),
