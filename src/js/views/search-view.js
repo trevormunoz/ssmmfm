@@ -56,6 +56,8 @@ define([
                     window.console.error(err);
                 });
             }
+
+            return false;
         },
 
         showInfoModal: function(data) {
