@@ -55,6 +55,10 @@ def user_data():
 
 @app.route("/review", methods=["POST"])
 def create_issue():
+    github = OAuth2Session(app.config['CLIENT_ID'], token=session['oauth_token'])
+    token = 'token:{0}'.format(github.token['access_token'])
+    headers = {'Authorization': token}
+
     if request.method == 'POST':
         body = render_template('issue.md',
                                     fingerprint=request.json['body']['fingerprint'],
