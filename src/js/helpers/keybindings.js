@@ -99,7 +99,7 @@ define(['mousetrap'], function(Mousetrap) {
             });
             
             Mousetrap.bind('h', function() {
-                that.modals.$helpModal.modal();
+                Backbone.trigger('getHelp');
             });
 
             Mousetrap.bind('shift+enter', function() {
