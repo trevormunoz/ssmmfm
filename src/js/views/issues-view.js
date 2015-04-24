@@ -9,10 +9,14 @@ define([
 
         initialize: function() {
 
-            var issues = this.collection.fetch();
-            window.console.log(issues);
+            this.listenTo(this.collection, 'reset', this.loadIssues);
 
-            var issueFingerprints = _.each(issues, function(model) {
+            this.collection.fetch({reset: true});
+        },
+
+        loadIssues: function() {
+
+            var issueFingerprints = _.each(this.collection, function(model) {
 
                 var text = model.get('body');
                 var matches = text.match(/\s\/.*?\/\s/);
