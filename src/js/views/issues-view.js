@@ -19,8 +19,8 @@ define([
 
             var issueFingerprints = _.map(this.collection.models, function(model) {
 
-                var text = model.get('body');
-                var matches = text.match(/\s\/.*?\/\s/);
+                var text = model.get('title');
+                var matches = text.match(/(?:(\:\s)).*$/);
                 window.console.log(matches);
                 var fingerprint = matches[0].trim();
 
