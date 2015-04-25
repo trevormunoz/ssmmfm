@@ -7,8 +7,9 @@ define([
         'handlebars',
         'src/js/helpers/keybindings',
         'src/js/models/issue',
-        'text!src/js/templates/form-template.html'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate) {
+        'text!src/js/templates/form-template.html',
+        'text!src/js/templates/edit-template.html'
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, editTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -21,12 +22,14 @@ define([
         },
 
         formTemplate: Handlebars.compile(formTemplate),
+        editTemplate: Handlebars.compile(editTemplate),
 
         openModal: false,
 
         initialize: function() {
 
             this.listenTo(Backbone, 'handleInputModal', this.closeInputModal);
+            this.listenTo(Backbone, 'editSavedTerm', this.editTerm);
             this.listenTo(Backbone, 'launchIssueModal', this.createIssue);
             this.listenTo(Backbone, 'spinWhileSubmit', this.displayWaiting);
             this.listenTo(Backbone, 'handleIssueModal', this.submitIssue);
@@ -38,6 +41,17 @@ define([
         clear: function() {
             $('.modal').modal('hide');
             this.openModal = false;
+        },
+
+        editTerm: function(data) {
+            var model = data;
+
+            var $termEditor = this.editTemplate(model.toJSON());
+
+            $('#info-modal .modal-body').empty();
+            $('#info-modal .modal-body').append($termEditor);
+            this.openModal = true;
+            $('#info-modal').modal();
         },
 
         createIssue: function(data) {

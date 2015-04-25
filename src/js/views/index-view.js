@@ -191,13 +191,12 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var fingerprint = linkEl.data().fingerprint;
             var item = this.collection.where({fingerprint_value: fingerprint})[0];
             
-            window.console.log(item);
             if (! item.has('term_id')) {
                 this.collection.remove(item);
                 this.collection.pop();
                 Backbone.trigger('fingerprintSuccess', fingerprint);
             } else {
-                window.console.log('term already saved to server');
+                Backbone.trigger('editSavedTerm', item);
             }
             
         }
