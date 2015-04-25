@@ -16,10 +16,9 @@ define([
         },
 
         loadIssues: function() {
-            window.console.log(this.collection);
 
-            var issueFingerprints = _.map(this.collection, function(model) {
-
+            var issueFingerprints = _.map(this.collection.models, function(model) {
+                window.console.log(model);
                 var text = model.get('body');
                 var matches = text.match(/\s\/.*?\/\s/);
 
