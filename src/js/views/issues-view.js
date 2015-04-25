@@ -21,9 +21,9 @@ define([
 
                 var text = model.get('title');
                 var matches = text.split(/(\:\s)/);
-                window.console.log(matches);
-                var fingerprint = matches[0].trim();
-
+                
+                var fingerprint = matches[2].trim();
+                window.console.log(fingerprint);
                 return fingerprint;
             });
 
