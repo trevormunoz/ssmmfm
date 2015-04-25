@@ -189,7 +189,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             event.preventDefault(); 
             var linkEl = $(event.target).closest('li');
             var fingerprint = linkEl.data().fingerprint;
-            var item = this.collection.where({fingerprint_value: fingerprint});
+            var item = this.collection.where({fingerprint_value: fingerprint})[0];
             
             window.console.log(item);
             if (! item.has('term_id')) {
