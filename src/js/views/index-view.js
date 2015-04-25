@@ -61,7 +61,12 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
         checkIndex: function() {
             var numSaved = this.collection.where({saved: true});
-            window.console.log(this.collection.length - _.size(numSaved));
+
+            if (this.collection.length - _.size(numSaved) >= 10) {
+                this.saveIndexState();
+            } else {
+                // pass
+            }
         },
 
         createEntry: function(data) {
