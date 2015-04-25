@@ -191,6 +191,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             var fingerprint = linkEl.data().fingerprint;
             var item = this.collection.where({fingerprint_value: fingerprint});
             
+            window.console.log(item);
             if (! item.has('term_id')) {
                 this.collection.remove(item);
                 this.collection.pop();
