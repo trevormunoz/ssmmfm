@@ -34,6 +34,11 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             //Populate user session model with data to be used later
             UserSession.fetch();
 
+            var that = this;
+            $(window).on('beforeunload', function() {
+                that.saveIndexState();
+            });
+
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'entryAdded', this.checkIndex);
