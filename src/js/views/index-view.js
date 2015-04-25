@@ -36,6 +36,7 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
+            this.listenTo(Backbone, 'entryAdded', this.checkIndex);
             this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
@@ -56,6 +57,11 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             });
 
             this.remove();
+        },
+
+        checkIndex: function() {
+            var numSaved = this.collection.where({saved: true});
+            window.console.log(this.collection.length - _.size(numSaved));
         },
 
         createEntry: function(data) {
