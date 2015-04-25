@@ -18,10 +18,10 @@ define([
         loadIssues: function() {
 
             var issueFingerprints = _.map(this.collection.models, function(model) {
-                window.console.log(model);
+
                 var text = model.get('body');
                 var matches = text.match(/\s\/.*?\/\s/);
-
+                window.console.log(matches);
                 var fingerprint = matches[0].trim();
 
                 return fingerprint;
