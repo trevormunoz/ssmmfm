@@ -1,7 +1,7 @@
 
-fingerprint: {{ fingerprint }}
+fingerprint: /{{ fingerprint }}/  
 
-{{ desc }}
+{{ desc }}  
 
 {% for href in links %}
 * [{{ href }}]({{href}})

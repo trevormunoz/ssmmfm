@@ -8,9 +8,11 @@ define([
     'src/js/views/cluster-view', 
     'src/js/views/message-view',
     'src/js/views/modal-manager-view',
+    'src/js/views/issues-view',
     'src/js/collections/seeds',
+    'src/js/collections/issues',
     'src/js/helpers/queries'
-], function(Backbone, _, $, esClient, ClusterView, MessageView, ModalView, Seeds, Queries) {
+], function(Backbone, _, $, esClient, ClusterView, MessageView, ModalView, IssuesView, Seeds, Issues, Queries) {
 
 'use strict';
 
@@ -30,6 +32,9 @@ define([
 
             var modalManagerView = new ModalView();
             this.subviews.modals = modalManagerView;
+
+            var issuesCollex = new Issues();
+            var issuesView = new IssuesView({collection: issuesCollex});
 
             this.listenTo(Backbone, 'loadDefault', this.bootstrapCluster);
 

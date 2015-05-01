@@ -53,8 +53,12 @@ def user_data():
     return jsonify(results)
 
 
-@app.route("/review", methods=["POST"])
+@app.route("/reviews", methods=["GET", "POST"])
 def create_issue():
+    github = OAuth2Session(app.config['CLIENT_ID'], token=session['oauth_token'])
+    token = 'token:{0}'.format(github.token['access_token'])
+    headers = {'Authorization': token}
+
     if request.method == 'POST':
         body = render_template('issue.md',
                                     fingerprint=request.json['body']['fingerprint'],
@@ -62,12 +66,12 @@ def create_issue():
                                     links=request.json['body']['links'])
         issue = {'title': request.json['title'], 'body': body}
         
-        github = OAuth2Session(app.config['CLIENT_ID'], token=session['oauth_token'])
-        token = 'token:{0}'.format(github.token['access_token'])
-        headers = {'Authorization': token}
         response = github.post('https://api.github.com/repos/trevormunoz/public-fare-data/issues', data=json.dumps(issue), headers=headers)
         
         return jsonify(response.json())
+    elif request.method == 'GET':
+        response = github.get('https://api.github.com/repos/trevormunoz/public-fare-data/issues').json()
+        return jsonify({'issues': response})
     else:
         return redirect(url_for('.server_error'))
 

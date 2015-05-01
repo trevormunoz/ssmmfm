@@ -73,7 +73,8 @@ function(Backbone, _, $, esClient, Keybindings, Index, Cluster, PickListView, In
         },
 
         dedupeFingerprint: function(data) {
-            var fingerprint = data;       
+            var fingerprint = data;  
+     
             var filter = this.collection.where({value: fingerprint});   
             if (filter.length === 0)  {
                     var fingerprintModel = new Fingerprint({value: fingerprint});
