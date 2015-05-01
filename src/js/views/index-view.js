@@ -205,10 +205,15 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             event.preventDefault(); 
             var linkEl = $(event.target).closest('li');
             var fingerprint = linkEl.data().fingerprint;
-            var item = this.collection.where({fingerprint_value: fingerprint});
-            this.collection.remove(item);
-            this.collection.pop();
-            Backbone.trigger('fingerprintSuccess', fingerprint);
+            var item = this.collection.where({fingerprint_value: fingerprint})[0];
+            
+            if (! item.has('term_id')) {
+                this.collection.remove(item);
+                this.collection.pop();
+                Backbone.trigger('fingerprintSuccess', fingerprint);
+            } else {
+                Backbone.trigger('editSavedTerm', item);
+            }
             
         }
         
