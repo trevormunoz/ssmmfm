@@ -7,8 +7,9 @@ define([
         'handlebars',
         'src/js/helpers/keybindings',
         'src/js/models/issue',
-        'text!src/js/templates/form-template.html'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate) {
+        'text!src/js/templates/form-template.html',
+        'text!src/js/templates/help-template.html'
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, helpTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -21,6 +22,7 @@ define([
         },
 
         formTemplate: Handlebars.compile(formTemplate),
+        helpTemplate: Handlebars.compile(helpTemplate),
 
         openModal: false,
 
@@ -30,6 +32,7 @@ define([
             this.listenTo(Backbone, 'launchIssueModal', this.createIssue);
             this.listenTo(Backbone, 'spinWhileSubmit', this.displayWaiting);
             this.listenTo(Backbone, 'handleIssueModal', this.submitIssue);
+            this.listenTo(Backbone, 'getHelp', this.showHelpModal);
             this.listenTo(Backbone, 'clearModals', this.clear);
 
             Keybindings.initActionBindings(this);
@@ -99,6 +102,16 @@ define([
                 }
             });
 
+        },
+
+        showHelpModal: function() {
+            var $helpDisplay = this.helpTemplate();
+
+            $('#help-modal .modal-body').empty();
+            $('#help-modal .modal-body').append($helpDisplay);
+            this.openModal = true;
+
+            this.modals.$helpModal.modal();
         },
 
         closeInputModal: function() {
