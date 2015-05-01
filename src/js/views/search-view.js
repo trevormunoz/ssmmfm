@@ -13,7 +13,8 @@ define([
         el: '#search-form',
 
         events: {
-        'click button#searchButton': 'searchTerms'
+        'click button#searchButton': 'searchTerms',
+        'submit form': 'searchTerms'
         },
 
         resultTemplate: Handlebars.compile(resultTemplate),
@@ -55,6 +56,8 @@ define([
                     window.console.error(err);
                 });
             }
+
+            return false;
         },
 
         showInfoModal: function(data) {
