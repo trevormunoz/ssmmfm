@@ -8,13 +8,9 @@ define([
         'src/js/helpers/keybindings',
         'src/js/models/issue',
         'text!src/js/templates/form-template.html',
-<<<<<<< HEAD
-        'text!src/js/templates/help-template.html'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, helpTemplate) {
-=======
+        'text!src/js/templates/help-template.html',
         'text!src/js/templates/edit-template.html'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, editTemplate) {
->>>>>>> fix_duplication_on_yank_after_save
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, helpTemplate, editTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -27,11 +23,8 @@ define([
         },
 
         formTemplate: Handlebars.compile(formTemplate),
-<<<<<<< HEAD
         helpTemplate: Handlebars.compile(helpTemplate),
-=======
         editTemplate: Handlebars.compile(editTemplate),
->>>>>>> fix_duplication_on_yank_after_save
 
         openModal: false,
 
