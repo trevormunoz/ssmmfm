@@ -57,7 +57,7 @@ def user_data():
 def create_issue():
     github = OAuth2Session(app.config['CLIENT_ID'], token=session['oauth_token'])
     token = 'token:{0}'.format(github.token['access_token'])
-    headers = {'Authorization': token}
+    headers = {'Authorization': token, 'Accept': 'application/vnd.github.moondragon+json'}
 
     if request.method == 'POST':
         body = render_template('issue.md',
