@@ -19,7 +19,7 @@ def robots():
 
 @app.route("/login")
 def login():
-    github = OAuth2Session(app.config['CLIENT_ID'], scope=['public_repo'])
+    github = OAuth2Session(app.config['CLIENT_ID'], scope=['public_repo', 'write:org'])
     authorization_url, state = github.authorization_url(app.config['AUTH_BASE_URL'])
 
     session['oauth_state'] = state
