@@ -2,8 +2,9 @@
 
 define([
         'backbone',
+        'underscore',
         'src/js/models/issue'
-], function(Backbone, Issue) {
+], function(Backbone, _, Issue) {
     'use strict';
 
     var Issues = Backbone.Collection.extend({
@@ -11,7 +12,12 @@ define([
         url: '/reviews',
 
         parse: function(response) {
-            return response.issues;
+            
+            var openIssues = _.filter(response.issues, function(issue) {
+                return issue.state === 'open';
+            });
+
+            return openIssues;
         },
     });
 
