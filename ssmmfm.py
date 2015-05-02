@@ -66,11 +66,11 @@ def create_issue():
                                     links=request.json['body']['links'])
         issue = {'title': request.json['title'], 'body': body}
         
-        response = github.post('https://api.github.com/repos/trevormunoz/public-fare-data/issues', data=json.dumps(issue), headers=headers)
+        response = github.post('https://api.github.com/repos/public-fare/data/issues', data=json.dumps(issue), headers=headers)
         
         return jsonify(response.json())
     elif request.method == 'GET':
-        response = github.get('https://api.github.com/repos/trevormunoz/public-fare-data/issues').json()
+        response = github.get('https://api.github.com/repos/public-fare/data/issues').json()
         return jsonify({'issues': response})
     else:
         return redirect(url_for('.server_error'))
