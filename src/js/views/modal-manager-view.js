@@ -47,7 +47,20 @@ define([
         },
 
         editTerm: function(data) {
-            var model = data;
+            var model = data
+            , dishCollex = new Dishes();
+
+            var setDishes = function() {
+                var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
+                model.set('dishes_aggregated', dishIds);
+            };
+
+            dishCollex.fetch(Queries.getAggregatedDishes(model.get('fingerprint_value')));
+            this.listenTo(dishCollex, 'reset', setDishes);
+
+            // Clean up by destroying all the dish models rather by reset
+            _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
+
 
             var $termEditor = this.editTemplate(model.toJSON());
 
