@@ -7,10 +7,12 @@ define([
         'handlebars',
         'src/js/helpers/keybindings',
         'src/js/models/issue',
+        'src/js/collections/dishes',
+        'src/js/helpers/queries',
         'text!src/js/templates/form-template.html',
         'text!src/js/templates/help-template.html',
         'text!src/js/templates/edit-template.html'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, helpTemplate, editTemplate) {
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, Dishes, Queries, formTemplate, helpTemplate, editTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
