@@ -6,14 +6,12 @@ define([
     'jquery',
     'src/js/models/term',
     'src/js/models/user-session',
-    'src/js/collections/dishes',
     'src/js/views/search-view',
     'src/js/views/term-view',
-    'src/js/helpers/queries',
     'src/js/helpers/utils'
 ],
 
-function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Queries) {
+function(Backbone, _, $, IndexTerm, UserSession, SearchView, TermView) {
     'use strict';
     
     var IndexView = Backbone.View.extend ({
@@ -42,7 +40,6 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
             this.listenTo(Backbone, 'fingerprintSuccess', this.createEntry);
             this.listenTo(Backbone, 'valueSelected', this.setEntryTerm);
             this.listenTo(Backbone, 'entryAdded', this.checkIndex);
-            this.listenTo(Backbone, 'collectDishes', this.setEntryDishes);
             this.listenTo(Backbone, 'clusterSkipped', this.skipTerm);
             this.listenTo(Backbone, 'saveSuccess', this.setSaveStatus);
             this.listenTo(Backbone, 'flaggedValue', this.flagEntry);
@@ -96,7 +93,6 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
             this.collection.add(latestTerm);
 
-            Backbone.trigger('collectDishes', latestTerm.get('fingerprint_value'));
             Backbone.trigger('entryAdded', this.collection.length);
         },
         
@@ -121,32 +117,6 @@ function(Backbone, _, $, IndexTerm, UserSession, Dishes, SearchView, TermView, Q
 
             this.listenTo(Backbone, 'issueCreated', setFlag);
 
-        },
-        
-        setEntryDishes: function(data) {
-            // Figuring out all of the dishes that share a fingerprint
-            // has been deferred as long as possible --- we only go
-            // to the trouble if an index term has been chosen for a
-            // cluster.
-
-            var fingerprint = data
-            , item = this.collection.where({fingerprint_value: fingerprint})
-            , dishCollex = new Dishes();
-
-            var setDishes = function() {
-                if (item.length === 1) {
-                    var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
-                    item[0].set('dishes_aggregated', dishIds);
-                } else {
-                    Backbone.trigger('raiseError', 'dishAggFailed');
-                }
-            };
-
-            dishCollex.fetch(Queries.getAggregatedDishes(fingerprint));
-            this.listenTo(dishCollex, 'reset', setDishes);
-
-            // Clean up by destroying all the models rather by reset
-            _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
         },
 
         saveIndexState: function() {

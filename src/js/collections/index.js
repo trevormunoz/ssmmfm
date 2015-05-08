@@ -86,8 +86,7 @@ define([
             var uploadBody = [];
             this.each(function(model) {
 
-                if (model.has('dishes_aggregated') 
-                        && model.has('_session_id')) {
+                if (model.has('_session_id')) {
 
                     var id = model.get('_session_id');
                     model.set('term_id', id);
