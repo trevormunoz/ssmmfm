@@ -52,24 +52,24 @@ define([
             var model = data
             , dishCollex = new Dishes();
 
-            var setDishes = function() {
+            var showDishes = function() {
                 var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
                 model.set('dishes_aggregated', dishIds);
+
+                var $termEditor = this.editTemplate(model.toJSON());
+
+                $('#info-modal .modal-body').empty();
+                $('#info-modal .modal-body').append($termEditor);
+                this.openModal = true;
+                $('#info-modal').modal();
             };
 
             dishCollex.fetch(Queries.getAggregatedDishes(model.get('fingerprint_value')));
-            this.listenTo(dishCollex, 'reset', setDishes);
+            this.listenTo(dishCollex, 'reset', showDishes);
 
             // Clean up by destroying all the dish models rather by reset
             _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
 
-
-            var $termEditor = this.editTemplate(model.toJSON());
-
-            $('#info-modal .modal-body').empty();
-            $('#info-modal .modal-body').append($termEditor);
-            this.openModal = true;
-            $('#info-modal').modal();
         },
 
         createIssue: function(data) {
