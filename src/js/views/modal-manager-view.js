@@ -7,10 +7,12 @@ define([
         'handlebars',
         'src/js/helpers/keybindings',
         'src/js/models/issue',
+        'src/js/collections/dishes',
+        'src/js/helpers/queries',
         'text!src/js/templates/form-template.html',
         'text!src/js/templates/help-template.html',
         'text!src/js/templates/edit-template.html'
-], function(Backbone, _, $, Handlebars, Keybindings, Issue, formTemplate, helpTemplate, editTemplate) {
+], function(Backbone, _, $, Handlebars, Keybindings, Issue, Dishes, Queries, formTemplate, helpTemplate, editTemplate) {
     'use strict';
 
     var ModalView = Backbone.View.extend({
@@ -47,14 +49,27 @@ define([
         },
 
         editTerm: function(data) {
-            var model = data;
+            var model = data
+            , dishCollex = new Dishes();
 
-            var $termEditor = this.editTemplate(model.toJSON());
+            var showDishes = function() {
+                var dishIds = _.map(dishCollex.pluck('dish_id'), function(id){ return Number(id).toFixed();});
+                model.set('dishes_aggregated', dishIds);
 
-            $('#info-modal .modal-body').empty();
-            $('#info-modal .modal-body').append($termEditor);
-            this.openModal = true;
-            $('#info-modal').modal();
+                var $termEditor = this.editTemplate(model.toJSON());
+
+                $('#info-modal .modal-body').empty();
+                $('#info-modal .modal-body').append($termEditor);
+                this.openModal = true;
+                $('#info-modal').modal();
+            };
+
+            dishCollex.fetch(Queries.getAggregatedDishes(model.get('fingerprint_value')));
+            this.listenTo(dishCollex, 'reset', showDishes);
+
+            // Clean up by destroying all the dish models rather by reset
+            _.each(_.clone(dishCollex.models), function(model) { model.destroy(); });
+
         },
 
         createIssue: function(data) {

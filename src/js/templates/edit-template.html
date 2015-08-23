@@ -2,3 +2,14 @@
 
 <h5>{{ index_term }}</h5>
 <p>created by {{ responsible }} at {{ date_created }}</p>
+
+<h5>variants:</h5>
+<ul>
+    {{#each dishes_aggregated}}
+    <li>
+        <a href="http://menus.nypl.org/dishes/{{this}}" target="_blank">
+            http://menus.nypl.org/dishes/{{this}}
+        </a>
+    </li>
+    {{/each}}
+</ul>
